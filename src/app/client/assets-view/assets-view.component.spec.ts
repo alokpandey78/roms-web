@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssetsViewComponent } from './assets-view.component';
 
+
 describe('AssetsViewComponent', () => {
   let component: AssetsViewComponent;
   let fixture: ComponentFixture<AssetsViewComponent>;
