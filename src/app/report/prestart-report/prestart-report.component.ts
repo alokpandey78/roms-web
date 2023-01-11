@@ -54,4 +54,51 @@ export class PrestartReportComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // getDefaultOptions() {
+  //   let obj = this.paginator;
+  //   let sort = this.sort;
+  //   let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
+
+  //   const options: ViewOptions = {
+  //     sortField: sort !== undefined ? sort.active : 'fullName',
+  //     sortDirection: sort !== undefined ? sort.direction : 'asc',
+  //     // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
+  //     page: pageSize - 1,
+  //     search: '',
+  //     query: `empName=${this.search}`,
+  //     pageSize:
+  //       obj != undefined ? (obj.pageSize == null ? this.pageSize : obj.pageSize) : this.pageSize,
+  //   };
+  //   return options;
+  // }
+
+  // getStatus(status: any) {
+  //   return this.globals.userApplicationStatus.find((elem: any) => {
+  //     return elem.value == status;
+  //   })?.name;
+  // }
+
+  // getStatusColor(status: any, isCheckbox: boolean = false) {
+  //   let elem: any = this.globals.userApplicationStatus.find((elem: any) => {
+  //     return elem.value == status;
+  //   });
+  //   return elem ? (isCheckbox == true ? elem.checkboxColorClass : elem.colorClass) : '';
+  // }
+
+  // applyFilter(isTextSearch: boolean = false): void {
+  //   // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
+  //   this.search = this.search.trim(); // Remove whitespace
+  //   this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
+  //   // this.dataSource.filter = this.search;
+  //   if (isTextSearch) {
+  //     this.pageNo = 0;
+  //     this.totalRecords = 0;
+  //     this.paginator.firstPage();
+  //     // this.dataSource.paginator?.pageIndex[0]=;
+  //   }
+  //   // else {
+  //   this.refresh(this.getDefaultOptions());
+  //   // }
+  // }
+
 }
