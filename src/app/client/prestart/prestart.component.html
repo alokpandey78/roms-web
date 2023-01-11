@@ -34,7 +34,7 @@
                     <mat-option value="Option1">Option1</mat-option>
                     <mat-option value="Option2">Option2</mat-option>
                     <mat-option value="Option3">Option3</mat-option>
-                   
+
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -94,20 +94,17 @@
                       class="m-r-10 list-Img"
                       onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
                       [src]="row?.recommendDetails?.employeeIdx?.profileImage?.length>0?globals.generateFileUrl
-                      (row?.recommendDetails?.employeeIdx?.profileImage[0]?.digitalAssets?.url,user.token):''" 
+                      (row?.recommendDetails?.employeeIdx?.profileImage[0]?.digitalAssets?.url,user.token):''"
                       alt=""
                     /> -->
                     <img
                           class="m-r-10 Asset-Img"
                           onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
-                          [src]="
-                            row && row.profileImage && row.profileImage.length > 0
-                              ? row.profileImage[0]?.digitalAssets?.url
-                              : ''
-                          "
+                          [src]="globals.generateFileUrl(row && row.assets.assetImage ? row.assets.assetImage?.url : '','')"
+
                           alt=""
                         />
-                    
+
                     {{ row?.assets?.assetNo }}
                   </div>
                 </td>
@@ -190,7 +187,7 @@
                         "
                         alt=""
                       />
-                    
+
                     {{ row?.assets?.assetClass?.name }}
                   </div>
                 </td>
@@ -204,7 +201,7 @@
                 style="vertical-align: top"
                 [routerLink]="['/report/prestart']"
                 [ngClass]="{ 'selected-row': selectedId == element.id }"
-                
+
               ></tr>
               <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" [attr.colspan]="displayedColumns.length">No Prestart Data</td>

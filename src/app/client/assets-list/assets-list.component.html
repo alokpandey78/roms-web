@@ -119,7 +119,7 @@
                   <img
                     class="m-r-10 list-Img"
                     onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
-                    [src]="row?.assetImage?.assetImageURL"
+                    [src]="globals.generateFileUrl(row && row.assetImage ? row.assetImage?.url : '','')"
                     alt=""
                   />
                   {{ row?.assetNo }}
