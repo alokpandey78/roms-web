@@ -98,12 +98,16 @@
                       alt=""
                     /> -->
                     <img
-                          class="m-r-10 Asset-Img"
-                          onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
-                          [src]="globals.generateFileUrl(row && row.assets.assetImage ? row.assets.assetImage?.url : '','')"
-
-                          alt=""
-                        />
+                      class="m-r-10 Asset-Img"
+                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                      [src]="
+                        globals.generateFileUrl(
+                          row && row.assets.assetImage ? row.assets.assetImage?.url : '',
+                          ''
+                        )
+                      "
+                      alt=""
+                    />
 
                     {{ row?.assets?.assetNo }}
                   </div>
@@ -178,15 +182,15 @@
 
                   <div style="display: flex; align-items: center">
                     <img
-                        class="m-r-10 list-Img"
-                        onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
-                        [src]="
-                          row && row.assetImage && row.assetImage.length > 0
-                            ? row.profileImage[0]?.digitalAssets?.url
-                            : ''
-                        "
-                        alt=""
-                      />
+                      class="m-r-10 list-Img"
+                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                      [src]="
+                        row && row.assetImage && row.assetImage.length > 0
+                          ? row.profileImage[0]?.digitalAssets?.url
+                          : ''
+                      "
+                      alt=""
+                    />
 
                     {{ row?.assets?.assetClass?.name }}
                   </div>
@@ -201,7 +205,6 @@
                 style="vertical-align: top"
                 [routerLink]="['/report/prestart']"
                 [ngClass]="{ 'selected-row': selectedId == element.id }"
-
               ></tr>
               <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" [attr.colspan]="displayedColumns.length">No Prestart Data</td>
@@ -223,7 +226,7 @@
   </div>
 </div>
 
-<ng-template #employeeDetailDialog>
+<!-- <ng-template #employeeDetailDialog>
   <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
     <h1
       mat-dialog-title
@@ -289,4 +292,4 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->
