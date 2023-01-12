@@ -198,7 +198,7 @@
               <th mat-header-cell *matHeaderCellDef>Status</th>
               <td mat-cell *matCellDef="let row">
                 <span [ngClass]="getStatusColor('assetStatus',row?.status)">
-                  {{ row?.status }}
+                  <!-- {{ row?.status }} -->
                   <mat-icon>{{globals.getIcon('assetStatus',row?.status)}}</mat-icon>
                 </span>
                 <!-- <mat-icon>{{globals.getIcon('assetStatus',row?.status)}}</mat-icon> -->

@@ -48,7 +48,7 @@ export class AssetsViewComponent implements OnInit {
     this.assetsService.getDetailsAsset(this.id).pipe(first()).subscribe((result: any) => {
           this.assetDetails = result.data;
           this.assetNo = this.assetDetails.assetNo;
-          alert(this.assetNo);
+          // alert(this.assetNo);
           console.log('Assets Details:',this.assetDetails);
         });
   }
