@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssetsViewComponent } from './assets-view.component';
+import { PrestartReportComponent } from './prestart-report.component';
 
-
-describe('AssetsViewComponent', () => {
-  let component: AssetsViewComponent;
-  let fixture: ComponentFixture<AssetsViewComponent>;
+describe('PrestartReportComponent', () => {
+  let component: PrestartReportComponent;
+  let fixture: ComponentFixture<PrestartReportComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssetsViewComponent ]
+      declarations: [ PrestartReportComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AssetsViewComponent);
+    fixture = TestBed.createComponent(PrestartReportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

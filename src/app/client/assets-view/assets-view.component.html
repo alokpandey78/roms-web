@@ -78,7 +78,7 @@
                   value="{{ assetDetails?.description }}"
                   placeholder="Textarea"
                   rows="3"
-                  
+
                 ></textarea>
               </mat-form-field>
             </div>
@@ -93,22 +93,27 @@
                                 src="../../../assets/img/add-image.png" alt="" /> -->
               <div class="m-t-10 asset-img">
                 <img
-                  src="../../../assets/img/add-image.png"
+                  onerror="this.onerror=null;this.src='../../../assets/img/add-image.png';"
+                  [src]="globals.generateFileUrl(assetDetails && assetDetails.assetImage ? assetDetails.assetImage?.url : '','')"
                   alt=""
                   style="max-height: 110px; width: auto"
                 />
-                <mat-icon>camera_alt</mat-icon>
+                <!-- <mat-icon>camera_alt</mat-icon> -->
               </div>
             </div>
             <div fxFlex.gt-sm="15" fxFlex="100" class="text-center" style="cursor: pointer">
               <mat-label>QR Code</mat-label>
               <div class="m-t-10 asset-img">
-                <img
-                  src="{{!generatedCode?'Generate':'Regenerate'}}"
-                  alt=""
+                <qrcode
+                  [imageSrc]="'./assets/img/favicon.png'"
+                  [imageHeight]="40"
+                  [imageWidth]="40"
+                  [qrdata]="assetNo"
                   style="max-height: 110px; width: auto"
-                />
-                <mat-icon>camera_alt</mat-icon>
+                  [errorCorrectionLevel]="'M'"
+                >
+                </qrcode>
+                <!-- <mat-icon>camera_alt</mat-icon> -->
               </div>
             </div>
 
@@ -181,7 +186,7 @@
                   value="{{ assetDetails?.location?.code }}"
                   placeholder=""
                 />
-                
+
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
@@ -248,7 +253,7 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
-            
+
 
             <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10 p-t-10">
               <mat-divider> </mat-divider>

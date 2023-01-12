@@ -119,7 +119,7 @@
                   <img
                     class="m-r-10 list-Img"
                     onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
-                    [src]="row?.assetImage?.assetImageURL"
+                    [src]="globals.generateFileUrl(row && row.assetImage ? row.assetImage?.url : '','')"
                     alt=""
                   />
                   {{ row?.assetNo }}
@@ -198,7 +198,7 @@
               <th mat-header-cell *matHeaderCellDef>Status</th>
               <td mat-cell *matCellDef="let row">
                 <span [ngClass]="getStatusColor('assetStatus',row?.status)">
-                  {{ row?.status }}
+                  <!-- {{ row?.status }} -->
                   <mat-icon>{{globals.getIcon('assetStatus',row?.status)}}</mat-icon>
                 </span>
                 <!-- <mat-icon>{{globals.getIcon('assetStatus',row?.status)}}</mat-icon> -->
@@ -234,6 +234,7 @@
               mat-row
               *matRowDef="let element; columns: displayedColumns"
               class="example-element-row"
+              style="vertical-align: top"
               [routerLink]="['/client/assets-view']" [queryParams]="{id:element.id}"
               [ngClass]="{ 'selected-row': selectedId == element.id }"
             ></tr>
