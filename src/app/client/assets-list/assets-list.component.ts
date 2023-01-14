@@ -34,12 +34,12 @@ export class AssetsListComponent implements OnInit, OnChanges {
   displayedColumns: string[] = [
     'assetNo',
     'assetName',
+    'type',
     'make',
     'model',
-    'ownership',
     'class',
-    'type',
     'location',
+    'ownership',
     'status'
 
   ];
