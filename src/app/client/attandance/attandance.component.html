@@ -167,7 +167,7 @@
                 <ng-container matColumnDef="sysCheckIn">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>System Check In</th>
                     <td mat-cell *matCellDef="let row">
-                      <!-- {{ row?.checkin}} -->
+                      {{ row?.checkinSystem | date: 'shortTime'}}
                     </td>
                   </ng-container>
                    
@@ -175,13 +175,13 @@
                 <ng-container matColumnDef="sysCheckOut">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>System Check Out</th>
                     <td mat-cell *matCellDef="let row">
-                      <!-- {{ row?.checkinOut}} -->
+                      {{ row?.checkoutSystem | date: 'shortTime'}}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="manualCheckIn">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Manual Check In</th>
                     <td mat-cell *matCellDef="let row">
-                      <!-- {{ row?.checkin}} -->
+                      {{ row?.checkin | date: 'shortTime'}}
                     </td>
                   </ng-container>
                    
@@ -189,7 +189,7 @@
                 <ng-container matColumnDef="manualCheckOut">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Manual Check Out</th>
                     <td mat-cell *matCellDef="let row">
-                      <!-- {{ row?.checkinOut}} -->
+                      {{ row?.checkout | date: 'shortTime'}}
                     </td>
                   </ng-container>
                   <!-- Name Column -->

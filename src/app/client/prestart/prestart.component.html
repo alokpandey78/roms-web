@@ -84,8 +84,42 @@
           <div class="table-responsive infinite-scroll">
             <mat-table #table [dataSource]="dataSource" class="table employee-list no-wrap" matSort>
               <!-- Name Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row; let index = dataIndex">
+                  <mat-checkbox
+                    [ngClass]="getStatusColor(row?.leaveStatus, true)"
+                    (click)="removeRow(row.id, index)"
+                  >
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row; let index = dataIndex">
+                  <mat-icon>fiber_manual_record</mat-icon>
+                </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>No</th>
+                <td mat-cell *matCellDef="let row">
+                  <!-- <span class="header-label">days:</span> -->
+                  <!-- {{ row?.assets?.assetClass?.name }} -->
+                </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                <td mat-cell *matCellDef="let row">
+                  <!-- <span class="header-label">days:</span> -->
+                  <!-- {{ row?.assets?.assetClass?.name }} -->
+                </td>
+              </ng-container>
+              <!-- Name Column -->
               <ng-container matColumnDef="assetNo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset No</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset</th>
                 <td mat-cell *matCellDef="let row">
                   <!-- <span class="header-label">days:</span> -->
 
@@ -122,14 +156,7 @@
                   {{ row?.assets?.name }}
                 </td>
               </ng-container>
-              <!-- Name Column -->
-              <ng-container matColumnDef="class">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Class</th>
-                <td mat-cell *matCellDef="let row">
-                  <!-- <span class="header-label">days:</span> -->
-                  {{ row?.assets?.assetClass?.name }}
-                </td>
-              </ng-container>
+              
               <!-- Name Column -->
               <ng-container matColumnDef="type">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
@@ -139,8 +166,8 @@
               </ng-container>
 
               <!-- Name Column -->
-              <ng-container matColumnDef="currentLocation">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Location</th>
+              <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
                 <td mat-cell *matCellDef="let row">
                   {{ row?.assets?.location?.code }}
                 </td>
@@ -168,15 +195,15 @@
                 </td>
               </ng-container>
               <!-- Name Column -->
-              <ng-container matColumnDef="conclusion">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Conclusion</th>
+              <ng-container matColumnDef="model">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
                 <td mat-cell *matCellDef="let row">
-                  <!-- {{ row?.assets?.assetClass }} -->
+                  {{ row?.assets?.model }}
                 </td>
               </ng-container>
               <!-- Name Column -->
-              <ng-container matColumnDef="doneBy">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Prestart Done By</th>
+              <ng-container matColumnDef="operator">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Operator</th>
                 <td mat-cell *matCellDef="let row">
                   <!-- <span class="header-label">days:</span> -->
 
@@ -225,71 +252,3 @@
     </div>
   </div>
 </div>
-
-<!-- <ng-template #employeeDetailDialog>
-  <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
-    <h1
-      mat-dialog-title
-      align="center"
-      class="color_blue"
-      style="font-size: 20px; margin-bottom: 25px"
-    >
-      Prestart Report
-    </h1>
-    <mat-divider></mat-divider>
-
-    <div fxLayout="row wrap" fxFlexAlign="left" class="row m-t-20">
-      <div class="popup-head">
-        <div>
-          <img class="m-r-10 list-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
-          <mat-label><b>Brandon Hill</b></mat-label>
-        </div>
-      </div>
-      <div class="popup-head2">
-        <div>
-          <mat-label>Current Manager</mat-label>
-          <Small>Robert Shephard</Small>
-        </div>
-        <div>
-          <mat-label>Project</mat-label>
-          <Small>Energy Audtralia</Small>
-        </div>
-        <div>
-          <mat-label>Location</mat-label>
-          <Small>Longway</Small>
-        </div>
-        <div>
-          <mat-label>Gang</mat-label>
-          <Small>GS3CAS</Small>
-        </div>
-        <div>
-          <mat-label>Wage Classification</mat-label>
-          <Small>Level 2</Small>
-        </div>
-        <div>
-          <mat-label>Rate</mat-label>
-          <Small>57</Small>
-        </div>
-        <div>
-          <mat-label>Award Type</mat-label>
-          <Small>Casual</Small>
-        </div>
-      </div>
-
-      <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
-        <mat-divider> </mat-divider>
-      </div>
-
-      <div fxFlex.gt-sm="50" fxFlex="100" class="p-10" align="end">
-        <button class="button m-5" mat-raised-button color="primary" (click)="onSubmit()">
-          Assign Mechanic
-        </button>
-      </div>
-      <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-        <button class="button m-5" mat-raised-button color="primary" (click)="cancel()">
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-</ng-template> -->

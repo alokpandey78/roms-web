@@ -31,16 +31,19 @@ export class PrestartComponent implements OnInit, OnChanges {
   globals: Globals;
   submitted: boolean = false;
   displayedColumns: string[] = [
+    'select',
+    'icon',
+    'date',
+    'no',
     'assetNo',
     'name',
-    'class',
     'type',
-    'currentLocation',
+    'model',
+    'location',
+    'operator',
     'catA',
     'catB',
     'catC',
-    'conclusion',
-    'doneBy',
     
   ];
   @ViewChild('employeeDetailDialog') employeeDetailDialog!: TemplateRef<any>;
