@@ -38,8 +38,10 @@ export class AttandanceComponent implements OnInit, OnChanges {
     'job',
     'gang',
     'shift',
-    'checkIn',
-    'checkOut',
+    'sysCheckIn',
+    'sysCheckOut',
+    'manualCheckIn',
+    'manualCheckOut',
     'hours',
     
   ];

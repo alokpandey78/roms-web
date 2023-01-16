@@ -48,11 +48,8 @@ export class AssetsService {
   getPrestartList(options: ViewOptions) {
     return this.http.get<any>(`${environment.apiUrl}/v1/prestart`,);
   }
-  // getPrestartList(options: ViewOptions) {
-  //   return this.http.get<any>(`${environment.apiUrl}/v1/prestart?page=0&size=10&${options.query}`);
-  // }
 
   getAttandanceList(options: ViewOptions) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/prestart`,);
+    return this.http.get<any>(`${environment.apiUrl}/v1/employee/attendance`,);
   }
 }
