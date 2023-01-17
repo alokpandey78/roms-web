@@ -116,9 +116,12 @@
                       class="m-r-10 list-Img"
                       onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
                       [src]="
-                        row && row.assetImage && row.assetImage.length > 0
-                          ? row.profileImage[0]?.digitalAssets?.url
-                          : ''
+                        globals.generateFileUrl(
+                          row && row.employe.profileImage[0].digitalAssets
+                            ? row.employe.profileImage[0].digitalAssets?.url
+                            : '',
+                          ''
+                        )
                       "
                       alt=""
                     />
