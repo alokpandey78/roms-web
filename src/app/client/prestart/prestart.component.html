@@ -102,26 +102,24 @@
                 </td>
               </ng-container>
               <!-- Name Column -->
-              <ng-container matColumnDef="no">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>No</th>
-                <td mat-cell *matCellDef="let row">
-                  <!-- <span class="header-label">days:</span> -->
-                  <!-- {{ row?.assets?.assetClass?.name }} -->
-                </td>
-              </ng-container>
-              <!-- Name Column -->
               <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
                 <td mat-cell *matCellDef="let row">
-                   {{ row?.date | date: 'dd/MM/yyyy' }}
+                  {{ row?.date | date: 'dd/MM/yyyy' }}
                 </td>
               </ng-container>
               <!-- Name Column -->
-              <ng-container matColumnDef="assetNo">
+              <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>No</th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row?.prestartNo }}
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="asset">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset</th>
                 <td mat-cell *matCellDef="let row">
-                  <!-- <span class="header-label">days:</span> -->
-
                   <div style="display: flex; align-items: center">
                     <!-- <img
                       class="m-r-10 list-Img"
@@ -132,7 +130,7 @@
                     /> -->
                     <img
                       class="m-r-10 Asset-Img"
-                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                      onerror="this.onerror=null;this.src='../../assets/img/default-asset.jpg';"
                       [src]="
                         globals.generateFileUrl(
                           row && row.assets.assetImage ? row.assets.assetImage?.url : '',
@@ -150,12 +148,10 @@
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
                 <td mat-cell *matCellDef="let row">
-                  <!-- <span class="header-label">days:</span> -->
-                  <!-- {{ row?.employeType?.name }} -->
                   {{ row?.assets?.name }}
                 </td>
               </ng-container>
-              
+
               <!-- Name Column -->
               <ng-container matColumnDef="type">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
@@ -163,12 +159,43 @@
                   {{ row?.assets?.assetType?.name }}
                 </td>
               </ng-container>
-
+              <!-- Name Column -->
+              <ng-container matColumnDef="model">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row?.assets?.model }}
+                </td>
+              </ng-container>
               <!-- Name Column -->
               <ng-container matColumnDef="location">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
                 <td mat-cell *matCellDef="let row">
-                  {{ row?.assets?.location?.code }}
+                  {{ row?.prestartLocation }}
+                </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="operator">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Operator</th>
+                <td mat-cell *matCellDef="let row">
+                  <!-- <span class="header-label">days:</span> -->
+
+                  <div style="display: flex; align-items: center">
+                    <img
+                      class="m-r-10 list-Img"
+                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                      [src]="
+                        globals.generateFileUrl(
+                          row && row.operator.profileImage[0].digitalAssets
+                            ? row.operator.profileImage[0].digitalAssets?.url
+                            : '',
+                          ''
+                        )
+                      "
+                      alt=""
+                    />
+
+                    {{ row?.operator?.firstName + ' ' + row?.operator?.lastName }}
+                  </div>
                 </td>
               </ng-container>
 
@@ -191,35 +218,6 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Cat C</th>
                 <td mat-cell *matCellDef="let row">
                   {{ row?.issueCount?.c }}
-                </td>
-              </ng-container>
-              <!-- Name Column -->
-              <ng-container matColumnDef="model">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
-                <td mat-cell *matCellDef="let row">
-                  {{ row?.assets?.model }}
-                </td>
-              </ng-container>
-              <!-- Name Column -->
-              <ng-container matColumnDef="operator">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Operator</th>
-                <td mat-cell *matCellDef="let row">
-                  <!-- <span class="header-label">days:</span> -->
-
-                  <div style="display: flex; align-items: center">
-                    <img
-                      class="m-r-10 list-Img"
-                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
-                      [src]="
-                        row && row.assetImage && row.assetImage.length > 0
-                          ? row.profileImage[0]?.digitalAssets?.url
-                          : ''
-                      "
-                      alt=""
-                    />
-
-                    {{ row?.assets?.assetClass?.name }}
-                  </div>
                 </td>
               </ng-container>
 

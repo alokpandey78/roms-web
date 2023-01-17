@@ -35,7 +35,7 @@ export class PrestartComponent implements OnInit, OnChanges {
     'icon',
     'date',
     'no',
-    'assetNo',
+    'asset',
     'name',
     'type',
     'model',

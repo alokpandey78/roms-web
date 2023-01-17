@@ -11,11 +11,10 @@ export class PrestartReportComponent implements OnInit {
   // globals: Globals;
   submitted: boolean = false;
   displayedColumns: string[] = [
-    'inspectionName',
-    'response',
-    'remark',
+    'name',
+    'status',
+    'comment',
     'media',
-    'action',
     
   ];
 
