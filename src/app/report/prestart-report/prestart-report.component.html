@@ -6,7 +6,7 @@
           <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
             <div fxFlex.gt-sm="100" fxFlex="100">
               <div fxFlex.gt-sm="80" fxFlex="100">
-                <mat-card-title class="text-red"><b>PRE0101</b></mat-card-title>
+                <mat-card-title class="text-red"><b>{{prestartDetails?.prestartNo}}</b></mat-card-title>
               </div>
               <div fxFlex.gt-sm="20" fxFlex="100">
                 <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
@@ -32,34 +32,34 @@
             <div fxFlex.gt-sm="35" fxFlex="100" class="m-0 my-mat-cardt d-wrap">
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
                 <small>Asset No:</small>
-                <mat-label class="d-block"><b>EX1258</b></mat-label>
+                <mat-label class="d-block"><b>{{prestartDetails?.assets?.assetNo}}</b></mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
                 <small>Asset Name:</small>
-                <mat-label class="d-block"><b>KOM PC1250</b></mat-label>
+                <mat-label class="d-block"><b>{{prestartDetails?.assets?.name}}</b></mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
                 <small>Class: </small>
-                <mat-label class="d-block">Mobile Plant</mat-label>
+                <mat-label class="d-block">{{prestartDetails?.assets?.assetClass?.name}}</mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
                 <small>Type:</small>
-                <mat-label class="d-block">DOZER</mat-label>
+                <mat-label class="d-block">{{prestartDetails?.assets?.assetType?.name}}</mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
                 <small>Make:</small>
-                <mat-label class="d-block">44653</mat-label>
+                <mat-label class="d-block">{{prestartDetails?.assets?.make}}</mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
                 <small>Model:</small>
-                <mat-label class="d-block"> 44621</mat-label>
+                <mat-label class="d-block">{{prestartDetails?.assets?.model}}</mat-label>
               </div>
             </div>
             <div fxFlex.gt-sm="47" fxFlex="100" class="m-0 my-mat-cardt d-wrap">
               <div fxFlex.gt-sm="40" fxFlex="100">
                 <div class="m-t-10">
                   <img
-                    src="../../../assets/img/add-image.png"
+                    src="../../../assets/img/truck_selfie.png"
                     alt=""
                     style="max-height: 175px; width: auto"
                   />
@@ -67,21 +67,25 @@
               </div>
               <div fxFlex.gt-sm="60" fxFlex="100" class="m-0 my-mat-cardt d-wrap">
                 <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10 p-t-10 emp-mat-label email-lbl">
-                  <img
+                  <img class="m-r-10 User-Img"
+                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                      [src]="globals.generateFileUrl(prestartDetails && prestartDetails.operator && prestartDetails.operator.profileImage.length>0?prestartDetails.operator.profileImage[0]?.digitalAssets?.url:'','')"
+                      alt="" />
+                  <!-- <img
                     class="m-r-10 User-Img"
                     src="../../../assets/img/user-default-img.jpg"
                     alt=""
-                  />
-                  <mat-label><b>Matthew Mackewnly</b></mat-label>
+                  /> -->
+                  <mat-label><b>{{prestartDetails?.operator?.firstName + ' ' + prestartDetails?.operator?.lastName }}</b></mat-label>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex="100" class="p-10 emp-mat-label email-lbl">
                   <mat-icon>smartphone</mat-icon>
-                  <mat-label>8765445677</mat-label>
+                  <mat-label> {{prestartDetails?.operator?.phone}}</mat-label>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex="100" class="p-10 emp-mat-label email-lbl">
                   <mat-icon>view_carousel</mat-icon>
-                  <mat-label>Eastern Road Yallorn</mat-label>
-                  <mat-icon class="m-l-10"> location_on</mat-icon>
+                  <mat-label> {{prestartDetails?.prestartLocation}}</mat-label>
+                  <mat-icon class="m-l-20" class="color_blue"> location_on</mat-icon>
                 </div>
               </div>
             </div>
@@ -90,7 +94,8 @@
               <!-- <mat-card-title class="p-10 color_blue" >Description</mat-card-title> -->
               <mat-form-field appearance="outline" class="m-t-10 p-r-10">
                 <mat-label>Operator's Comment</mat-label>
-                <textarea matInput placeholder="Operator's Comment" rows="2"></textarea>
+                <textarea matInput [readonly]="isEditEnable"
+                value="{{prestartDetails?.employeeRemark}}" placeholder="Operator's Comment" rows="2"></textarea>
               </mat-form-field>
               <!-- </mat-card> -->
             </div>
@@ -151,7 +156,7 @@
                 <mat-accordion class="p-l-0 p-r-0">
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                      <mat-panel-title><b>Eastern Road, Yallorn</b> </mat-panel-title>
+                      <mat-panel-title><b>{{prestartDetails?.prestartLocation}}</b> </mat-panel-title>
                       <mat-panel-description> </mat-panel-description>
                     </mat-expansion-panel-header>
                     <mat-card class="m-0 m-t-5 m-b-5">

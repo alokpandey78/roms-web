@@ -74,6 +74,11 @@ export class PrestartComponent implements OnInit, OnChanges {
   // departmentList: any = [];
   // removedRows: any = [];
   // selectedTabIndex: number = 0;
+  assetClass: any = [];
+  assetType: any = [];
+  assetList: any = [];
+  selectedAssetClassId: string ='';
+  selectedAssetTypeId: string ='';
   selectedRecord: any = {};
   selectedId: string = '';
   constructor(
@@ -101,13 +106,12 @@ export class PrestartComponent implements OnInit, OnChanges {
         // this.onTabChanged(1);
       }
     });
-    // this.authService.getAllEmployeeType().subscribe((result: any) => {
-    //   this.employeeTypeList = result && result.data && result.data.length > 0 ? result.data : [];
-    // });
-
-    // this.authService.getAllDepartmentType().subscribe((result: any) => {
-    //   this.departmentList = result && result.data && result.data.length > 0 ? result.data : [];
-    // });
+    this.assetsService.getAllAssetsClass().subscribe((result: any) => {
+      this.assetClass = result && result.data && result.data.length > 0 ? result.data : [];
+    });
+    this.assetsService.getAllAssetsType().subscribe((result: any) => {
+      this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
+    });
     // breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
     //   this.displayedColumns = result.matches
     //     ? ['id', 'name', 'progress', 'color']
@@ -200,14 +204,14 @@ export class PrestartComponent implements OnInit, OnChanges {
     //   ? moment(new Date(this.endDate).toUTCString()).format('DD-MM-YYYY')
     //   : '';
 
-    // let queryData = {
+    let queryData = {
     //   toDate: endDate,
     //   fromDate: startDate,
-    //   departmentId: this.departmentId == 'all' ? '' : this.departmentId,
-    //   employeeTypeId: this.employeeType == 'all' ? '' : this.employeeType,
+    assetClass: this.assetClass == 'all' ? '' : this.assetClass,
+    assetType: this.assetType == 'all' ? '' : this.assetType,
     //   status: `${this.status}`,
-    // };
-    // console.log(queryData, 'queryData');
+    };
+    console.log(queryData, 'queryData');
 
     this.employeeService
       .getAll(options)
@@ -239,14 +243,14 @@ export class PrestartComponent implements OnInit, OnChanges {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-
+    let query ='class='.concat(this.selectedAssetClassId).concat("&type=") .concat(this.selectedAssetTypeId);
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'fullName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
       // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
       page: pageSize - 1,
       search: '',
-      query: `empName=${this.search}`,
+      query: query,
       pageSize:
         obj != undefined ? (obj.pageSize == null ? this.pageSize : obj.pageSize) : this.pageSize,
     };
@@ -294,7 +298,7 @@ export class PrestartComponent implements OnInit, OnChanges {
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
-    // this.dataSource.filter = this.search;
+    this.dataSource.filter = this.search;
     if (isTextSearch) {
       this.pageNo = 0;
       this.totalRecords = 0;

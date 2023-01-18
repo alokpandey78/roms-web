@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit,Input } from '@angular/core';
+import { TemplateRef} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import {  AssetsService } from 'src/app/core/services';
+import { ImagePreviewDialog } from 'src/app/shared/image-preview-dialog/image-preview-dialog.component';
+import { first } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { Globals } from 'src/app/globals';
 
@@ -9,7 +17,17 @@ import { Globals } from 'src/app/globals';
 })
 export class PrestartReportComponent implements OnInit {
   // globals: Globals;
+
   submitted: boolean = false;
+  
+  prestartList: any = [];
+  selectedRecord: any = {};
+  id : string = '';
+  prestartDetails : any = {};
+  isEditEnable: boolean = false;
+  generatedCode: boolean = false;
+  prestartNo: string = '';
+  globals: Globals;
   displayedColumns: string[] = [
     'name',
     'status',
@@ -23,23 +41,26 @@ export class PrestartReportComponent implements OnInit {
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   panelOpenState = false;
-  step = 0;
+  // step = 0;
 
-  setStep(index: number): void {
-    this.step = index;
-  }
+  // setStep(index: number): void {
+  //   this.step = index;
+  // }
 
-  nextStep(): void {
-    this.step++;
-  }
+  // nextStep(): void {
+  //   this.step++;
+  // }
 
-  prevStep(): void {
-    this.step--;
-  }
+  // prevStep(): void {
+  //   this.step--;
+  // }
   constructor(
+    private dialog: MatDialog,
+    globals: Globals,
+    private router: Router, private activatedRoute: ActivatedRoute,private assetsService: AssetsService
     // breakpointObserver: BreakpointObserver,
     // public util: Utils,
-    globals: Globals,
+    // globals: Globals,
     // private fb: FormBuilder,
     // private alertService: AlertService,
     // private leaveService: LeaveService,
@@ -48,9 +69,32 @@ export class PrestartReportComponent implements OnInit {
     // private authService: AuthenticationService,
     // private employeeService: EmployeeService,
     // private router: Router,
-    ) { }
+    ) { 
+      this.globals = globals;
+    }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.id = params['id'];
+      });
+      this.getPrestartReportDetails();
+  
+    }
+  getPrestartReportDetails(){
+    this.assetsService.getPrestartDetails(this.id).pipe(first()).subscribe((result: any) => {
+          this.prestartDetails = result.data;
+          this.prestartNo = this.prestartDetails.prestartNo;
+          // alert(this.prestartNo);
+          console.log('Prestart Details:',this.prestartDetails);
+        });
+  }
+  getData(data: any) {
+    let final: any = [];
+    for (let item in data) {
+      // console.log(data[item])
+      final.push(data[item])
+    }
+    return final;
   }
 
   // getDefaultOptions() {

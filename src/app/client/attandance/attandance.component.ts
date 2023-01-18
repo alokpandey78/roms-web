@@ -32,17 +32,18 @@ export class AttandanceComponent implements OnInit, OnChanges {
   displayedColumns: string[] = [
     // 'employeePic',
     // 'employeeName',
-    'empName',
-    'role',
+    'icon',
+    'time',
+    'name',
     'department',
-    'job',
     'gang',
-    'shift',
+    'checkIn',
+    'checkOut',
+    'hours',
+    'location',
     'sysCheckIn',
     'sysCheckOut',
-    'manualCheckIn',
-    'manualCheckOut',
-    'hours',
+    'device',
     
   ];
 

@@ -1,7 +1,7 @@
 <div fxLayout="row wrap">
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
       <div>
-        <!-- <mat-card class="m-0 m-t-20 m-b-5">
+        <mat-card class="m-0 m-t-20 m-b-5">
           <mat-card-content class="p-15 p-b-5">
             <div class="m-l-10 m-r-10">
               <div fxLayout="row wrap" fxFlexAlign="center" class="row" style="align-items: center">
@@ -13,7 +13,7 @@
                       <mat-icon>arrow_drop_down</mat-icon>
                     </button>
                   </div>
-                <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+                <div fxFlex.gt-sm="30" class="p-r-10" fxFlex="100">
                   <mat-form-field>
                     <input
                       matInput
@@ -34,16 +34,7 @@
                   </div>
                   <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
                     <mat-form-field>
-                      <mat-select  placeholder="Job">
-                        <mat-option value="Option1">Option1</mat-option>
-                        <mat-option value="Option2">Option2</mat-option>
-                        <mat-option value="Option3">Option3</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
-                    <mat-form-field>
-                      <mat-select  placeholder="Role">
+                      <mat-select  placeholder="Employee">
                         <mat-option value="Option1">Option1</mat-option>
                         <mat-option value="Option2">Option2</mat-option>
                         <mat-option value="Option3">Option3</mat-option>
@@ -59,6 +50,8 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
+                  <div fxFlex.gt-sm="5" class="p-r-10" fxFlex="100"></div>
+                  
                   <div fxFlex.gt-sm="20" class="font-12">
                     <mat-form-field appearance="outline">
                       <mat-label (click)="picker.open()">Select Date Range</mat-label>
@@ -89,14 +82,28 @@
             </div>
           </mat-card-content>
         </mat-card>
-   -->
+  
         <mat-card class="m-0 m-t-5 m-b-5">
           <mat-card-content>
             <div class="table-responsive infinite-scroll">
               <mat-table #table [dataSource]="dataSource" class="table employee-list no-wrap" matSort>
                 <!-- Name Column -->
-                <ng-container matColumnDef="empName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+              <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row; let index = dataIndex">
+                  <mat-icon>fiber_manual_record</mat-icon>
+                </td>
+              </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="time">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row?.createDate | date: ' hh:mm'}}
+                  </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
                   <td mat-cell *matCellDef="let row">
                     <!-- <span class="header-label">days:</span> -->
   
@@ -112,7 +119,7 @@
                         alt=""
                       /> -->
                       <!-- {{ row?.employeeName }} -->
-                      <img
+                      <!-- <img
                       class="m-r-10 list-Img"
                       onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
                       [src]="
@@ -124,20 +131,14 @@
                         )
                       "
                       alt=""
-                    />
+                    /> -->
                       {{ row?.employe?.firstName  +
                         ' ' + row?.employe?.lastName}}
                     </div>
                   </td>
                 </ng-container>
   
-                <!-- Name Column -->
-                <ng-container matColumnDef="role">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
-                  <td mat-cell *matCellDef="let row">
-                    <!-- {{ row?.employe?.departments?.description}} -->
-                  </td>
-                </ng-container>
+                
                 <!-- Name Column -->
                 <ng-container matColumnDef="department">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
@@ -146,12 +147,7 @@
                   </td>
                 </ng-container>
   
-                <ng-container matColumnDef="job">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Job</th>
-                  <td mat-cell *matCellDef="let row">
-                    <!-- {{ row?.employe?.departments?.description}} -->
-                  </td>
-                </ng-container>
+                
   
                 <ng-container matColumnDef="gang">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>Gang</th>
@@ -159,9 +155,30 @@
                     <!-- {{ row?.employe?.departments?.description}} -->
                   </td>
                 </ng-container>
+                <ng-container matColumnDef="checkIn">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Check In</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row?.checkin | date: 'dd/MM hh:mm'}}
+                  </td>
+                </ng-container>
+                 
+                 <!-- Name Column -->
+              <ng-container matColumnDef="checkOut">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Out</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row?.checkout | date: 'dd/MM hh:mm'}}
+                  </td>
+                </ng-container>
                 <!-- Name Column -->
-                <ng-container matColumnDef="shift">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Shift</th>
+                <ng-container matColumnDef="hours">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Hours</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row?.totalHour}}
+                  </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="location">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
                     <td mat-cell *matCellDef="let row">
                       <!-- {{ row?.employe?.departments?.description}} -->
                     </td>
@@ -181,29 +198,18 @@
                       {{ row?.checkoutSystem | date: 'dd/MM hh:mm'}}
                     </td>
                   </ng-container>
-                  <ng-container matColumnDef="manualCheckIn">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Manual Check In</th>
+                  <ng-container matColumnDef="device">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Device</th>
                     <td mat-cell *matCellDef="let row">
-                      {{ row?.checkin | date: 'dd/MM hh:mm'}}
+                      {{ row?.deviceId}}
                     </td>
                   </ng-container>
-                   
-                   <!-- Name Column -->
-                <ng-container matColumnDef="manualCheckOut">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Manual Check Out</th>
-                    <td mat-cell *matCellDef="let row">
-                      {{ row?.checkout | date: 'dd/MM hh:mm'}}
-                    </td>
-                  </ng-container>
-                  <!-- Name Column -->
-                <ng-container matColumnDef="hours">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Hours</th>
-                    <td mat-cell *matCellDef="let row">
-                      {{ row?.totalHour}}
-                    </td>
-                  </ng-container>
+                  
+                  
   
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"
+                style="vertical-align: top"
+                ></tr>
                 <tr
                   mat-row
                   *matRowDef="let element; columns: displayedColumns"
