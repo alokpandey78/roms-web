@@ -24,7 +24,7 @@ export class PrestartReportComponent implements OnInit {
   selectedRecord: any = {};
   id : string = '';
   prestartDetails : any = {};
-  isEditEnable: boolean = false;
+  isEditEnable: boolean = true;
   generatedCode: boolean = false;
   prestartNo: string = '';
   globals: Globals;
