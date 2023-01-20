@@ -82,6 +82,7 @@ export class AssetsListComponent implements OnInit, OnChanges {
   assetList: any = [];
   selectedClassId: any = [];
   selectedTabIndex: number = 0;
+  selectedStatusId: string = '';
   selectedId: string = '';
   selectedRecord: any = {};
   constructor(
@@ -288,7 +289,7 @@ export class AssetsListComponent implements OnInit, OnChanges {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-   let query ='class='.concat(this.selectedAssetClassId).concat("&type=") .concat(this.selectedAssetTypeId);
+   let query ='class='.concat(this.selectedAssetClassId).concat("&type=").concat(this.selectedAssetTypeId).concat("&status=").concat(this.selectedStatusId);
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'convertedRegistrationDate',
       sortDirection: sort !== undefined ? sort.direction : 'desc',

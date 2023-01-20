@@ -70,15 +70,17 @@
               <mat-form-field>
                 <mat-select
                   (selectionChange)="applyFilter()"
-                  [(ngModel)]="status"
+                  [(ngModel)]="selectedStatusId"
                   placeholder="Status"
                 >
-                  <mat-option value="all">All</mat-option>
-                  <!-- <mat-option value="pending">Pending</mat-option>
-                  <mat-option value="completed">Completed</mat-option> -->
-                  <mat-option [value]="item.id" *ngFor="let item of statusList">
-                      {{ item.status }}
-                    </mat-option>
+                  <mat-option value="">All</mat-option>
+                  <mat-option value="1">Available</mat-option>
+                  <mat-option value="2">Down</mat-option> 
+                  <mat-option value="3">Disposed</mat-option> 
+
+                  <!--<mat-option [value]="item.id" *ngFor="let item of statusList">
+                      {{ item.status }} 
+                    </mat-option> -->
                 </mat-select>
               </mat-form-field>
             </div>
