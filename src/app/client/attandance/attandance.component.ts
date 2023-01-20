@@ -268,7 +268,7 @@ export class AttandanceComponent implements OnInit, OnChanges {
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
-    // this.dataSource.filter = this.search;
+    this.dataSource.filter = this.search;
     if (isTextSearch) {
       this.pageNo = 0;
       this.totalRecords = 0;
