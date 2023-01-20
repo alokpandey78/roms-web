@@ -10,10 +10,10 @@
               </div>
               <div fxFlex.gt-sm="20" fxFlex="100">
                 <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                  <mat-label>01/01/2023</mat-label>
+                  <mat-label>{{prestartDetails?.createDate | date: 'dd/MM/yyyy'}}</mat-label>
                 </div>
                 <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                  <mat-label>08:00 PM</mat-label>
+                  <mat-label>{{prestartDetails?.createDate | date: 'hh:mm'}}</mat-label>
                 </div>
               </div>
             </div>
@@ -21,6 +21,18 @@
             <div fxFlex.gt-sm="18" fxFlex="100">
               <div fxFlex.gt-sm="100" fxFlex="100">
                 <div class="m-t-10 asset-img">
+                  <!-- <img
+                      
+                      onerror="this.onerror=null;this.src='../../assets/img/default-asset.jpg';"
+                      [src]="
+                        globals.generateFileUrl(
+                          prestartDetails && prestartDetails.assets.assetImage ? prestartDetails.assets.assetImage?.url : '',
+                          ''
+                        )
+                      "
+                      alt=""
+                      style="max-height: 175px; width: 175px"
+                    /> -->
                   <img
                     src="../../../assets/img/default-asset.jpg"
                     alt=""
@@ -31,27 +43,27 @@
             </div>
             <div fxFlex.gt-sm="35" fxFlex="100" class="m-0 my-mat-cardt d-wrap">
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                <small>Asset No:</small>
+                <small>Asset No</small>
                 <mat-label class="d-block"><b>{{prestartDetails?.assets?.assetNo}}</b></mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                <small>Asset Name:</small>
+                <small>Asset Name</small>
                 <mat-label class="d-block"><b>{{prestartDetails?.assets?.name}}</b></mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                <small>Class: </small>
+                <small>Class </small>
                 <mat-label class="d-block">{{prestartDetails?.assets?.assetClass?.name}}</mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                <small>Type:</small>
+                <small>Type</small>
                 <mat-label class="d-block">{{prestartDetails?.assets?.assetType?.name}}</mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                <small>Make:</small>
+                <small>Make</small>
                 <mat-label class="d-block">{{prestartDetails?.assets?.make}}</mat-label>
               </div>
               <div fxFlex.gt-sm="50" fxFlex="100" class="p-b-10 p-t-10">
-                <small>Model:</small>
+                <small>Model</small>
                 <mat-label class="d-block">{{prestartDetails?.assets?.model}}</mat-label>
               </div>
             </div>
@@ -107,9 +119,9 @@
                 <span class="p-l-10" style="word-break: break-word">20 Minutes</span>
               </mat-label>
               <div class="m-l-20">
-                <small>08:00 PM</small>
+                <small>{{prestartDetails?.startTime | date: 'hh:mm'}}</small>
                 -
-                <small>08:20 PM</small>
+                <small>{{prestartDetails?.endTime | date: 'hh:mm'}}</small>
               </div>
             </div>
             <!-- <div fxFlex.gt-sm="27" fxFlex="100" class="p-10 m-t-20">
