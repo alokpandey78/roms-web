@@ -140,7 +140,7 @@ export const AppRoutes: Routes = [
         component: ComingSoonComponent,
       },
     ],
-  },
+  }, // {path: '404', component: app-error},
   {
     path: '**',
     redirectTo: 'authentication/404',
