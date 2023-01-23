@@ -331,6 +331,7 @@
 
 
 <ng-template #commonListLeaveReport>
+  <!--<mat-card class="m-0 m-t-20 m-b-5">Dragon and Peaches</mat-card> -->
   <mat-card class="m-0 m-t-20 m-b-5">
     <mat-card-content class="p-15">
       <mat-card-title class="p-10 p-t-0 p-l-25 p-r-0 export-btn">
@@ -350,7 +351,7 @@
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
-          <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+          <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
             <!-- <mat-card-title class="mb-3">Basic Material select</mat-card-title> -->
             <mat-form-field>
               <mat-select (selectionChange)="applyFilter()" [(ngModel)]="departmentId" placeholder="Department">
@@ -361,8 +362,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-
-          <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+          <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
             <!-- <mat-card-title class="mb-3">Basic Material select</mat-card-title> -->
             <mat-form-field>
               <mat-select (selectionChange)="applyFilter()" [(ngModel)]="employeeType" placeholder="Employee Type">
@@ -373,7 +373,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+          <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
             <!-- <mat-card-title class="mb-3">Basic Material select</mat-card-title> -->
             <mat-form-field>
               <mat-select (selectionChange)="applyFilter()" [(ngModel)]="status" placeholder="Status">
@@ -381,6 +381,21 @@
                 <mat-option [value]="status.value" *ngFor="let status of globals.leaveStatus">
                   {{ status.name }}
                 </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
+            <!-- <mat-card-title class="mb-3">Basic Material select</mat-card-title> -->
+            <mat-form-field>
+              <mat-select
+                (selectionChange)="applyFilter()"
+                [(ngModel)]="paymentFrequency"
+                placeholder="Payment Frequency"
+              >
+                <mat-option value="">All</mat-option>
+                <mat-option value="w">Weekly</mat-option>
+                <mat-option value="f">Fortnightly</mat-option> 
+                <mat-option value="m">Monthly</mat-option> 
               </mat-select>
             </mat-form-field>
           </div>
@@ -500,7 +515,7 @@
           </ng-container>
 
           <ng-container matColumnDef="convertedAppliedOn">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Applied On</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Applied</th>
             <td mat-cell *matCellDef="let row; let i = index"
               (click)="expandedElement = expandedElement === row ? null : row">
               <!-- <span class="header-label">applyDate:</span> -->
@@ -525,7 +540,7 @@
           </ng-container>
 
           <ng-container matColumnDef="convertedApprovalDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Decision Date</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Decision</th>
             <td mat-cell *matCellDef="let row; let i = index"
               (click)="expandedElement = expandedElement === row ? null : row">
               {{ row?.convertedApprovalDate }}

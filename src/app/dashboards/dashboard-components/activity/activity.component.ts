@@ -10,27 +10,27 @@ export class ActivityComponent {
   mytimelines = [
     {
       from: 'Owen Cavanough',
-      time: '(August 29, 2022)',
+      time: '(January 15, 2023)',
       image: '../../../../assets/img/rtl-logo-new-icon.jpg',
      // attachment: 'assets/images/big/img2.jpg',
       content:
-        'Welcome to The RTL Digital Transformation. We are committed to provide better work environment for all our staff.....',
+        'With Digital adoption, RTL will reduce its carbon footprint by removing approx. 100,000 paper forms from our operations.....',
     },
     {
       from: 'Mick Moroney',
-      time: '(August 29, 2022)',
+      time: '(January 20, 2023)',
       image: '../../../../assets/img/rtl-logo-new-icon.jpg',
       content:
-        'Our first release is Employee Leave applications. This will reduce paper across the organisation as well as improve efficiency ......',
+        'Ensure you have updated your app on regular basis to get the most our of ROMS.....',
       // buttons: 'primary',
     },
     {
       from: 'Dharm Yadav',
-      time: '(August 30, 2022)',
+      time: '(January 21, 2023)',
       image: '../../../../assets/img/rtl-logo-new-icon.jpg',
       // attachment: 'assets/images/big/img1.jpg',
       content:
-        'In coming coming weeks and months, we will add many features in Operations management to support all staff across the board ....',
+        'PreStart is our best effort to make ROMS a leading AI based solution for Mining and Earthworks industry ....',
     },
     // {
     //   from: 'Dhiren Adesara',
@@ -39,7 +39,7 @@ export class ActivityComponent {
     //   content:
     //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
     //   buttons: 'warn',
-    // },
+    // }, 
   ];
 
   constructor() {}
