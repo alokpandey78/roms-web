@@ -19,8 +19,9 @@ export class PrestartReportComponent implements OnInit {
   // globals: Globals;
 
   submitted: boolean = false;
-  
+
   prestartList: any = [];
+  categorya: any = [];
   selectedRecord: any = {};
   id : string = '';
   prestartDetails : any = {};
@@ -33,7 +34,7 @@ export class PrestartReportComponent implements OnInit {
     'status',
     'comment',
     'media',
-    
+
   ];
 
   // convertedStartDate: convertedStartDate,
@@ -69,7 +70,7 @@ export class PrestartReportComponent implements OnInit {
     // private authService: AuthenticationService,
     // private employeeService: EmployeeService,
     // private router: Router,
-    ) { 
+    ) {
       this.globals = globals;
     }
 
@@ -78,12 +79,14 @@ export class PrestartReportComponent implements OnInit {
         this.id = params['id'];
       });
       this.getPrestartReportDetails();
-  
+
     }
   getPrestartReportDetails(){
     this.assetsService.getPrestartDetails(this.id).pipe(first()).subscribe((result: any) => {
           this.prestartDetails = result.data;
           this.prestartNo = this.prestartDetails.prestartNo;
+
+
           // alert(this.prestartNo);
           console.log('Prestart Details:',this.prestartDetails);
         });

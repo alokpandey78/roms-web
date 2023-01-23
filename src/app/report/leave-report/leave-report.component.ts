@@ -204,7 +204,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
       departmentId: this.departmentId == 'all' ? '' : this.departmentId,
       employeeTypeId: this.employeeType == 'all' ? '' : this.employeeType,
       status: `${this.status}`,
-      frequency: `${this.paymentFrequency}`
+      paymentFrequency: `${this.paymentFrequency}`
     };
      console.log(queryData, 'queryData');
 
@@ -387,7 +387,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
       departmentId: this.departmentId == 'all' ? '' : this.departmentId,
       employeeTypeId: this.employeeType == 'all' ? '' : this.employeeType,
       status: `${this.status}`,
-      frequency: `${this.paymentFrequency}`
+      paymentFrequency: `${this.paymentFrequency}`
     };
     // console.log(queryData, 'queryData');
 
