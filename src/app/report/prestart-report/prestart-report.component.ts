@@ -21,7 +21,9 @@ export class PrestartReportComponent implements OnInit {
   submitted: boolean = false;
 
   prestartList: any = [];
-  categorya: any = [];
+  category_a: any = [];
+  category_b: any = [];
+  category_c: any = [];
   selectedRecord: any = {};
   id : string = '';
   prestartDetails : any = {};
@@ -40,7 +42,9 @@ export class PrestartReportComponent implements OnInit {
   // convertedStartDate: convertedStartDate,
   // employeeName: employeeName,
 
-  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  dataSource_c: MatTableDataSource<any> = new MatTableDataSource<any>();
+  dataSource_b: MatTableDataSource<any> = new MatTableDataSource<any>();
+  dataSource_a: MatTableDataSource<any> = new MatTableDataSource<any>();
   panelOpenState = false;
   // step = 0;
 
@@ -85,7 +89,21 @@ export class PrestartReportComponent implements OnInit {
     this.assetsService.getPrestartDetails(this.id).pipe(first()).subscribe((result: any) => {
           this.prestartDetails = result.data;
           this.prestartNo = this.prestartDetails.prestartNo;
-
+          let data: any [] = result.data.prestartDetails;
+        for (let i = 0; i <data.length; i++) {
+             if(data[i].item.itemCategory.code ==='c'){
+               this.category_c.push(data[i]);
+             }
+          if(data[i].item.itemCategory.code ==='b'){
+            this.category_b.push(data[i]);
+          }
+          if(data[i].item.itemCategory.code ==='a'){
+            this.category_a.push(data[i]);
+          }
+        }
+        this.dataSource_c.data = this.category_c;
+        this.dataSource_b.data = this.category_b;
+        this.dataSource_a.data = this.category_a;
 
           // alert(this.prestartNo);
           console.log('Prestart Details:',this.prestartDetails);

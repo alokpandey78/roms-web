@@ -108,6 +108,9 @@
 .mat-row.cdk-row.example-element-row {
   cursor: pointer;
 }
+.mat-row {
+  min-width: 100%;
+}
 .progress-layout {
   display: flex;
 }
