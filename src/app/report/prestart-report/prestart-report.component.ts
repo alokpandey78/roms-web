@@ -20,11 +20,15 @@ export class PrestartReportComponent implements OnInit {
   // globals: Globals;
 
   submitted: boolean = false;
+  defectUrl: string= "";
 
   prestartList: any = [];
   category_a: any = [];
   category_b: any = [];
   category_c: any = [];
+  a_issue_count: number =0;
+  b_issue_count: number =0;
+  c_issue_count: number =0;
   selectedRecord: any = {};
   id : string = '';
   prestartDetails : any = {};
@@ -65,17 +69,7 @@ export class PrestartReportComponent implements OnInit {
     private dialog: MatDialog,
     globals: Globals,
     private router: Router, private activatedRoute: ActivatedRoute,private assetsService: AssetsService
-    // breakpointObserver: BreakpointObserver,
-    // public util: Utils,
-    // globals: Globals,
-    // private fb: FormBuilder,
-    // private alertService: AlertService,
-    // private leaveService: LeaveService,
-    // private datePipe: DatePipe,
-    // private activatedRoute: ActivatedRoute,
-    // private authService: AuthenticationService,
-    // private employeeService: EmployeeService,
-    // private router: Router,
+
     ) {
       this.globals = globals;
     }
@@ -106,10 +100,10 @@ export class PrestartReportComponent implements OnInit {
         this.dataSource_c.data = this.category_c;
         this.dataSource_b.data = this.category_b;
         this.dataSource_a.data = this.category_a;
-
-          // alert(this.prestartNo);
-          console.log('Prestart Details:',this.prestartDetails);
-        });
+        this.a_issue_count = this.dataSource_a.data.filter(obj => (obj.answer == 2 )).length;
+        this.b_issue_count = this.dataSource_b.data.filter(obj => (obj.answer == 2 )).length;
+        this.c_issue_count = this.dataSource_c.data.filter(obj => (obj.answer == 2 )).length;
+    });
   }
   getData(data: any) {
     let final: any = [];
@@ -119,6 +113,19 @@ export class PrestartReportComponent implements OnInit {
     }
     return final;
   }
+
+  getCategoryissueCount(category : string){
+    if(category === 'c'){
+      return this.dataSource_c.data.filter(obj => (obj.answer == 2 )).length;
+    }
+    if(category === 'b'){
+      return this.dataSource_b.data.filter(obj => (obj.answer == 2 )).length;
+    }
+    if(category === 'a'){
+      return this.dataSource_a.data.filter(obj => (obj.answer == 2 )).length;
+    }
+  }
+
 
   // getDefaultOptions() {
   //   let obj = this.paginator;
@@ -167,15 +174,16 @@ export class PrestartReportComponent implements OnInit {
   //   // }
   // }
 
-  onClick() {
+  viewDefect(url: string) {
     this.submitted = true;
-    this.openDialog({});
+    this.defectUrl = url;
+    this.openDialog(url);
   }
-  openDialog(data: any) {
+  openDialog(url: string) {
     const dialogRef = this.dialog.open(this.imageDialog, {
-      width: '35em',
-      height: '23em',
-      data: { data: data },
+      width: '55em',
+      height: '43em'
+     // data: { data: data },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

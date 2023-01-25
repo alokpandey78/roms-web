@@ -82,8 +82,8 @@
 }
 .Media-Img {
   align-items: center;
-  width: 220px;
-  height: 220px;
+  width: 80%;
+  height: 80%;
   // border-radius: 50px;
 }
 .popup-head {
@@ -128,6 +128,9 @@
 }
 .text-red {
   color: red;
+}
+.text-green {
+  color: green;
 }
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
