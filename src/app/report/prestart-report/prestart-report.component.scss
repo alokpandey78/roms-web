@@ -1,3 +1,7 @@
+.prestart-list th.mat-header-cell {
+  width: 20%;
+}
+
 .example-h2 {
   margin: 10px;
 }
@@ -73,6 +77,12 @@
   width: 40px;
   height: 40px;
   border-radius: 50px;
+}
+.Media-Img {
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  // border-radius: 50px;
 }
 .popup-head {
   width: 100%;

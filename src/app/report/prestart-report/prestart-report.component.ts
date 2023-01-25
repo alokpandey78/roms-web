@@ -16,6 +16,7 @@ import { Globals } from 'src/app/globals';
   styleUrls: ['./prestart-report.component.scss']
 })
 export class PrestartReportComponent implements OnInit {
+  @ViewChild('imageDialog,') imageDialog!: TemplateRef<any>;
   // globals: Globals;
 
   submitted: boolean = false;
@@ -32,6 +33,7 @@ export class PrestartReportComponent implements OnInit {
   prestartNo: string = '';
   globals: Globals;
   displayedColumns: string[] = [
+    'icon',
     'name',
     'status',
     'comment',
@@ -164,5 +166,22 @@ export class PrestartReportComponent implements OnInit {
   //   this.refresh(this.getDefaultOptions());
   //   // }
   // }
+
+  onClick() {
+    this.submitted = true;
+    this.openDialog({});
+  }
+  openDialog(data: any) {
+    const dialogRef = this.dialog.open(this.imageDialog, {
+      width: '35em',
+      height: '23em',
+      data: { data: data },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      // console.log('The dialog was closed');
+    });
+  }
 
 }
