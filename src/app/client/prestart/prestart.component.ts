@@ -270,29 +270,29 @@ export class PrestartComponent implements OnInit, OnChanges {
     return elem ? (isCheckbox == true ? elem.checkboxColorClass : elem.colorClass) : '';
   }
 
-  onSubmit() {
-    this.submitted = true;
-    this.openDialog({});
-    this.dialog.closeAll();
-    // if (this.form.invalid) {
-    //   this.alertService.openSnackBar(CustomMessage.invalidForm);
-    //   return;
-    // }
-  }
+  // onSubmit() {
+  //   this.submitted = true;
+  //   this.openDialog({});
+  //   this.dialog.closeAll();
+  //   // if (this.form.invalid) {
+  //   //   this.alertService.openSnackBar(CustomMessage.invalidForm);
+  //   //   return;
+  //   // }
+  // }
 
-  openDialog(data: any) {
-    this.selectedRecord = data;
-    const dialogRef = this.dialog.open(this.employeeDetailDialog, {
-      width: '80em',
-      height: '30em',
-      // data: { data: data },
-    });
+  // openDialog(data: any) {
+  //   this.selectedRecord = data;
+  //   const dialogRef = this.dialog.open(this.employeeDetailDialog, {
+  //     width: '80em',
+  //     height: '30em',
+  //     // data: { data: data },
+  //   });
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      // this.router.navigate(['/registration/list']);
-      // console.log('The dialog was closed');
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //     // this.router.navigate(['/registration/list']);
+  //     // console.log('The dialog was closed');
+  //   });
+  // }
 
   applyFilter(isTextSearch: boolean = false): void {
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
