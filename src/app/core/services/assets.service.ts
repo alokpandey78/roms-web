@@ -40,6 +40,12 @@ export class AssetsService {
   getAllAssetsType() {
     return this.http.get<any>(`${environment.apiUrl}/v1/assetstype`);
   }
+  getAllDefectsType() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/assetstype`);
+  }
+  getAllLocationsType() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/assetstype`);
+  }
 
   getDetailsAsset(id: string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/assets/${id}`);

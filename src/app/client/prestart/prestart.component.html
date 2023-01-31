@@ -30,15 +30,24 @@
               </div>
               <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
                 <mat-form-field>
-                  <mat-select placeholder="Defect Type">
+                  <mat-select
+                  (selectionChange)="applyFilter()"
+                  [(ngModel)]="selectedDefectsId"
+                  placeholder="Defect Type"
+                >
+                  <mat-option value="">All</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of assetDefect">
+                      {{ item.name }}
+                    </mat-option>
+                </mat-select>
+                  <!-- <mat-select placeholder="Defect Type">
                     <mat-option value="Option1">Option1</mat-option>
                     <mat-option value="Option2">Option2</mat-option>
                     <mat-option value="Option3">Option3</mat-option>
-                  </mat-select>
+                  </mat-select> -->
                 </mat-form-field>
               </div>
               <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
-                
                 <mat-form-field>
                   <mat-select
                   (selectionChange)="applyFilter()"
@@ -68,11 +77,21 @@
               </div>
               <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
                 <mat-form-field>
-                  <mat-select placeholder="Location">
+                  <mat-select
+                  (selectionChange)="applyFilter()"
+                  [(ngModel)]="selectedLocationsId"
+                  placeholder="Locations"
+                >
+                  <mat-option value="">All</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of assetLocation">
+                      {{ item.name }}
+                    </mat-option>
+                </mat-select>
+                  <!-- <mat-select placeholder="Location">
                     <mat-option value="Option1">Option1</mat-option>
                     <mat-option value="Option2">Option2</mat-option>
                     <mat-option value="Option3">Option3</mat-option>
-                  </mat-select>
+                  </mat-select> -->
                 </mat-form-field>
               </div>
               

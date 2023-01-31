@@ -76,9 +76,13 @@ export class PrestartComponent implements OnInit, OnChanges {
   // selectedTabIndex: number = 0;
   assetClass: any = [];
   assetType: any = [];
+  assetDefect: any = [];
+  assetLocation: any = [];
   assetList: any = [];
   selectedAssetClassId: string ='';
   selectedAssetTypeId: string ='';
+  selectedDefectsId: string ='';
+  selectedLocationsId: string ='';
   selectedRecord: any = {};
   selectedId: string = '';
   constructor(
@@ -110,6 +114,12 @@ export class PrestartComponent implements OnInit, OnChanges {
       this.assetClass = result && result.data && result.data.length > 0 ? result.data : [];
     });
     this.assetsService.getAllAssetsType().subscribe((result: any) => {
+      this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
+    });
+    this.assetsService.getAllDefectsType().subscribe((result: any) => {
+      this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
+    });
+    this.assetsService.getAllLocationsType().subscribe((result: any) => {
       this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
     });
     // breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
@@ -209,6 +219,8 @@ export class PrestartComponent implements OnInit, OnChanges {
     //   fromDate: startDate,
     assetClass: this.assetClass == 'all' ? '' : this.assetClass,
     assetType: this.assetType == 'all' ? '' : this.assetType,
+    assetDefect: this.assetDefect == 'all' ? '' : this.assetDefect,
+    assetLocation: this.assetLocation == 'all' ? '' : this.assetLocation,
     //   status: `${this.status}`,
     };
     console.log(queryData, 'queryData');
@@ -243,7 +255,7 @@ export class PrestartComponent implements OnInit, OnChanges {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-    let query ='class='.concat(this.selectedAssetClassId).concat("&type=") .concat(this.selectedAssetTypeId);
+    let query ='class='.concat(this.selectedAssetClassId).concat("&type=") .concat(this.selectedAssetTypeId).concat("&defect=") .concat(this.selectedDefectsId).concat("&location=") .concat(this.selectedLocationsId);
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'fullName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',

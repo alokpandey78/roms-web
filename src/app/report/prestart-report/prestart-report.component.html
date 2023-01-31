@@ -87,7 +87,7 @@
                     globals.generateFileUrl(
                     prestartDetails && prestartDetails.employeeSelfie ? prestartDetails.employeeSelfie.url : '','')"
                     alt=""
-                    style="max-height: 175px; width: auto"
+                    style="max-height: 175px; width: 175px"
                   />
                 </div>
               </div>
@@ -126,9 +126,18 @@
                   <mat-label> {{ prestartDetails?.operator?.phone }}</mat-label>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex="100" class="p-10 emp-mat-label email-lbl">
-                  <mat-icon>view_carousel</mat-icon>
-                  <mat-label> {{ prestartDetails?.prestartLocation }}</mat-label>
-                  <mat-icon class="m-l-20" class="color_blue"> location_on</mat-icon>
+                  <div fxFlex.gt-sm="10" fxFlex="100" >
+                    <mat-icon>view_carousel</mat-icon>
+                  </div>
+                  <div fxFlex.gt-sm="80" fxFlex="100"class="m-r-10 m-l-10" >
+                    <mat-label> {{ prestartDetails?.prestartLocation }}</mat-label>
+                  </div>
+                  <div fxFlex.gt-sm="10" fxFlex="100" >
+                    <mat-icon class="m-l-20" class="color_blue" style="cursor: pointer;" > location_on</mat-icon>
+                  </div>
+                 
+                  
+                 
                 </div>
               </div>
             </div>
@@ -147,9 +156,24 @@
               </mat-form-field>
               <!-- </mat-card> -->
             </div>
+            <div fxFlex.gt-sm="27" fxFlex="100" class="p-b-10 p-t-20 p-l-10">
+              <!-- <small class="text-muted">Employee Number</small>
+              <mat-label class="d-block">employeeNo</mat-label> -->
+              <mat-label class="emp-mat-label email-lbl">
+                <mat-icon>watch_later</mat-icon>
+                <span class="p-l-10" style="word-break: break-word">------</span>
+              </mat-label>
+              <div class="m-l-20">
+                <!-- <small>08:00 PM</small> -->
+                <small>{{prestartDetails?.startTime | date: 'hh:mm'}}</small>
+                -
+                <!-- <small>08:20 PM</small> -->
+                <small>{{prestartDetails?.endTime | date: 'hh:mm'}}</small>
+              </div>
+            </div>
 
             <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-10">
-              <mat-card-title class="color_blue">Inspections : </mat-card-title>
+              <mat-card-title class="color_blue">Inspections </mat-card-title>
             </div>
 
             <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-10">
@@ -157,10 +181,20 @@
                 <mat-accordion class="p-l-0 p-r-0">
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                      <mat-panel-title><b>Category A </b> </mat-panel-title>
+                      <div fxFlex.gt-sm="30" fxFlex="100">
+                        <mat-panel-title><b>Category A </b> </mat-panel-title>
+                      </div>
+                      <div fxFlex.gt-sm="30" fxFlex="100">
+                        <mat-panel-title>Critical</mat-panel-title>
+                      </div>
+                        <div fxFlex.gt-sm="40" fxFlex="100">
+                          <mat-panel-description  *ngIf="a_issue_count >= 1"  class="text-red"> {{ a_issue_count }}  Issues</mat-panel-description>
+                      <mat-panel-description  *ngIf="a_issue_count == 0"  class="text-green"> No Issues</mat-panel-description>
+                        </div>
+                      <!-- <mat-panel-title><b>Category A </b> </mat-panel-title>
                       <mat-panel-title>Critical</mat-panel-title>
                       <mat-panel-description  *ngIf="a_issue_count >= 1"  class="text-red"> {{ a_issue_count }}  Issues</mat-panel-description>
-                      <mat-panel-description  *ngIf="a_issue_count == 0"  class="text-green"> No Issues</mat-panel-description>
+                      <mat-panel-description  *ngIf="a_issue_count == 0"  class="text-green"> No Issues</mat-panel-description> -->
                     </mat-expansion-panel-header>
                     <mat-card class="m-0 m-t-5 m-b-5">
                       <mat-card-content>
@@ -259,10 +293,22 @@
 
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                      <mat-panel-title><b>Category B </b> </mat-panel-title>
-                      <mat-panel-title>Critical</mat-panel-title>
-                      <mat-panel-description  *ngIf="b_issue_count >= 1"  class="text-red"> {{ b_issue_count }}  Issues</mat-panel-description>
+                      <!-- <div fxFlex.gt-sm="100" fxFlex="100"></div> -->
+                      <div fxFlex.gt-sm="30" fxFlex="100">
+                        <mat-panel-title><b>Category B </b> </mat-panel-title>
+                      </div>
+                      <div fxFlex.gt-sm="30" fxFlex="100">
+                        <mat-panel-title>Potential to Damege</mat-panel-title>
+                      </div>
+                      <div fxFlex.gt-sm="40" fxFlex="100">
+                        <mat-panel-description  *ngIf="b_issue_count >= 1"  class="text-red"> {{ b_issue_count }}  Issues</mat-panel-description>
                       <mat-panel-description  *ngIf="b_issue_count == 0"  class="text-green"> No Issues</mat-panel-description>
+
+                      </div>
+                      <!-- <mat-panel-title><b>Category B </b> </mat-panel-title>
+                      <mat-panel-title>Potential to Damege</mat-panel-title>
+                      <mat-panel-description  *ngIf="b_issue_count >= 1"  class="text-red"> {{ b_issue_count }}  Issues</mat-panel-description>
+                      <mat-panel-description  *ngIf="b_issue_count == 0"  class="text-green"> No Issues</mat-panel-description> -->
 
                     </mat-expansion-panel-header>
                     <mat-card class="m-0 m-t-5 m-b-5">
@@ -361,10 +407,20 @@
 
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                      <mat-panel-title><b>Category C </b> </mat-panel-title>
-                      <mat-panel-title>Critical</mat-panel-title>
+                      <div fxFlex.gt-sm="30" fxFlex="100">
+                        <mat-panel-title><b>Category C  </b> </mat-panel-title>
+                      </div> 
+                      <div fxFlex.gt-sm="30" fxFlex="100">
+                        <mat-panel-title>Non-Critical </mat-panel-title>
+                      </div> 
+                      <div fxFlex.gt-sm="40" fxFlex="100">
+                        <mat-panel-description  *ngIf="c_issue_count >= 1"  class="text-red"> {{ c_issue_count }}  Issues</mat-panel-description>
+                        <mat-panel-description  *ngIf="c_issue_count == 0"  class="text-green"> No Issues</mat-panel-description>
+                      </div> 
+                      <!-- <mat-panel-title><b>Category C  </b> </mat-panel-title>
+                      <mat-panel-title>Non-Critical </mat-panel-title>
                       <mat-panel-description  *ngIf="c_issue_count >= 1"  class="text-red"> {{ c_issue_count }}  Issues</mat-panel-description>
-                      <mat-panel-description  *ngIf="c_issue_count == 0"  class="text-green"> No Issues</mat-panel-description>
+                      <mat-panel-description  *ngIf="c_issue_count == 0"  class="text-green"> No Issues</mat-panel-description> -->
                     </mat-expansion-panel-header>
                     <mat-card class="m-0 m-t-5 m-b-5">
                       <mat-card-content>
