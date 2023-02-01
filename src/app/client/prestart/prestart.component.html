@@ -281,7 +281,8 @@
                 *matRowDef="let element; columns: displayedColumns"
                 class="example-element-row"
                 style="vertical-align: top"
-                [routerLink]="['/report/prestart']" [queryParams]="{id:element.id}"
+                (click)="approveRejectBilling($event, element)"
+            
                 [ngClass]="{ 'selected-row': selectedId == element.id }"
               ></tr>
               <tr class="mat-row" *matNoDataRow>
@@ -303,3 +304,29 @@
     </div>
   </div>
 </div>
+<ng-template #confirmationDialog>
+  <h6 mat-dialog-title align="center" class="color_blue" style="font-size: 15px; margin-bottom: 0">
+    Mark
+    transfer processed?
+  </h6>
+  <div fxLayout="column wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
+      <button
+        class="m-b-20 m-t-20 button w-100"
+        mat-raised-button
+        color="primary"
+        (click)="approveRejectDemand(dialogData.id)"
+      >
+        Yes
+      </button>
+      <button
+        class=" m-t-15 button w-100"
+        mat-raised-button
+        color="primary"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>

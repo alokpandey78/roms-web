@@ -52,7 +52,7 @@ export class AssetsService {
   }
 
   getPrestartList(options: ViewOptions) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/prestart`,);
+    return this.http.get<any>(`${environment.apiUrl}/v1/prestart?&${options.query}`,);
   }
   getPrestartDetails(id: string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/prestart/${id}`);
