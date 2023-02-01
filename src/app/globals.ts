@@ -126,7 +126,8 @@ export class Globals {
     ]
 
     assetClass = [
-        { name: 'Mobile Plant', value: 'mobileplant' }
+        { name: 'Mobile Plant', value: 'mobileplant' },
+        { name: 'Fixed Plant', value: 'fixedplant' }
     ]
 
     assetType = [
@@ -139,9 +140,14 @@ export class Globals {
 
 
     assetStatus = [
-        { name: 'Available', value: 1, icon: 'no_crash' },
-        { name: 'Down', value: 2, icon: 'car_crash' },
-        { name: 'Disposed', value: 3, icon: 'car_repair' }
+        { name: 'Available', value: 1, icon: 'no_crash',colorClass: 'approved'},
+        { name: 'Down', value: 2, icon: 'car_crash',colorClass: 'pending',  },
+        { name: 'Disposed', value: 3, icon: 'car_repair',colorClass: 'rejected', }
+    ]
+    assetOwnership = [
+        { name: 'owned', value: 1, icon: 'account_balance',colorClass: 'approved'},
+        { name: 'rented', value: 2, icon: 'car_rental',colorClass: 'pending',  },
+        // { name: 'Disposed', value: 3, icon: 'car_repair',colorClass: 'rejected', }
     ]
 
     phoneCode = [

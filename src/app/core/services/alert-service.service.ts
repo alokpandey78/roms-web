@@ -16,7 +16,7 @@ export class AlertService {
         if (isLinkNotitication) {
             notificationHtml =
             this.sanitized.bypassSecurityTrustHtml(  `<img onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';" src='${data?.profileImage}' 
-                class="img-circle" style="border-radius:12px;max-height:30px;max-width:32px;" height="28px" width="29px" align="left"><p class="toastr-message">${message}</p>`);
+                class="img-circle m-r-10" style="border-radius:12px;max-height:30px;max-width:32px;" height="28px" width="29px" align="left"><p class="toastr-message">${message}</p>`);
 
             // <div fxLayout="row wrap" fxFlexAlign="center" class="row">
             // <span href="javascript:void(0);"><img [src]='${data?.profileImage}' 

@@ -20,20 +20,23 @@ export class AssetsAddComponent implements OnInit {
   currentDate: Date = new Date();
   selectedFile: string = '';
   attachmentFile: any;
+  item: any = 1;
+  status: any = 1;
   generatedCode: boolean = false;
   constructor(globals: Globals, private fb: FormBuilder, private alertService: AlertService, public util: Utils, private leaveService: LeaveService, private authService: AuthenticationService, private assetsService: AssetsService, private router: Router) {
     this.globals = globals;
     this.form = this.fb.group({
-      assetNo: new FormControl('', [Validators.required]),
+      assetNo: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
       name: new FormControl('', [Validators.required]),
-      assetClass: new FormControl('', [Validators.required]),
-      assetType: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required]),
+      assetClass: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
+      assetType: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
+      category: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
+      location: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
       description: new FormControl('', [Validators.required]),
-      make: new FormControl('', [Validators.required]),
-      model: new FormControl('', [Validators.required]),
+      make: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
+      model: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
       yearOfMake: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern(this.util.intRegex)]),
-      contryOfOrigin: new FormControl('', [Validators.required]),
+      contryOfOrigin: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
       currentRate: new FormControl('', [Validators.required, Validators.pattern(this.util.numericRegex)]),
       currentRateRider: new FormControl('', [Validators.required, Validators.pattern(this.util.numericRegex)]),
       allowWO: new FormControl(true, [Validators.required]),
@@ -65,7 +68,7 @@ export class AssetsAddComponent implements OnInit {
       // console.log(file, 'file')
       let filename = file.type.toLowerCase();
       if (["image/jpeg", "image/png", "image/jpg", "application/pdf"].includes(filename) == true) {
-        if (file.size <= 2000000) {
+        if (file.size <= 15000000) {
           var reader = new FileReader();
           reader.onload = (e: any) => {
             // console.log('Got here: ', e.target.result);
@@ -132,6 +135,9 @@ export class AssetsAddComponent implements OnInit {
 
     formValues['categoryName'] = formValues.category;
     formValues.category = '';
+
+    formValues['locationName'] = formValues.location;
+    formValues.location = '';
 
     formValues.ownership = formValues.ownership == true ? 'owned' : 'rented';
     formValues.strRetirementDate = moment(formValues.strRetirementDate).utc().format('DD/MM/YYYY');

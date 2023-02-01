@@ -47,8 +47,6 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     'time',
     'hours',
     'action',
-    // 'approveStatus',
-    // 'leaveReason',
     'managerName',
     'status',
     'convertedApprovalDate',
@@ -79,6 +77,8 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
   departmentList: any = [];
   removedRows: any = [];
   selectedTabIndex: number = 0;
+  paymentFrequency: string = 'wfm';
+  paymentFrequencyList: any = [];
   user: any;
   constructor(
     breakpointObserver: BreakpointObserver,
@@ -204,8 +204,9 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
       departmentId: this.departmentId == 'all' ? '' : this.departmentId,
       employeeTypeId: this.employeeType == 'all' ? '' : this.employeeType,
       status: `${this.status}`,
+      paymentFrequency: `${this.paymentFrequency}`
     };
-    // console.log(queryData, 'queryData');
+     console.log(queryData, 'queryData');
 
     this.leaveService
       .getAllEmployeeLeaves(options, queryData)
@@ -320,7 +321,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(isTextSearch: boolean = false): void {
-    // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
+    console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = this.search;
@@ -386,6 +387,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
       departmentId: this.departmentId == 'all' ? '' : this.departmentId,
       employeeTypeId: this.employeeType == 'all' ? '' : this.employeeType,
       status: `${this.status}`,
+      paymentFrequency: `${this.paymentFrequency}`
     };
     // console.log(queryData, 'queryData');
 
