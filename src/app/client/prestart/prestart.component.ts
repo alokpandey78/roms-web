@@ -46,10 +46,10 @@ export class PrestartComponent implements OnInit, OnChanges {
     'catC',
     
   ];
-  @ViewChild('employeeDetailDialog') employeeDetailDialog!: TemplateRef<any>;
+  @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
   // convertedStartDate: convertedStartDate,
   // employeeName: employeeName,
-
+  dialogData : any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   // dataSourceHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
 
@@ -138,6 +138,33 @@ export class PrestartComponent implements OnInit, OnChanges {
     // this.dataSource = new MatTableDataSource(users);
   }
 
+  approveRejectBilling(event:any, row: any){
+    this.dialogData = row;
+    this.openDialog();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.confirmationDialog, {
+      width: '32em',
+      height: '17em',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      console.log('The dialog was closed');
+    });
+  }
+
+  approveRejectDemand(id:any) {
+    this.cancel();
+    this.router.navigate(['/report/prestart'], { queryParams: { id:id} });
+  }
+
+  cancel(){
+    this.dialog.closeAll();
+  }
+  
+
   ngOnInit(): void {
     // this.displayedColumns = this.displayedColumnsLeave;
     this.refresh(this.getDefaultOptions());
@@ -200,11 +227,13 @@ export class PrestartComponent implements OnInit, OnChanges {
   //   }
   // }
   getAllPrestartList() {
-    // alert("hii");
+    console.log(this.getDefaultOptions());
     this.assetsService.getPrestartList(this.getDefaultOptions()).subscribe((result: any) => {
       this.dataSource.data = result.data;
     });
   }
+
+
 
   refresh(options: ViewOptions, isScrolled: boolean = false) {
     // let startDate = this.startDate
@@ -307,22 +336,14 @@ export class PrestartComponent implements OnInit, OnChanges {
   // }
 
   applyFilter(isTextSearch: boolean = false): void {
+    console.log("getAllAssetList");
+    this.getAllPrestartList();
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = this.search;
     if (isTextSearch) {
-      this.pageNo = 0;
-      this.totalRecords = 0;
-      this.paginator.firstPage();
-      // this.dataSource.paginator?.pageIndex[0]=;
-    }
-    // else {
-    this.refresh(this.getDefaultOptions());
-    // }
+      this.dataSource.filter = this.search;
+    } 
   }
   
-  cancel(){
-    this.dialog.closeAll();
-  }
 }

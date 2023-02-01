@@ -242,9 +242,9 @@ export class OnboardingListComponent implements OnInit, OnChanges {
 
         // console.log(this.notifications, 'this.notifications');
 
-        // if (isScrolled == true) {
-        //   this.dataSource.data = [...this.dataSource.data, ...data];
-        // } else {
+        if (isScrolled == true) {
+          this.dataSource.data = [...this.dataSource.data, ...data];
+        } else {
         data = JSON.parse(JSON.stringify(data));
         this.totalData = data;
         this.totalRecords = this.totalData.length;
@@ -252,7 +252,7 @@ export class OnboardingListComponent implements OnInit, OnChanges {
         // console.log(this.totalData, tempData, 'ndsnlkdn');
 
         this.dataSource.data = tempData.splice(0, 10);
-        // }
+         }
       });
   }
 
@@ -448,14 +448,14 @@ export class OnboardingListComponent implements OnInit, OnChanges {
     // console.log(scrollLocation, limit, 'scrollLocation > limit');
     if (scrollLocation > limit) {
       // console.log(this.dataSource.data.length, this.totalRecords, 'totalRecords');
-      if (this.dataSource.data && (this.dataSource.data.length < this.totalRecords)) {
+      //if (this.dataSource.data && (this.dataSource.data.length < this.totalRecords)) {
         this.pageSize = this.pageSize + 10;
         // this.paginator.pageSize = this.pageSize;
         // console.log(this.totalData, this.pageSize);
-        let tempData = this.totalData;
-        this.dataSource.data = tempData.splice(0, this.pageSize);
-        // this.refresh(this.getDefaultOptions(), true);
-      }
+       // let tempData = this.totalData;
+       // this.dataSource.data = tempData.splice(0, this.pageSize);
+         this.refresh(this.getDefaultOptions(), true);
+    //  }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
     }
   }
