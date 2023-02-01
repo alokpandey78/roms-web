@@ -32,17 +32,18 @@ export class AttandanceComponent implements OnInit, OnChanges {
   displayedColumns: string[] = [
     // 'employeePic',
     // 'employeeName',
-    'empName',
-    'role',
+    'icon',
+    'time',
+    'name',
     'department',
-    'job',
     'gang',
-    'shift',
+    'checkIn',
+    'checkOut',
+    'hours',
+    'location',
     'sysCheckIn',
     'sysCheckOut',
-    'manualCheckIn',
-    'manualCheckOut',
-    'hours',
+    'device',
     
   ];
 
@@ -67,10 +68,10 @@ export class AttandanceComponent implements OnInit, OnChanges {
   startDate: Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
   endDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
   // status: any = 0;
-  // departmentId: any = '';
+  departmentId: any = '';
   // employeeType: any = '';
   // employeeTypeList: any = [];
-  // departmentList: any = [];
+  departmentList: any = [];
   // removedRows: any = [];
   // selectedTabIndex: number = 0;
   selectedId: string = '';
@@ -97,6 +98,10 @@ export class AttandanceComponent implements OnInit, OnChanges {
         this.selectedId = queryParams['id'];
         // this.onTabChanged(1);
       }
+    });
+
+    this.authService.getAllDepartmentType().subscribe((result: any) => {
+      this.departmentList = result && result.data && result.data.length > 0 ? result.data : [];
     });
     // this.authService.getAllEmployeeType().subscribe((result: any) => {
     //   this.employeeTypeList = result && result.data && result.data.length > 0 ? result.data : [];
@@ -263,11 +268,30 @@ export class AttandanceComponent implements OnInit, OnChanges {
     return elem ? (isCheckbox == true ? elem.checkboxColorClass : elem.colorClass) : '';
   }
 
+  getShortDate(startDate: any, endDate: any) {
+    let dateLabel = '';
+    if (startDate && endDate) {
+      startDate = new Date(startDate);
+      endDate = new Date(endDate);
+      let today = new Date();
+      var startDateDiff = (startDate.getTime() - today.getTime()) / (1000 * 3600 * 24);
+      startDateDiff = Math.round(startDateDiff);
+      var endDateDiff = (endDate.getTime() - today.getTime()) / (1000 * 3600 * 24);
+      endDateDiff = Math.round(endDateDiff);
+
+      if (startDate) {
+      }
+      console.log(startDate, 'startDate');
+    } else {
+      return dateLabel;
+    }
+  }
+
   applyFilter(isTextSearch: boolean = false): void {
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
-    // this.dataSource.filter = this.search;
+    this.dataSource.filter = this.search;
     if (isTextSearch) {
       this.pageNo = 0;
       this.totalRecords = 0;

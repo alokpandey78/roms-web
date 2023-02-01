@@ -1,3 +1,9 @@
+.prestart-list th.mat-header-cell {
+  width: 20%;
+  align-content: center;
+  // align-items: center;
+}
+
 .example-h2 {
   margin: 10px;
 }
@@ -74,6 +80,12 @@
   height: 40px;
   border-radius: 50px;
 }
+.Media-Img {
+  align-items: center;
+  width: 80%;
+  height: 80%;
+  // border-radius: 50px;
+}
 .popup-head {
   width: 100%;
   display: flex;
@@ -108,11 +120,17 @@
 .mat-row.cdk-row.example-element-row {
   cursor: pointer;
 }
+.mat-row {
+  min-width: 100%;
+}
 .progress-layout {
   display: flex;
 }
 .text-red {
   color: red;
+}
+.text-green {
+  color: green;
 }
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
@@ -122,4 +140,13 @@
 .example-headers-align .mat-expansion-panel-header-description {
   justify-content: space-between;
   align-items: center;
+}
+.emp-mat-label{
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+.emp-mat-label mat-icon{
+  font-size: 20px;
+  height:20px
 }

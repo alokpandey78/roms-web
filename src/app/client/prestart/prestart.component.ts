@@ -31,16 +31,19 @@ export class PrestartComponent implements OnInit, OnChanges {
   globals: Globals;
   submitted: boolean = false;
   displayedColumns: string[] = [
-    'assetNo',
+    'select',
+    'icon',
+    'date',
+    'no',
+    'asset',
     'name',
-    'class',
     'type',
-    'currentLocation',
+    'model',
+    'location',
+    'operator',
     'catA',
     'catB',
     'catC',
-    'conclusion',
-    'doneBy',
     
   ];
   @ViewChild('employeeDetailDialog') employeeDetailDialog!: TemplateRef<any>;
@@ -71,6 +74,15 @@ export class PrestartComponent implements OnInit, OnChanges {
   // departmentList: any = [];
   // removedRows: any = [];
   // selectedTabIndex: number = 0;
+  assetClass: any = [];
+  assetType: any = [];
+  assetDefect: any = [];
+  assetLocation: any = [];
+  assetList: any = [];
+  selectedAssetClassId: string ='';
+  selectedAssetTypeId: string ='';
+  selectedDefectsId: string ='';
+  selectedLocationsId: string ='';
   selectedRecord: any = {};
   selectedId: string = '';
   constructor(
@@ -98,13 +110,18 @@ export class PrestartComponent implements OnInit, OnChanges {
         // this.onTabChanged(1);
       }
     });
-    // this.authService.getAllEmployeeType().subscribe((result: any) => {
-    //   this.employeeTypeList = result && result.data && result.data.length > 0 ? result.data : [];
-    // });
-
-    // this.authService.getAllDepartmentType().subscribe((result: any) => {
-    //   this.departmentList = result && result.data && result.data.length > 0 ? result.data : [];
-    // });
+    this.assetsService.getAllAssetsClass().subscribe((result: any) => {
+      this.assetClass = result && result.data && result.data.length > 0 ? result.data : [];
+    });
+    this.assetsService.getAllAssetsType().subscribe((result: any) => {
+      this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
+    });
+    this.assetsService.getAllDefectsType().subscribe((result: any) => {
+      this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
+    });
+    this.assetsService.getAllLocationsType().subscribe((result: any) => {
+      this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
+    });
     // breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
     //   this.displayedColumns = result.matches
     //     ? ['id', 'name', 'progress', 'color']
@@ -197,14 +214,16 @@ export class PrestartComponent implements OnInit, OnChanges {
     //   ? moment(new Date(this.endDate).toUTCString()).format('DD-MM-YYYY')
     //   : '';
 
-    // let queryData = {
+    let queryData = {
     //   toDate: endDate,
     //   fromDate: startDate,
-    //   departmentId: this.departmentId == 'all' ? '' : this.departmentId,
-    //   employeeTypeId: this.employeeType == 'all' ? '' : this.employeeType,
+    assetClass: this.assetClass == 'all' ? '' : this.assetClass,
+    assetType: this.assetType == 'all' ? '' : this.assetType,
+    assetDefect: this.assetDefect == 'all' ? '' : this.assetDefect,
+    assetLocation: this.assetLocation == 'all' ? '' : this.assetLocation,
     //   status: `${this.status}`,
-    // };
-    // console.log(queryData, 'queryData');
+    };
+    console.log(queryData, 'queryData');
 
     this.employeeService
       .getAll(options)
@@ -236,14 +255,14 @@ export class PrestartComponent implements OnInit, OnChanges {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-
+    let query ='class='.concat(this.selectedAssetClassId).concat("&type=") .concat(this.selectedAssetTypeId).concat("&defect=") .concat(this.selectedDefectsId).concat("&location=") .concat(this.selectedLocationsId);
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'fullName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
       // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
       page: pageSize - 1,
       search: '',
-      query: `empName=${this.search}`,
+      query: query,
       pageSize:
         obj != undefined ? (obj.pageSize == null ? this.pageSize : obj.pageSize) : this.pageSize,
     };
@@ -263,35 +282,35 @@ export class PrestartComponent implements OnInit, OnChanges {
     return elem ? (isCheckbox == true ? elem.checkboxColorClass : elem.colorClass) : '';
   }
 
-  onSubmit() {
-    this.submitted = true;
-    this.openDialog({});
-    this.dialog.closeAll();
-    // if (this.form.invalid) {
-    //   this.alertService.openSnackBar(CustomMessage.invalidForm);
-    //   return;
-    // }
-  }
+  // onSubmit() {
+  //   this.submitted = true;
+  //   this.openDialog({});
+  //   this.dialog.closeAll();
+  //   // if (this.form.invalid) {
+  //   //   this.alertService.openSnackBar(CustomMessage.invalidForm);
+  //   //   return;
+  //   // }
+  // }
 
-  openDialog(data: any) {
-    this.selectedRecord = data;
-    const dialogRef = this.dialog.open(this.employeeDetailDialog, {
-      width: '80em',
-      height: '30em',
-      // data: { data: data },
-    });
+  // openDialog(data: any) {
+  //   this.selectedRecord = data;
+  //   const dialogRef = this.dialog.open(this.employeeDetailDialog, {
+  //     width: '80em',
+  //     height: '30em',
+  //     // data: { data: data },
+  //   });
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      // this.router.navigate(['/registration/list']);
-      // console.log('The dialog was closed');
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //     // this.router.navigate(['/registration/list']);
+  //     // console.log('The dialog was closed');
+  //   });
+  // }
 
   applyFilter(isTextSearch: boolean = false): void {
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
-    // this.dataSource.filter = this.search;
+    this.dataSource.filter = this.search;
     if (isTextSearch) {
       this.pageNo = 0;
       this.totalRecords = 0;

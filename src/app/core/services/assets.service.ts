@@ -40,6 +40,12 @@ export class AssetsService {
   getAllAssetsType() {
     return this.http.get<any>(`${environment.apiUrl}/v1/assetstype`);
   }
+  getAllDefectsType() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/assetstype`);
+  }
+  getAllLocationsType() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/assetstype`);
+  }
 
   getDetailsAsset(id: string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/assets/${id}`);
@@ -48,8 +54,11 @@ export class AssetsService {
   getPrestartList(options: ViewOptions) {
     return this.http.get<any>(`${environment.apiUrl}/v1/prestart`,);
   }
+  getPrestartDetails(id: string) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/prestart/${id}`);
+  }
 
   getAttandanceList(options: ViewOptions) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/employee/attendance`,);
+    return this.http.get<any>(`${environment.apiUrl}/v1/employee/attendance?page=0&size=100&${options.query}`,);
   }
 }

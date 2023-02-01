@@ -125,3 +125,15 @@ mat-list-item .mat-list-text {
 .history-card{
   padding-right: 14px;
 }
+.icon-label{
+  display: flex;
+  font-size: 20px;
+  margin-left: 10px;
+  // margin-top: 10px;
+  align-items: center;
+  color: green;
+}
+.icon-label mat-icon{
+  font-size: 22px;
+  height:20px
+}

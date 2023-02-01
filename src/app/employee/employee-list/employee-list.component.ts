@@ -104,7 +104,7 @@ export class EmployeeListComponent implements OnInit, OnChanges {
     //   this.employeeTypeList = result && result.data && result.data.length > 0 ? result.data : [];
     // });
 
-    
+
     // breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
     //   this.displayedColumns = result.matches
     //     ? ['id', 'name', 'progress', 'color']
@@ -142,6 +142,8 @@ export class EmployeeListComponent implements OnInit, OnChanges {
     //     this.dataSource.data = [record, ...this.dataSource.data];
     //   }
     // });
+
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -304,7 +306,7 @@ export class EmployeeListComponent implements OnInit, OnChanges {
   //         console.log(base64data);
   //       }
 
-  //       // reader.readAsDataURL(res); 
+  //       // reader.readAsDataURL(res);
   //       console.log(res, '=lsakdaslkd');
   //       // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   //     });
