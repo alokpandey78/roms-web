@@ -83,4 +83,16 @@
 .progress-layout {
   display: flex;
 }
+
+.infinite-scroll {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.infinite-scroll .mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
   

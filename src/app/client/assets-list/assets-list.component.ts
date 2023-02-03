@@ -48,7 +48,7 @@ export class AssetsListComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   // dataSourceHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
+ // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
   // @ViewChild(MatPaginator, { static: false }) paginatorHistory: MatPaginator = Object.create(null);
 
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
@@ -57,6 +57,10 @@ export class AssetsListComponent implements OnInit, OnChanges {
   pageNo = 0;
   pageSize = 10;
   totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
   search: string = ''; //by default 0 for pending list
   assetNo: string = '';
   assetName: string ='';
@@ -171,7 +175,7 @@ export class AssetsListComponent implements OnInit, OnChanges {
    * be able to query its view for the initialized paginator and sort.
    */
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+   // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
     this.dataSource.sort = this.sort;
     // this.paginator?.page.subscribe((page: PageEvent) => {
@@ -206,6 +210,7 @@ export class AssetsListComponent implements OnInit, OnChanges {
   getAllAssetList() {
     this.assetsService.getFullAssetList(this.getDefaultOptions()).subscribe((result: any) => {
       this.dataSource.data = result.data;
+      this.totalRecords=result.totalElement;
     });
   }
 
@@ -270,18 +275,19 @@ export class AssetsListComponent implements OnInit, OnChanges {
         // });
 
         // console.log(this.notifications, 'this.notifications');
-
-        // if (isScrolled == true) {
-        //   this.dataSource.data = [...this.dataSource.data, ...data];
-        // } else {
+        //this.totalRecords = data.totalElement;
+        if (isScrolled == true) {
+          this.dataSource.data = [...this.dataSource.data, ...data];
+          
+        } else {
         data = JSON.parse(JSON.stringify(data));
         this.totalData = data;
-        this.totalRecords = this.totalData.length;
+       // this.totalRecords = this.totalData.length;
         let tempData = JSON.parse(JSON.stringify(data));
         // console.log(this.totalData, tempData, 'ndsnlkdn');
 
         this.dataSource.data = tempData.splice(0, 10);
-        // }
+         }
       });
   }
 
@@ -464,12 +470,11 @@ export class AssetsListComponent implements OnInit, OnChanges {
     if (scrollLocation > limit) {
       // console.log(this.dataSource.data.length, this.totalRecords, 'totalRecords');
       if (this.dataSource.data && (this.dataSource.data.length < this.totalRecords)) {
-        this.pageSize = this.pageSize + 10;
-        // this.paginator.pageSize = this.pageSize;
-        // console.log(this.totalData, this.pageSize);
-        let tempData = this.totalData;
-        this.dataSource.data = tempData.splice(0, this.pageSize);
-        // this.refresh(this.getDefaultOptions(), true);
+       // this.pageSize = this.pageSize + 10;
+        
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 10;
+        this.refresh(this.getDefaultOptions(), true);
       }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
     }

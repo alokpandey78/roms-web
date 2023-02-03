@@ -45,7 +45,7 @@ export class OnboardingListComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   // dataSourceHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
+ // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
   // @ViewChild(MatPaginator, { static: false }) paginatorHistory: MatPaginator = Object.create(null);
 
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
@@ -54,6 +54,10 @@ export class OnboardingListComponent implements OnInit, OnChanges {
   pageNo = 0;
   pageSize = 10;
   totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
   search: string = ''; //by default 0 for pending list
   status: string = '';
   // currentDate: any = new Date();
@@ -147,7 +151,7 @@ export class OnboardingListComponent implements OnInit, OnChanges {
    * be able to query its view for the initialized paginator and sort.
    */
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    //this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
     this.dataSource.sort = this.sort;
     // this.paginator?.page.subscribe((page: PageEvent) => {
@@ -242,9 +246,9 @@ export class OnboardingListComponent implements OnInit, OnChanges {
 
         // console.log(this.notifications, 'this.notifications');
 
-        // if (isScrolled == true) {
-        //   this.dataSource.data = [...this.dataSource.data, ...data];
-        // } else {
+        if (isScrolled == true) {
+          this.dataSource.data = [...this.dataSource.data, ...data];
+        } else {
         data = JSON.parse(JSON.stringify(data));
         this.totalData = data;
         this.totalRecords = this.totalData.length;
@@ -252,15 +256,14 @@ export class OnboardingListComponent implements OnInit, OnChanges {
         // console.log(this.totalData, tempData, 'ndsnlkdn');
 
         this.dataSource.data = tempData.splice(0, 10);
-        // }
+         }
       });
   }
-
+ 
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'convertedRegistrationDate',
       sortDirection: sort !== undefined ? sort.direction : 'desc',
@@ -447,14 +450,10 @@ export class OnboardingListComponent implements OnInit, OnChanges {
     const limit = tableScrollHeight - tableViewHeight - buffer;
     // console.log(scrollLocation, limit, 'scrollLocation > limit');
     if (scrollLocation > limit) {
-      // console.log(this.dataSource.data.length, this.totalRecords, 'totalRecords');
-      if (this.dataSource.data && (this.dataSource.data.length < this.totalRecords)) {
-        this.pageSize = this.pageSize + 10;
-        // this.paginator.pageSize = this.pageSize;
-        // console.log(this.totalData, this.pageSize);
-        let tempData = this.totalData;
-        this.dataSource.data = tempData.splice(0, this.pageSize);
-        // this.refresh(this.getDefaultOptions(), true);
+      if (this.dataSource.data.length < this.totalRecords) {
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 10;
+        this.refresh(this.getDefaultOptions(), true);
       }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
     }

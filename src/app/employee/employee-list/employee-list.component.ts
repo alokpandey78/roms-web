@@ -49,15 +49,19 @@ export class EmployeeListComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   // dataSourceHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
+ // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
   // @ViewChild(MatPaginator, { static: false }) paginatorHistory: MatPaginator = Object.create(null);
 
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
   // @ViewChild(MatSort, { static: false }) sortHistory: MatSort = Object.create(null);
-  // pagesize = 10;
+  pagesize = 10;
   pageNo = 0;
   pageSize = 10;
   totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
   search: string = ''; //by default 0 for pending list
   // currentDate: any = new Date();
   // expandedElement: any = null;
@@ -158,9 +162,9 @@ export class EmployeeListComponent implements OnInit, OnChanges {
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
     this.dataSource.sort = this.sort;
-    this.paginator?.page.subscribe((page: PageEvent) => {
-      this.refresh(this.getDefaultOptions());
-    });
+    // this.paginator?.page.subscribe((page: PageEvent) => {
+    //   this.refresh(this.getDefaultOptions());
+    // });
 
   }
 
@@ -230,32 +234,31 @@ export class EmployeeListComponent implements OnInit, OnChanges {
             employeeName: employeeName,
           });
         }
-        // if (isScrolled == true) {
-        //   this.dataSource.data = [...this.dataSource.data, ...data];
-        // } else {
+        if (isScrolled == true) {
+          this.dataSource.data = [...this.dataSource.data, ...data];
+        } else {
         this.dataSource.data = data;
-        // }
+         }
       });
   }
 
-
+ 
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'fullName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
       // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
       page: pageSize - 1,
       search: '',
-      query: `empName=${this.search}`,
-      pageSize: obj != undefined ? (obj.pageSize == null ? this.pageSize : obj.pageSize) : this.pageSize,
+      query: '',
+      pageSize:
+        obj != undefined ? (obj.pageSize == null ? this.pagesize : obj.pageSize) : this.pagesize,
     };
     return options;
   }
-
 
   getStatus(status: any) {
     return this.globals.userApplicationStatus.find((elem: any) => {
@@ -284,6 +287,26 @@ export class EmployeeListComponent implements OnInit, OnChanges {
     // else {
     this.refresh(this.getDefaultOptions());
     // }
+  }
+
+  onTableScroll(e: any) {
+    const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
+    const tableScrollHeight = e.target.scrollHeight; // length of all table
+    const scrollLocation = e.target.scrollTop; // how far user scrolled
+
+    // If the user has scrolled within 200px of the bottom, add more data
+    const buffer = 10;
+    const limit = tableScrollHeight - tableViewHeight - buffer;
+    // console.log(scrollLocation, limit, 'scrollLocation > limit');
+    if (scrollLocation > limit) {
+      if (this.dataSource.data.length < this.totalRecords) {
+       
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 10;
+        this.refresh(this.getDefaultOptions(), true);
+      }
+      // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
+    }
   }
 
 
