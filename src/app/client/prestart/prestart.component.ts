@@ -53,7 +53,7 @@ export class PrestartComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   // dataSourceHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
+//  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
   // @ViewChild(MatPaginator, { static: false }) paginatorHistory: MatPaginator = Object.create(null);
 
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
@@ -62,6 +62,10 @@ export class PrestartComponent implements OnInit, OnChanges {
   pageNo = 0;
   pageSize = 10;
   totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
   search: string = ''; //by default 0 for pending list
   // currentDate: any = new Date();
   // expandedElement: any = null;
@@ -161,6 +165,7 @@ export class PrestartComponent implements OnInit, OnChanges {
   }
 
   cancel(){
+    
     this.dialog.closeAll();
   }
   
@@ -185,7 +190,7 @@ export class PrestartComponent implements OnInit, OnChanges {
     //     this.dataSource.data = [record, ...this.dataSource.data];
     //   }
     // });
-    this.getAllPrestartList();
+    this.getAllPrestartList(true);
   }
 
   ngOnChanges(changes: SimpleChanges): void {}
@@ -226,10 +231,15 @@ export class PrestartComponent implements OnInit, OnChanges {
   //     // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
   //   }
   // }
-  getAllPrestartList() {
+  getAllPrestartList(scrolled:any) {
     console.log(this.getDefaultOptions());
     this.assetsService.getPrestartList(this.getDefaultOptions()).subscribe((result: any) => {
-      this.dataSource.data = result.data;
+      if(scrolled){
+        this.dataSource.data = [...this.dataSource.data, ...result.data];
+      }else{
+         this.dataSource.data = result.data;
+      }
+      this.totalRecords=result.totalElement;
     });
   }
 
@@ -258,7 +268,7 @@ export class PrestartComponent implements OnInit, OnChanges {
       .getAll(options)
       .pipe(first())
       .subscribe((result: any) => {
-        this.totalRecords = result.totalElement;
+       // this.totalRecords = result.totalElement;
         let data: any = [];
 
         for (let i = 0; i < result.data.length; i++) {
@@ -272,11 +282,11 @@ export class PrestartComponent implements OnInit, OnChanges {
             employeeName: employeeName,
           });
         }
-        // if (isScrolled == true) {
-        //   this.dataSource.data = [...this.dataSource.data, ...data];
-        // } else {
+        if (isScrolled == true) {
+          this.dataSource.data = [...this.dataSource.data, ...data];
+        } else {
         this.dataSource.data = data;
-        // }
+       }
       });
   }
 
@@ -337,13 +347,35 @@ export class PrestartComponent implements OnInit, OnChanges {
 
   applyFilter(isTextSearch: boolean = false): void {
     console.log("getAllAssetList");
-    this.getAllPrestartList();
+    this.getAllPrestartList(false);
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
     if (isTextSearch) {
       this.dataSource.filter = this.search;
     } 
+  }
+
+  onTableScroll(e: any) {
+    const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
+    const tableScrollHeight = e.target.scrollHeight; // length of all table
+    const scrollLocation = e.target.scrollTop; // how far user scrolled
+
+    // If the user has scrolled within 200px of the bottom, add more data
+    const buffer = 10;
+    const limit = tableScrollHeight - tableViewHeight - buffer;
+    // console.log(scrollLocation, limit, 'scrollLocation > limit');
+    if (scrollLocation > limit) {
+      // console.log(this.dataSource.data.length, this.totalRecords, 'totalRecords');
+      if (this.dataSource.data && (this.dataSource.data.length < this.totalRecords)) {
+       // this.pageSize = this.pageSize + 10;
+        
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 10;
+        this.getAllPrestartList(true);
+      }
+      // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
+    }
   }
   
 }

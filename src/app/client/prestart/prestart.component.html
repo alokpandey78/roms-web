@@ -130,7 +130,7 @@
       <mat-card class="m-0 m-t-5 m-b-5">
         <mat-card-content>
           <div class="table-responsive infinite-scroll">
-            <mat-table #table [dataSource]="dataSource" class="table employee-list no-wrap" matSort>
+            <mat-table #table [dataSource]="dataSource"  (scroll)="onTableScroll($event)" class="table employee-list no-wrap" matSort>
               <!-- Name Column -->
               <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef></th>

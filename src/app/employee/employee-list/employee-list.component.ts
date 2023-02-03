@@ -58,6 +58,10 @@ export class EmployeeListComponent implements OnInit, OnChanges {
   pageNo = 0;
   pageSize = 10;
   totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
   search: string = ''; //by default 0 for pending list
   // currentDate: any = new Date();
   // expandedElement: any = null;
@@ -238,15 +242,11 @@ export class EmployeeListComponent implements OnInit, OnChanges {
       });
   }
 
-  paginator:any={
-    pageIndex:0,
-    pageSize:5
-  }
+ 
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'fullName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
@@ -300,7 +300,9 @@ export class EmployeeListComponent implements OnInit, OnChanges {
     // console.log(scrollLocation, limit, 'scrollLocation > limit');
     if (scrollLocation > limit) {
       if (this.dataSource.data.length < this.totalRecords) {
-        this.pageNo = this.pageNo + 1;
+       
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 10;
         this.refresh(this.getDefaultOptions(), true);
       }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);

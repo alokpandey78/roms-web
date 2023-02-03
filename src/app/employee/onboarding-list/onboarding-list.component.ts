@@ -52,8 +52,12 @@ export class OnboardingListComponent implements OnInit, OnChanges {
   // @ViewChild(MatSort, { static: false }) sortHistory: MatSort = Object.create(null);
   // pagesize = 10;
   pageNo = 0;
-  pageSize = 5;
+  pageSize = 10;
   totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
   search: string = ''; //by default 0 for pending list
   status: string = '';
   // currentDate: any = new Date();
@@ -255,10 +259,7 @@ export class OnboardingListComponent implements OnInit, OnChanges {
          }
       });
   }
-  paginator:any={
-    pageIndex:0,
-    pageSize:5
-  }
+ 
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
@@ -445,13 +446,13 @@ export class OnboardingListComponent implements OnInit, OnChanges {
     const scrollLocation = e.target.scrollTop; // how far user scrolled
 
     // If the user has scrolled within 200px of the bottom, add more data
-    const buffer = 5;
+    const buffer = 10;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     // console.log(scrollLocation, limit, 'scrollLocation > limit');
     if (scrollLocation > limit) {
       if (this.dataSource.data.length < this.totalRecords) {
-        this.paginator.pageIndex = this.paginator.pageSize + 1;
-        this.paginator.pageSize = this.paginator.pageSize + 5;
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 10;
         this.refresh(this.getDefaultOptions(), true);
       }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
