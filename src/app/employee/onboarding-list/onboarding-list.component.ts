@@ -45,14 +45,14 @@ export class OnboardingListComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   // dataSourceHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
+ // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
   // @ViewChild(MatPaginator, { static: false }) paginatorHistory: MatPaginator = Object.create(null);
 
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
   // @ViewChild(MatSort, { static: false }) sortHistory: MatSort = Object.create(null);
   // pagesize = 10;
   pageNo = 0;
-  pageSize = 10;
+  pageSize = 5;
   totalRecords: number = 0;
   search: string = ''; //by default 0 for pending list
   status: string = '';
@@ -147,7 +147,7 @@ export class OnboardingListComponent implements OnInit, OnChanges {
    * be able to query its view for the initialized paginator and sort.
    */
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    //this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
     this.dataSource.sort = this.sort;
     // this.paginator?.page.subscribe((page: PageEvent) => {
@@ -255,12 +255,14 @@ export class OnboardingListComponent implements OnInit, OnChanges {
          }
       });
   }
-
+  paginator:any={
+    pageIndex:0,
+    pageSize:5
+  }
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'convertedRegistrationDate',
       sortDirection: sort !== undefined ? sort.direction : 'desc',
@@ -443,19 +445,15 @@ export class OnboardingListComponent implements OnInit, OnChanges {
     const scrollLocation = e.target.scrollTop; // how far user scrolled
 
     // If the user has scrolled within 200px of the bottom, add more data
-    const buffer = 10;
+    const buffer = 5;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     // console.log(scrollLocation, limit, 'scrollLocation > limit');
     if (scrollLocation > limit) {
-      // console.log(this.dataSource.data.length, this.totalRecords, 'totalRecords');
-      //if (this.dataSource.data && (this.dataSource.data.length < this.totalRecords)) {
-        this.pageSize = this.pageSize + 10;
-        // this.paginator.pageSize = this.pageSize;
-        // console.log(this.totalData, this.pageSize);
-       // let tempData = this.totalData;
-       // this.dataSource.data = tempData.splice(0, this.pageSize);
-         this.refresh(this.getDefaultOptions(), true);
-    //  }
+      if (this.dataSource.data.length < this.totalRecords) {
+        this.paginator.pageIndex = this.paginator.pageSize + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 5;
+        this.refresh(this.getDefaultOptions(), true);
+      }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
     }
   }

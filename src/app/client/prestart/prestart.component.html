@@ -137,7 +137,7 @@
                 <td mat-cell *matCellDef="let row; let index = dataIndex">
                   <mat-checkbox
                     [ngClass]="getStatusColor(row?.leaveStatus, true)"
-                    (click)="removeRow(row.id, index)"
+                    (click)="approveRejectBilling($event, row)"
                   >
                   </mat-checkbox>
                 </td>
@@ -281,7 +281,7 @@
                 *matRowDef="let element; columns: displayedColumns"
                 class="example-element-row"
                 style="vertical-align: top"
-                (click)="approveRejectBilling($event, element)"
+              
             
                 [ngClass]="{ 'selected-row': selectedId == element.id }"
               ></tr>

@@ -4,17 +4,24 @@
     <mat-card-title class="p-t-20 p-b-10 color_blue">Basic Details</mat-card-title>
     <div fxLayout="row wrap">
       <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
-        <form class="basic-form">
+        <form class="basic-form" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
             <div fxFlex.gt-sm="30" fxFlex="100">
               <mat-form-field appearance="outline">
                 <mat-label>Asset No</mat-label>
                 <input
+                  (change)="resetQr()"
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.assetNo }}"
                   placeholder="Ex: DZ1191"
+                  formControlName="assetNo"
+                  assetNo
+                  [ngClass]="{
+                    'is-invalid': submitted && checkError('assetNo', 'required')
+                  }"
                 />
+                <mat-error *ngIf="submitted && checkError('assetNo', 'required')">
+                  Asset No is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
@@ -23,97 +30,193 @@
                 <mat-label>Asset Name</mat-label>
                 <input
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.name }}"
                   placeholder="Ex: CAT D11R"
+                  formControlName="name"
+                  name
+                  [ngClass]="{
+                    'is-invalid': submitted && checkError('name', 'required')
+                  }"
                 />
+                <mat-error *ngIf="submitted && checkError('name', 'required')">
+                  Asset Name is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
             <div fxFlex.gt-sm="30" fxFlex="100">
               <mat-form-field appearance="outline">
-                <mat-label>Class</mat-label>
-                <input
+                <mat-label>Asset Class</mat-label>
+                <!-- <input type="text" placeholder="Ex: Mobile Plant" aria-label="Class" matInput
+                  formControlName="assetClass" assetClass [matAutocomplete]="autoClass"
+                  [ngClass]="{ 'is-invalid': submitted && f.assetClass.hasError }" />
+                <mat-autocomplete #autoClass="matAutocomplete"> -->
+                <!-- <mat-option [value]="item.name" *ngFor="let item of roles">
+                      {{ item.name }}
+                    </mat-option> -->
+                <!-- </mat-autocomplete> -->
+
+                <mat-select
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.assetClass?.name }}"
-                  placeholder="Ex: Mobile Plant"
-                />
+                  formControlName="assetClass"
+                  assetClass
+                  [ngClass]="{ 'is-invalid': submitted && f.assetClass.hasError }"
+                >
+                  <mat-option>Select class</mat-option>
+                  <mat-option [value]="item.value" *ngFor="let item of globals.assetClass">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="submitted && checkError('assetClass', 'required')">
+                  Class is required
+                </mat-error>
+                <!-- <mat-select placeholder="Mobile Plant"> -->
+                <!-- <mat-option value="option">Available</mat-option>
+                    <mat-option value="option">Down</mat-option>
+                    <mat-option value="option">Disposed</mat-option> -->
+                <!-- </mat-select> -->
               </mat-form-field>
             </div>
 
             <div fxFlex.gt-sm="30" fxFlex="100">
               <mat-form-field appearance="outline">
-                <mat-label>Type</mat-label>
+                <mat-label>Asset Type</mat-label>
                 <input
-                  matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.assetType?.name }}"
+                  type="text"
                   placeholder="Ex: Dozer"
+                  aria-label="Type"
+                  matInput
+                  formControlName="assetType"
+                  assetType
+                  [matAutocomplete]="autoType"
+                  [ngClass]="{ 'is-invalid': submitted && f.assetType.hasError }"
                 />
+                <mat-autocomplete #autoType="matAutocomplete">
+                  <!-- <mat-select matInput formControlName="assetType" assetType
+                  [ngClass]="{ 'is-invalid': submitted && f.assetType.hasError }">
+                  <mat-option>Select type</mat-option>
+                  <mat-option [value]="item.value" *ngFor="let item of globals.assetType">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select> -->
+                </mat-autocomplete>
+                <mat-error *ngIf="submitted && checkError('assetType', 'required')">
+                  Type is required
+                </mat-error>
+                <!-- <mat-select placeholder="Doxer"> -->
+                <!-- <mat-option value="option">Available</mat-option>
+                    <mat-option value="option">Down</mat-option>
+                    <mat-option value="option">Disposed</mat-option> -->
+                <!-- </mat-select> -->
               </mat-form-field>
             </div>
 
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
             <div fxFlex.gt-sm="30" fxFlex="100">
               <mat-form-field appearance="outline">
-                <mat-label>Category</mat-label>
+                <mat-label>Asset Category</mat-label>
                 <input
-                  matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.assetCategory?.name }}"
+                  type="text"
                   placeholder="Ex: Small Dozer"
+                  aria-label="Category"
+                  matInput
+                  formControlName="category"
+                  category
+                  [matAutocomplete]="autoCategory"
+                  [ngClass]="{ 'is-invalid': submitted && f.category.hasError }"
                 />
+                <mat-autocomplete #autoCategory="matAutocomplete">
+                  <!-- <mat-select matInput formControlName="category" category
+                  [ngClass]="{ 'is-invalid': submitted && f.category.hasError }">
+                  <mat-option>Select type</mat-option>
+                  <mat-option [value]="item.value" *ngFor="let item of globals.assetCategory">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select> -->
+                </mat-autocomplete>
+
+                <mat-error *ngIf="submitted && checkError('category', 'required')">
+                  Category is required
+                </mat-error>
+                <!-- <mat-select placeholder="Doxer"> -->
+                <!-- <mat-option value="option">DozerA</mat-option>
+                      <mat-option value="option">Down</mat-option>
+                      <mat-option value="option">Disposed</mat-option> -->
+                <!-- </mat-select> -->
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="35" fxFlex="100"></div>
 
-            <div fxFlex.gt-sm="65" fxFlex="100" class="p-b-10 p-t-10 m-b-40">
+            <div fxFlex.gt-sm="65" fxFlex="100" class="p-b-10 p-t-10">
               <mat-label>Description</mat-label>
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" class="m-b-10">
                 <mat-label>Description</mat-label>
                 <textarea
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.description }}"
                   placeholder="Textarea"
                   rows="3"
-
+                  formControlName="description"
+                  description
+                  [ngClass]="{ 'is-invalid': submitted && f.description.hasError }"
                 ></textarea>
+
+                <mat-error *ngIf="submitted && checkError('description', 'required')">
+                  Description is required
+                </mat-error>
               </mat-form-field>
+              <!-- <quill-editor
+                formControlName="description"
+                description
+                [ngClass]="{ 'is-invalid': submitted && f.description.hasError }"
+                placeholder="Enter Description"
+              >
+              </quill-editor> -->
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
-            <div fxFlex.gt-sm="15" fxFlex="100" class="text-center" style="cursor: pointer">
+            <div fxFlex.gt-sm="15" fxFlex="100" class="text-center p-b-10 p-t-10">
               <mat-label>Asset Image</mat-label>
-              <!-- <img *ngIf="assetDetails?.assetImage.fileType.includes( 'image')"
-                                (click)="openImageDialog($event.target.src)"
-                                [src]="globals.generateFileUrl(assetDetails?.assetImage?.url,user.token)" alt="" />
-                              <img *ngIf="assetDetails?.assetImage.fileType.includes('pdf')"
-                                (click)="openFile(globals.generateFileUrl(assetDetails?.assetImage?.url,user.token))"
-                                src="../../../assets/img/add-image.png" alt="" /> -->
               <div class="m-t-10 asset-img">
                 <img
-                  onerror="this.onerror=null;this.src='../../../assets/img/default-asset.jpg';"
-                  [src]="globals.generateFileUrl(assetDetails && assetDetails.assetImage ? assetDetails.assetImage?.url : '','')"
+                  onerror="this.onerror=null;this.src='../../../assets/img/add-image.png';"
+                  [src]="selectedFile"
                   alt=""
                   style="max-height: 110px; width: auto"
                 />
-                <!-- <mat-icon>camera_alt</mat-icon> -->
+                <mat-icon (click)="attachment.click()">camera_alt</mat-icon>
+                <input
+                  #attachment
+                  type="file"
+                  hidden
+                  (change)="onFileChange($event)"
+                  accept="image/*"
+                />
               </div>
             </div>
-            <div fxFlex.gt-sm="15" fxFlex="100" class="text-center" style="cursor: pointer">
+            <div fxFlex.gt-sm="15" fxFlex="100" class="text-center p-b-10 p-t-10">
               <mat-label>QR Code</mat-label>
-              <div class="m-t-10 asset-img">
-                <qrcode
-                  [imageSrc]="'./assets/img/favicon.png'"
-                  [imageHeight]="40"
-                  [imageWidth]="40"
-                  [qrdata]="assetNo"
-                  style="max-height: 110px; width: auto"
-                  [errorCorrectionLevel]="'M'"
+              <div class="m-t-10">
+                <div *ngIf="generatedCode">
+                  <qrcode
+                    [imageSrc]="'./assets/img/favicon.png'"
+                    [imageHeight]="40"
+                    [imageWidth]="40"
+                    [qrdata]="f.assetNo!.value"
+                    style="max-height: 110px; width: auto"
+                    [errorCorrectionLevel]="'M'"
+                  >
+                  </qrcode>
+
+                  <!-- <img src="../../../assets/img/image.png" alt="" style="max-height: 110px; width: auto"> -->
+                </div>
+                <button
+                  *ngIf="!generatedCode"
+                  mat-raised-button
+                  type="button"
+                  color="primary"
+                  (click)="generateQrcode()"
                 >
-                </qrcode>
-                <!-- <mat-icon>camera_alt</mat-icon> -->
+                  {{ !generatedCode ? 'Generate' : 'Regenerate' }} Qr
+                </button>
               </div>
             </div>
 
@@ -130,10 +233,15 @@
                 <mat-label>Make</mat-label>
                 <input
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.make }}"
                   placeholder="Ex: CAT"
+                  formControlName="make"
+                  make
+                  [ngClass]="{ 'is-invalid': submitted && f.make.hasError }"
                 />
+
+                <mat-error *ngIf="submitted && checkError('make', 'required')">
+                  Make is required Ex: CAT
+                </mat-error>
               </mat-form-field>
             </div>
 
@@ -143,10 +251,15 @@
                 <mat-label>Model</mat-label>
                 <input
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.model }}"
                   placeholder="Ex: B11"
+                  formControlName="model"
+                  model
+                  [ngClass]="{ 'is-invalid': submitted && f.model.hasError }"
                 />
+
+                <mat-error *ngIf="submitted && checkError('model', 'required')">
+                  Model is required Ex: B11
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
@@ -155,10 +268,24 @@
                 <mat-label>Year Of Make</mat-label>
                 <input
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.yearOfMake }}"
                   placeholder="2022"
+                  formControlName="yearOfMake"
+                  yearOfMake
+                  [ngClass]="{ 'is-invalid': submitted && f.yearOfMake.hasError }"
                 />
+
+                <mat-error *ngIf="submitted && checkError('yearOfMake', 'required')">
+                  Year is required
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    checkError('yearOfMake', 'pattern') ||
+                    checkError('yearOfMake', 'minlength') ||
+                    checkError('yearOfMake', 'maxlength')
+                  "
+                >
+                  Invalid value Ex: 2022.
+                </mat-error>
               </mat-form-field>
             </div>
 
@@ -167,26 +294,40 @@
                 <mat-label>Country Of Origin</mat-label>
                 <input
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.contryOfOrigin}}"
                   placeholder="USA"
+                  formControlName="contryOfOrigin"
+                  contryOfOrigin
+                  [ngClass]="{ 'is-invalid': submitted && f.contryOfOrigin.hasError }"
                 />
+
+                <mat-error *ngIf="submitted && checkError('contryOfOrigin', 'required')">
+                  Country is required Ex USA
+                </mat-error>
               </mat-form-field>
             </div>
+            <div fxFlex.gt-sm="70" fxFlex="100"></div>
+
             <mat-divider fxFlex.gt-sm="100" fxFlex="100"> </mat-divider>
             <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10 p-t-10">
-              <mat-card-title class="p-b-10 color_blue">Status</mat-card-title>
+              <mat-card-title class="p-b-10 color_blue">Country</mat-card-title>
             </div>
             <div fxFlex.gt-sm="30" fxFlex="100">
               <mat-form-field appearance="outline">
                 <mat-label>Default Project Location</mat-label>
                 <input
+                  type="text"
+                  placeholder="Ex: Yallorn"
+                  aria-label="Location"
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.location?.code }}"
-                  placeholder=""
+                  formControlName="location"
+                  location
+                  [matAutocomplete]="autoLocation"
+                  [ngClass]="{ 'is-invalid': submitted && f.location.hasError }"
                 />
-
+                <mat-autocomplete #autoLocation="matAutocomplete"> </mat-autocomplete>
+                <mat-error *ngIf="submitted && checkError('location', 'required')">
+                  Default Location is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
@@ -195,32 +336,53 @@
                 <mat-label>Current Rate</mat-label>
                 <input
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.currentRate }}"
                   placeholder="00.00"
+                  formControlName="currentRate"
+                  currentRate
+                  [ngClass]="{ 'is-invalid': submitted && f.currentRate.hasError }"
                 />
+
+                <mat-error *ngIf="submitted && checkError('currentRate', 'required')">
+                  Current rate is required
+                </mat-error>
+                <mat-error *ngIf="checkError('currentRate', 'pattern')">
+                  Invalid value. Ex:00.00
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
             <div fxFlex.gt-sm="30" fxFlex="100">
               <mat-form-field appearance="outline">
                 <mat-label>Current Rate Rider</mat-label>
+
                 <input
                   matInput
-                  [readonly]="!isEditEnable"
-                  value="{{ assetDetails?.currentRateRider }}"
                   placeholder="0"
+                  formControlName="currentRateRider"
+                  currentRateRider
+                  [ngClass]="{ 'is-invalid': submitted && f.currentRateRider.hasError }"
                 />
+
+                <mat-error *ngIf="submitted && checkError('currentRateRider', 'required')">
+                  Current rate rider is required
+                </mat-error>
+                <mat-error *ngIf="checkError('currentRateRider', 'pattern')">
+                  Invalid value. Ex:00.00
+                </mat-error>
               </mat-form-field>
             </div>
 
             <mat-divider fxFlex.gt-sm="100" fxFlex="100"> </mat-divider>
-            <!-- <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10 p-t-10">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10 p-t-10">
               <mat-card-title class="p-b-10 color_blue">Status</mat-card-title>
             </div>
 
             <div fxFlex.gt-sm="30" fxFlex="100" class="m-t-20">
-              <mat-slide-toggle formControlName="allowWO" allowWO value="true"
+              <mat-slide-toggle
+                formControlName="allowWO"
+                allowWO
+                value="true"
+                [ngClass]="{ 'is-invalid': submitted && f.allowWO.hasError }"
                 >Allow Work Order</mat-slide-toggle
               >
             </div>
@@ -228,45 +390,70 @@
             <div fxFlex.gt-sm="30" fxFlex="100">
               <mat-form-field appearance="outline">
                 <mat-label>Availability</mat-label>
-                <mat-select placeholder="Status" formControlName="status"> </mat-select>
+                <mat-select placeholder="Status" formControlName="status" status>
+                  <!-- <mat-option value="1">Available</mat-option>
+                  <mat-option value="2">Down</mat-option>
+                  <mat-option value="3">Disposed</mat-option> -->
+                  <!-- <mat-option>Select status</mat-option> -->
+                  <mat-option [value]="item.value" *ngFor="let item of globals.assetStatus">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="submitted && checkError('status', 'required')">
+                  Availability is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="5" fxFlex="100"></div>
             <div fxFlex.gt-sm="30" fxFlex="100" class="m-t-20">
-              <mat-slide-toggle formControlName="retireAsset" value="true" retireAsset
-                >Retire Asset</mat-slide-toggle
-              >
+              <!-- <mat-slide-toggle formControlName="retireAsset" value="true" retireAsset
+                [ngClass]="{ 'is-invalid': submitted && f.retireAsset.hasError }">Retire Asset</mat-slide-toggle> -->
             </div>
             <div fxFlex.gt-sm="30" fxFlex="100" class="m-t-20">
-              <mat-slide-toggle formControlName="ownership" value="true" ownership
-                >Is this asset rented?</mat-slide-toggle
+              <mat-slide-toggle
+                formControlName="ownership"
+                value="true"
+                ownership
+                [ngClass]="{ 'is-invalid': submitted && f.ownership.hasError }"
+              >
+                Rented Asset ?</mat-slide-toggle
               >
             </div>
             <div fxFlex.gt-sm="40" fxFlex="100"></div>
             <div fxFlex.gt-sm="30" fxFlex="100">
-              <mat-form-field appearance="outline">
+              <!-- <mat-form-field appearance="outline">
                 <mat-label>Retirement Date</mat-label>
 
-                <input matInput [readonly]="!isEditEnable"
-                value="{{ assetDetails?.assetCategory?.retirementDate }}" placeholder=""  />
+                <input matInput (focus)="picker.open()" [min]="currentDate" [matDatepicker]="picker" placeholder=""
+                  formControlName="strRetirementDate" strRetirementDate
+                  [ngClass]="{'is-invalid':submitted && f.strRetirementDate.hasError}" />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+
+                <mat-error *ngIf="submitted && checkError('strRetirementDate', 'required')">
+                  Retirement date is required
+                </mat-error>
+              </mat-form-field> -->
             </div>
 
+            <!-- <div fxFlex.gt-sm="30" fxFlex="100">
+              <small>Ownership</small>
+              <div>
+                <mat-label class="m-r-5">RENTAL</mat-label
+                ><mat-slide-toggle>OWNED</mat-slide-toggle>
+              </div>
+            </div> -->
 
             <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10 p-t-10">
               <mat-divider> </mat-divider>
-            </div> -->
+            </div>
 
-            <!-- <div fxFlex.gt-sm="100" fxFlex="100" class="p-10 text-center">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-10 text-center">
               <div class="m-0 m-t-15">
-                <button class="m-r-30" mat-raised-button color="primary">Update</button>
-                <button class="m-l-30" mat-raised-button color="primary">
-                  <mat-icon class="m-r-10">delete_outline</mat-icon>Delete Asset
-                </button>
+                <button mat-raised-button color="primary">Update Asset</button>
               </div>
-            </div> -->
+            </div>
           </div>
         </form>
       </div>
