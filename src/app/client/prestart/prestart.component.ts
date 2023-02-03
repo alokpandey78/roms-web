@@ -142,8 +142,10 @@ export class PrestartComponent implements OnInit, OnChanges {
     // this.dataSource = new MatTableDataSource(users);
   }
 
-  approveRejectBilling(event:any, row: any){
+  checkBoxEnableIndex:any;
+  approveRejectBilling(event:any, row: any,index:any){
     this.dialogData = row;
+    this.checkBoxEnableIndex=index;
     this.openDialog();
   }
 
@@ -160,12 +162,12 @@ export class PrestartComponent implements OnInit, OnChanges {
   }
 
   approveRejectDemand(id:any) {
+    
     this.cancel();
     this.router.navigate(['/report/prestart'], { queryParams: { id:id} });
   }
 
   cancel(){
-    
     this.dialog.closeAll();
   }
   
