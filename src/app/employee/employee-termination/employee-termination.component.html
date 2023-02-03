@@ -1,0 +1,135 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="27%" fxFlex="100">
+    <mat-card class="m-t-0 ">
+      <mat-card-content>
+        <div fxLayout="row wrap" class="row">
+          <div fxFlex.gt-sm="100%" fxFlex="100" class="text-center">
+            <a href="javascript:void(0);"
+              ><img src="assets/img/user-default-img.jpg" style="max-height: 250px; width: auto" />
+              <!-- <mat-icon class="icon-style">edit</mat-icon> -->
+            </a>
+          </div>
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <h3 class="text-center m-0">
+              <b>Robert Sheppard</b>
+            </h3>
+            <h4 class="text-center m-0 m-t-10 m-b-10">Transport Manager</h4>
+          </div>
+          <div fxFlex.gt-sm="100" fxFlex="100">
+            <mat-form-field appearance="outline">
+              <mat-label>RTL ID :</mat-label>
+              <input matInput [value]="8977" placeholder="RTL ID" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Registration/Start Date :</mat-label>
+              <input matInput value="------"  placeholder="Registration/Start Date" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Manager :</mat-label>
+              <input matInput value="------" placeholder="Manager" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Employee Role :</mat-label>
+              <input matInput value="------" placeholder="Employee Role" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Department :</mat-label>
+              <input matInput value="------" placeholder="Department" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Wage Classification :</mat-label>
+              <input matInput value="------" placeholder="Wage Classification" />
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="73%" fxFlex="100">
+    <div fxLayout="row wrap" style="justify-content: center">
+     
+      <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card class="m-t-0 m-l-0 m-r-0">
+          <mat-card-content>
+            <div fxLayout="row wrap" class="row">
+              <h3 class="color_blue m-0"><b>Terminate</b></h3>
+
+              <div fxFlex.gt-sm="100%" fxFlex="100">
+                <div fxFlex.gt-sm="45" fxFlex="100" class="p-10">
+                  <!-- <mat-form-field appearance="outline">
+                    <mat-label>Salut :</mat-label>
+                    <input matInput placeholder="Salut" />
+                  </mat-form-field> -->
+                  <mat-form-field appearance="outline">
+                    <input
+                      matInput
+                      [matDatepicker]="endDateDP"
+                      placeholder="Effective Date"
+                      name="endDate"
+                      
+                    />
+                    <mat-datepicker-toggle matSuffix [for]="endDateDP"></mat-datepicker-toggle>
+                    <mat-datepicker #endDateDP></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="55" fxFlex="100" class="p-10">
+                  <button class="button date-btn-default" mat-raised-button>Today</button>
+                  <button class="button date-btn-default" mat-raised-button>Tomorrow</button>
+                  <button class="button date-btn-default" mat-raised-button>Next Monday</button>
+                </div>
+              </div>
+
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <quill-editor
+                  formControlName="description"
+                  description
+                  placeholder="Enter Description"
+                  rows="2"
+                >
+                </quill-editor>
+                
+                <!-- <mat-form-field appearance="outline" class="m-t-10 p-r-10">
+                <mat-label>Reason</mat-label>
+                <textarea matInput placeholder="Enter Reason" rows="3"></textarea>
+              </mat-form-field> -->
+                
+              </div>
+              <div
+                fxFlex.gt-sm="100%"
+                fxFlex="100"
+                class="m-t-30 m-b-30 text-center"
+                style="justify-content: center"
+              >
+                <button mat-flat-button color="warn" (click)="onClick()">Terminate</button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #terminateDialog>
+  <div fxLayout="column wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
+      <p class="color_blue" align="center"><b>You Sure Want To Terminate Employee</b></p>
+      <p align="center">Robbert Sheppard</p>
+      <div fxLayout="column wrap">
+        <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
+          <button
+            class="m-b-20 m-t-20 button w-100"
+            mat-raised-button
+            color="primary"
+            (click)="approve()"
+          >
+            Yes
+          </button>
+          <button class="m-t-15 button w-100" mat-raised-button color="primary" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
