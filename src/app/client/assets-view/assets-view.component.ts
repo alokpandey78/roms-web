@@ -19,21 +19,22 @@ import { CustomMessage } from 'src/app/custom-message';
   styleUrls: ['./assets-view.component.scss']
 })
 export class AssetsViewComponent implements OnInit {
-  dialog:any;
   submitted: boolean = false;
   selectedRecord: any = {};
   id : string = '';
   assetDetails : any = {};
+  qrCodeDownloadLink:any;
   isEditEnable: boolean = false;
   generatedCode: boolean = false;
   assetNo: string = '';
   globals: Globals;
   selectedFile: string = '';
   attachmentFile: any;
+  @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
   // @ViewChild('employeeDetailDialog') employeeDetailDialog!: TemplateRef<any>;
   form: FormGroup;
  
-  constructor(globals: Globals, private fb: FormBuilder, private alertService: AlertService, public util: Utils, private leaveService: LeaveService,private activatedRoute: ActivatedRoute, private authService: AuthenticationService, private assetsService: AssetsService, private router: Router)
+  constructor(private dialog: MatDialog,globals: Globals, private fb: FormBuilder, private alertService: AlertService, public util: Utils, private leaveService: LeaveService,private activatedRoute: ActivatedRoute, private authService: AuthenticationService, private assetsService: AssetsService, private router: Router)
   {
     this.globals = globals;
     this.form = this.fb.group({
@@ -98,6 +99,41 @@ export class AssetsViewComponent implements OnInit {
           });
           console.log('Assets Details:',this.assetDetails);
         });
+  }
+
+  onChangeURL(event:any){
+    this.qrCodeDownloadLink = event;
+  }
+
+  printqrcode(){
+    const w = window.open();
+if (w) {
+  w.document.write('<img src="' + this.qrCodeDownloadLink.changingThisBreaksApplicationSecurity + '" onload="window.print();window.close()" />');
+    w.focus(); // okay now
+}
+ 
+  }
+
+  openImage(){
+    this.openDialog();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.confirmationDialog, {
+      width: '32em',
+      height: '22em',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      console.log('The dialog was closed');
+    });
+  }
+
+
+  cancel(){
+    
+    this.dialog.closeAll();
   }
 
   get f() {

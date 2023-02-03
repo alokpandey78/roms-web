@@ -311,7 +311,8 @@ export class AssetsListComponent implements OnInit, OnChanges {
 
 
   applyFilter(isTextSearch: boolean = false): void {
-    console.log("getAllAssetList");
+    this.paginator.pageIndex=0;
+    this.paginator.pageSize=10;
     this.getAllAssetList();
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace

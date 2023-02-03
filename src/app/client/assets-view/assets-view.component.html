@@ -194,15 +194,17 @@
             </div>
             <div fxFlex.gt-sm="15" fxFlex="100" class="text-center p-b-10 p-t-10">
               <mat-label>QR Code</mat-label>
-              <div class="m-t-10">
+              <div class="m-t-10" class="qrcode">
                 <div *ngIf="generatedCode">
                   <qrcode
+                  (qrCodeURL)="onChangeURL($event)"
                     [imageSrc]="'./assets/img/favicon.png'"
                     [imageHeight]="40"
                     [imageWidth]="40"
                     [qrdata]="f.assetNo!.value"
                     style="max-height: 110px; width: auto"
                     [errorCorrectionLevel]="'M'"
+                    (click)="openImage()"
                   >
                   </qrcode>
 
@@ -460,3 +462,33 @@
     </div>
   </mat-card-content>
 </mat-card>
+
+<ng-template #confirmationDialog>
+  <h6 mat-dialog-title align="center" class="color_blue" style="font-size: 15px; margin-bottom: 0">
+   QRCODE IMAGE
+  </h6>
+  <div fxLayout="column wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
+
+      <img id="component1" [src]="qrCodeDownloadLink" >
+      <button
+        class="m-b-20 m-t-20 button w-100"
+        mat-raised-button
+        color="primary"
+        (click)="printqrcode()"
+      >
+        Print
+      </button>
+
+      <button
+      class=" m-t-15 button w-100"
+      mat-raised-button
+      color="primary"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+      
+    </div>
+  </div>
+</ng-template>
