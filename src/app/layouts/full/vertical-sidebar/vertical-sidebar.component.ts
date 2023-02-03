@@ -331,6 +331,12 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
         if (this.userPermissions.operations && this.userPermissions.operations.length > 0) {
           let subMenu = [];     
           subMenu.push({
+            state: '/client/hazard',
+            name: 'Hazard',
+            type: 'link',
+            icon: 'account_box',
+          });
+          subMenu.push({
             state: '/client/client-list',
             name: 'Client',
             type: 'link',
