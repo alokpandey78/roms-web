@@ -51,6 +51,10 @@ export class AssetsService {
     return this.http.get<any>(`${environment.apiUrl}/v1/assets/${id}`);
   }
 
+  processStatus(data: any) {
+    return this.http.post<any>(`${environment.apiUrl}/v1/prestart/process`, data);
+  }
+
   getPrestartList(options: ViewOptions) {
     return this.http.get<any>(`${environment.apiUrl}/v1/prestart?page=${options.page}&size=${options.pageSize}&${options.query}`,);
   }

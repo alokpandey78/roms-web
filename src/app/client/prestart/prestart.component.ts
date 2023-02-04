@@ -142,6 +142,7 @@ export class PrestartComponent implements OnInit, OnChanges {
     // this.dataSource = new MatTableDataSource(users);
   }
 
+
   approveRejectBilling(event:any, row: any){
     this.dialogData = row;
     this.openDialog();
@@ -161,11 +162,16 @@ export class PrestartComponent implements OnInit, OnChanges {
 
   approveRejectDemand(id:any) {
     this.cancel();
-    this.router.navigate(['/report/prestart'], { queryParams: { id:id} });
+    this.assetsService.processStatus({id:this.dialogData.id,"processStatus": true}).subscribe((result: any) => {
+        if(result.status=='success'){
+          const findIndexKey=this.dataSource.data.findIndex(data=>data.id==this.dialogData.id);
+          if(findIndexKey>-1)
+          this.dataSource.data[findIndexKey].processFlag=true;
+        }
+    });
   }
 
   cancel(){
-    
     this.dialog.closeAll();
   }
   
@@ -293,8 +299,14 @@ export class PrestartComponent implements OnInit, OnChanges {
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
+    let startDate = this.startDate
+      ? moment(new Date(this.startDate).toUTCString()).format('DD/MM/yyyy HH:mm:ss')
+      : '';
+    let endDate = this.endDate
+      ? moment(new Date(this.endDate).toUTCString()).format('DD/MM/yyyy HH:mm:ss')
+      : '';
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-    let query ='class='.concat(this.selectedAssetClassId).concat("&type=") .concat(this.selectedAssetTypeId).concat("&defect=") .concat(this.selectedDefectsId).concat("&location=") .concat(this.selectedLocationsId);
+    let query ='assetClass='.concat(this.selectedAssetClassId).concat("&assetType=") .concat(this.selectedAssetTypeId).concat("&defectType=") .concat(this.selectedDefectsId).concat("&assetLocation=") .concat(this.selectedLocationsId).concat("&fromDate=") .concat(startDate).concat("&toDate=") .concat(endDate);
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'fullName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
@@ -346,7 +358,8 @@ export class PrestartComponent implements OnInit, OnChanges {
   // }
 
   applyFilter(isTextSearch: boolean = false): void {
-    console.log("getAllAssetList");
+    this.paginator.pageIndex=0;
+    this.paginator.pageSize=10;
     this.getAllPrestartList(false);
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace

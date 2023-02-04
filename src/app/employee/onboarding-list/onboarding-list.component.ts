@@ -291,7 +291,8 @@ export class OnboardingListComponent implements OnInit, OnChanges {
   }
 
   applyFilter(isTextSearch: boolean = false): void {
-    // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
+    this.paginator.pageIndex=0;
+    this.paginator.pageSize=10;
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
     if (isTextSearch) {
