@@ -39,9 +39,7 @@ export class HazardComponent implements OnInit {
     'reportedBy',
     'rectifyOn',
     'by',
-
-    
-    
+    'supervisor',
   ];
   
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
