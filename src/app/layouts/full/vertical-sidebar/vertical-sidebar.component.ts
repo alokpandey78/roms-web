@@ -318,6 +318,29 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
             badge: [{ type: 'warning', value: 'new' }],
           });
         }
+        
+      }
+      if (this.userPermissions.reports && this.userPermissions.reports.length > 0) {
+        if (this.userPermissions.operations && this.userPermissions.operations.length > 0) {
+          let subMenu = [];
+          
+          subMenu.push({
+            state: '/client/hazard',
+            name: 'Hazard',
+            type: 'link',
+            icon: 'commute',
+          });        
+          menuItem.push({
+            state: 'operation',
+            name: 'Safety',
+            type: 'sub',
+            icon: 'security',
+            children: subMenu,
+            badge: [{ type: 'warning', value: 'new' }],
+          });
+          
+        }
+        
       }
 
       menuItem.push({
@@ -330,12 +353,12 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
       if (this.userPermissions.reports && this.userPermissions.reports.length > 0) {
         if (this.userPermissions.operations && this.userPermissions.operations.length > 0) {
           let subMenu = [];     
-          subMenu.push({
-            state: '/client/hazard',
-            name: 'Hazard',
-            type: 'link',
-            icon: 'account_box',
-          });
+          // subMenu.push({
+          //   state: '/client/hazard',
+          //   name: 'Hazard',
+          //   type: 'link',
+          //   icon: 'account_box',
+          // });
           subMenu.push({
             state: '/client/client-list',
             name: 'Client',
