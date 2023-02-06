@@ -182,6 +182,7 @@
                 *matRowDef="let element; columns: displayedColumns"
                 class="example-element-row"
                 style="vertical-align: top"
+                [routerLink]="['/report/hazard']"
                 [ngClass]="{ 'selected-row': selectedId == element.id }"
               ></tr>
               <tr class="mat-row" *matNoDataRow>

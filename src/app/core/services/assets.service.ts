@@ -65,4 +65,8 @@ export class AssetsService {
   getAttandanceList(options: ViewOptions) {
     return this.http.get<any>(`${environment.apiUrl}/v1/employee/attendance?page=0&size=100&${options.query}`,);
   }
+
+  getHazardList(options: ViewOptions) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=0&size=10&${options.query}`,);
+  }
 }

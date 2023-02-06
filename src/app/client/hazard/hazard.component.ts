@@ -41,12 +41,44 @@ export class HazardComponent implements OnInit {
     'by',
     'supervisor',
   ];
-  
+  pageNo = 0;
+  pageSize = 10;
+  totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
+  @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  constructor() { }
+  constructor(private assetsService: AssetsService) { }
 
   ngOnInit(): void {
+    this.getAllHazardList();
   }
 
+
+  getAllHazardList() {
+    this.assetsService.getHazardList(this.getDefaultOptions()).subscribe((result: any) => {
+      this.dataSource.data = result.data;
+      this.totalRecords=result.totalElement;
+    });
+  }
+  getDefaultOptions() {
+    let obj = this.paginator;
+    let sort = this.sort;
+    let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
+   let query ='class';
+    const options: ViewOptions = {
+      sortField: sort !== undefined ? sort.active : 'convertedRegistrationDate',
+      sortDirection: sort !== undefined ? sort.direction : 'desc',
+      // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
+      page: pageSize - 1,
+      search: '',
+      query: query,
+      pageSize:
+        obj != undefined ? (obj.pageSize == null ? this.pageSize : obj.pageSize) : this.pageSize,
+    };
+    return options;
+  }
 }
