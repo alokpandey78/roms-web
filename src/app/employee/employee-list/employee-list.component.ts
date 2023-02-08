@@ -71,6 +71,7 @@ export class EmployeeListComponent implements OnInit, OnChanges {
   // departmentId: any = '';
   // employeeType: any = '';
   // employeeTypeList: any = [];
+  employmentStatus: string = 'wfm';
   paymentFrequency: string = 'wfm';
   paymentFrequencyList: any = [];
   // removedRows: any = [];
@@ -211,7 +212,7 @@ export class EmployeeListComponent implements OnInit, OnChanges {
 
     let payload = {
       searchText: `${this.search}`,
-      frequency: `${this.paymentFrequency}`
+      frequency: `${this.paymentFrequency}`,
     }
 
     this.employeeService

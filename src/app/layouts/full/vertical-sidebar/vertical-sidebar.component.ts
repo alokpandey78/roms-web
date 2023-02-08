@@ -315,7 +315,7 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
             type: 'sub',
             icon: 'commute',
             children: subMenu,
-            badge: [{ type: 'warning', value: 'new' }],
+            // badge: [{ type: 'warning', value: 'new' }],
           });
         }
         

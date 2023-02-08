@@ -40,7 +40,7 @@ export class HazardComponent implements OnInit, OnChanges {
     'location',
     'reportedBy',
     'rectifyOn',
-    'by',
+    // 'by',
     'supervisor',
 
   ];
