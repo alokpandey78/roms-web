@@ -1,5 +1,11 @@
 import { Component, OnInit,TemplateRef, ViewChild  } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { AlertService, EmployeeService, JobService } from 'src/app/core/services';
+import * as moment from 'moment';
+
+import { CustomMessage } from 'src/app/custom-message';
 
 @Component({
   selector: 'app-employee-termination',
@@ -9,19 +15,91 @@ import { MatDialog } from '@angular/material/dialog';
 export class EmployeeTerminationComponent implements OnInit {
   
   @ViewChild('terminateDialog,') terminateDialog!: TemplateRef<any>;
+  form: FormGroup;
   submitted: boolean = false;
+  dateStartAt = new Date();
+  selectedButton = 0;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,private fb: FormBuilder,private authService: AuthenticationService,private alertService: AlertService, ) {
+    this.form = this.fb.group({
+      employeeId: new FormControl('', [Validators.required]),
+      effectiveDate: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      
+    });
+   }
 
   ngOnInit(): void {
   }
+  
+  setNow(){
+    // console.log('Inside today');
+    this.dateStartAt = new Date();
+    this.form.controls.effectiveDate.setValue(this.dateStartAt);
+    this.selectedButton = 0;
+  }
+  // setToday(){
+  //   // console.log('Inside today');
+  //   this.dateStartAt = new Date();
+  //   this.form.controls.propsedStartDate.setValue(this.dateStartAt);
+  //   this.selectedButton = 1;
+  // }
 
-  onClick() {
-    this.submitted = true;
-    this.openDialog({});
+  setTomorrow(){
+    this.dateStartAt = new Date(new Date().setDate(new Date().getDate() + 1));
+    this.form.controls.effectiveDate.setValue(this.dateStartAt);
+    this.selectedButton = 2;
   }
 
+  setNextMonday(){
+    this.dateStartAt = new Date();
+    this.dateStartAt.setDate(this.dateStartAt.getDate() + (((1 + 7 - this.dateStartAt.getDay()) % 7) || 7));
+    this.form.controls.effectiveDate.setValue(this.dateStartAt);
+    this.selectedButton = 3;
+  }
+  get f() {
+    return this.form.controls;
+  }
 
+  public checkError = (controlName: string, errorName: string) => {
+    return this.form.controls[controlName].hasError(errorName);
+  };
+
+  // onClick() {
+  //   this.submitted = true;
+  //   this.openDialog({});
+  // }
+  onSubmit() {
+    this.submitted = true;
+    // console.log('Client:',this.form.controls.description);
+    // this.openDialog({});
+
+    if (this.form.invalid) {
+      this.alertService.openSnackBar(CustomMessage.invalidForm);
+      return;
+    }
+    else{
+
+      let payload = {
+        "employeeId" : this.form.controls.employeeId.value,
+        // "demandType" : this.form.controls.demandType.value,
+        // "profileRole" : this.form.controls.demandTitle.value,
+        "effectiveDate" : moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'),
+        "description" : this.form.controls.description.value,
+        
+      }
+      alert("payload");
+
+      console.log('Payload:',JSON.stringify(payload));
+      this.authService.terminateEmployee(JSON.stringify(payload)).subscribe((result) => {
+        console.log('Demad return:',result);
+        // this.dialogData = result;
+        // this.resetForm();
+        // this.openDialog();
+        this.openDialog({});
+      });
+    }
+  }
   openDialog(data: any) {
     const dialogRef = this.dialog.open(this.terminateDialog, {
       width: '30em',

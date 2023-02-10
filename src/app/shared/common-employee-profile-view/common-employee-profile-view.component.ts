@@ -19,6 +19,7 @@ export class CommonEmployeeProfileViewComponent implements OnInit, OnChanges {
     @ViewChild('passwordDialog') passwordDialog!: TemplateRef<any>;
     newPassword: string = '';
     baseUrl: string = environment.apiUrl;
+    id : string = ''; 
 
     constructor(private alertService: AlertService, private employeeService: EmployeeService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
 
@@ -154,5 +155,9 @@ export class CommonEmployeeProfileViewComponent implements OnInit, OnChanges {
 
 
     }
+    terminateEmployee() {
+        let dId = this.id;
+        this.router.navigate(['/employee/termination'], { queryParams: { dId } });
+      }
 
 }
