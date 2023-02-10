@@ -6,6 +6,7 @@ import { AlertService, EmployeeService, JobService } from 'src/app/core/services
 import * as moment from 'moment';
 
 import { CustomMessage } from 'src/app/custom-message';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-employee-termination',
@@ -17,21 +18,26 @@ export class EmployeeTerminationComponent implements OnInit {
   @ViewChild('terminateDialog,') terminateDialog!: TemplateRef<any>;
   form: FormGroup;
   submitted: boolean = false;
+  employeId : any;
   dateStartAt = new Date();
   selectedButton = 0;
 
-  constructor(private dialog: MatDialog,private fb: FormBuilder,private authService: AuthenticationService,private alertService: AlertService, ) {
+  constructor(private dialog: MatDialog,private fb: FormBuilder,private authService: AuthenticationService,private alertService: AlertService,private route: ActivatedRoute ) {
     this.form = this.fb.group({
       // employeeId: new FormControl('', [Validators.required]),
+
       effectiveDate: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      
+
     });
    }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(param=>{ this.employeId =param.id})
+
+
   }
-  
+
   setNow(){
     // console.log('Inside today');
     this.dateStartAt = new Date();
@@ -80,24 +86,21 @@ export class EmployeeTerminationComponent implements OnInit {
       return;
     }
     else{
-      
+
       let payload = {
-        // "employeeId" : this.form.controls.employeeId.value,
+         "employeeId" : this.employeId,
         // "demandType" : this.form.controls.demandType.value,
         // "profileRole" : this.form.controls.demandTitle.value,
         "effectiveDate" : moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'),
         "description" : this.form.controls.description.value,
-        
+
       }
       alert(payload);
       console.log('Payload:',JSON.stringify(payload));
       this.authService.terminateEmployee(JSON.stringify(payload)).subscribe((result) => {
         console.log('Demad return:',result);
-        // this.dialogData = result;
-        // this.resetForm();
-        // this.openDialog();
-        this.openDialog({});
-        
+        this.alertService.openSnackBar(CustomMessage.employeeTerminated,false);
+
       });
     }
   }
@@ -109,7 +112,7 @@ export class EmployeeTerminationComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      
+
     });
   }
   cancel(){
