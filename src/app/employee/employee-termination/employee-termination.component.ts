@@ -1,4 +1,4 @@
-import { Component, OnInit,TemplateRef, ViewChild  } from '@angular/core';
+import { Component, OnInit,TemplateRef, ViewChild ,Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
@@ -13,7 +13,7 @@ import { CustomMessage } from 'src/app/custom-message';
   styleUrls: ['./employee-termination.component.scss']
 })
 export class EmployeeTerminationComponent implements OnInit {
-  
+  @Input() record: any;
   @ViewChild('terminateDialog,') terminateDialog!: TemplateRef<any>;
   form: FormGroup;
   submitted: boolean = false;
@@ -22,7 +22,7 @@ export class EmployeeTerminationComponent implements OnInit {
 
   constructor(private dialog: MatDialog,private fb: FormBuilder,private authService: AuthenticationService,private alertService: AlertService, ) {
     this.form = this.fb.group({
-      employeeId: new FormControl('', [Validators.required]),
+      // employeeId: new FormControl('', [Validators.required]),
       effectiveDate: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       
@@ -70,6 +70,7 @@ export class EmployeeTerminationComponent implements OnInit {
   //   this.openDialog({});
   // }
   onSubmit() {
+    // alert('hii');
     this.submitted = true;
     // console.log('Client:',this.form.controls.description);
     // this.openDialog({});
@@ -79,17 +80,16 @@ export class EmployeeTerminationComponent implements OnInit {
       return;
     }
     else{
-
+      
       let payload = {
-        "employeeId" : this.form.controls.employeeId.value,
+        // "employeeId" : this.form.controls.employeeId.value,
         // "demandType" : this.form.controls.demandType.value,
         // "profileRole" : this.form.controls.demandTitle.value,
         "effectiveDate" : moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'),
         "description" : this.form.controls.description.value,
         
       }
-      alert("payload");
-
+      alert(payload);
       console.log('Payload:',JSON.stringify(payload));
       this.authService.terminateEmployee(JSON.stringify(payload)).subscribe((result) => {
         console.log('Demad return:',result);
@@ -97,6 +97,7 @@ export class EmployeeTerminationComponent implements OnInit {
         // this.resetForm();
         // this.openDialog();
         this.openDialog({});
+        
       });
     }
   }
