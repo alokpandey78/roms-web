@@ -95,7 +95,7 @@ export class EmployeeTerminationComponent implements OnInit {
         "description" : this.form.controls.description.value,
 
       }
-      alert(payload);
+      // alert(payload);
       console.log('Payload:',JSON.stringify(payload));
       this.authService.terminateEmployee(JSON.stringify(payload)).subscribe((result) => {
         console.log('Demad return:',result);

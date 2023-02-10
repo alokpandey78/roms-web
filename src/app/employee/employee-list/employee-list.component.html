@@ -30,11 +30,11 @@
               <div fxFlex.gt-sm="5" class="p-r-10" fxFlex="100"></div>
               <div fxFlex.gt-sm="30" class="p-r-10" fxFlex="100">
                 <mat-form-field>
-                  <mat-select (selectionChange)="applyFilter()" [(ngModel)]="employmentStatus"  placeholder="Employment Status">
-                    <mat-option value="wfm">All</mat-option>
-                    <mat-option value="a">Active</mat-option>
-                    <mat-option value="t">Terminated</mat-option>
-                    <mat-option value="r">Resigned</mat-option>
+                  <mat-select (selectionChange)="applyFilter()" [(ngModel)]="empStatus"  placeholder="Employment Status">
+                    <mat-option value="0">All</mat-option>
+                    <!-- <mat-option value="0">Active</mat-option> -->
+                    <mat-option value="1">Terminated</mat-option>
+                    <mat-option value="2">Resigned</mat-option>
                     
                   </mat-select>
                 </mat-form-field>
