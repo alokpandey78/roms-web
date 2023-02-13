@@ -120,8 +120,8 @@ if (w) {
 
   openDialog() {
     const dialogRef = this.dialog.open(this.confirmationDialog, {
-      width: '32em',
-      height: '22em',
+      width: '30em',
+      height: '30em',
       disableClose: true
     });
     dialogRef.afterClosed().subscribe((result: any) => {

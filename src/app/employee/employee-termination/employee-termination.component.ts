@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { AlertService, EmployeeService, JobService } from 'src/app/core/services';
 import * as moment from 'moment';
-
 import { CustomMessage } from 'src/app/custom-message';
 import {ActivatedRoute} from "@angular/router";
 
