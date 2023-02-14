@@ -157,9 +157,9 @@ export class CommonEmployeeProfileViewComponent implements OnInit, OnChanges {
     }
     terminateEmployee(id:any) {
         // let dId = this.id;
-        alert(id);
+        // alert(id);
         this.router.navigate(['/employee/termination'], { queryParams: { id } });
-        alert(id);
+        // alert(id);
       }
 
 }
