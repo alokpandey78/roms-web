@@ -220,9 +220,9 @@
     </mat-card>
   </div>
 </div>
-<div fxLayout="row wrap">
+<div  fxLayout="row wrap" >
   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-    <mat-card>
+    <mat-card *ngIf="record.employeeStatus > 0">
       <!-- <mat-card-content> -->
         <div fxFlex.gt-sm="25"class="m-l-20" fxFlex="20">
           <h3><b>Employment Status</b></h3>
@@ -231,7 +231,7 @@
           <p><mat-icon>thumb_up</mat-icon>Active</p>
         </div>
         <div fxFlex.gt-sm="40" class=" m-t-20 m-r-30" fxFlex="40" align="end" >
-          <button (click)="terminateEmployee(record.id)" mat-flat-button color="warn">Terminate</button>
+          <button (click)="terminateEmployee(record.employeeStatus)"  mat-flat-button color="warn">Terminate</button>
         </div>
       <!-- </mat-card-content> -->
     </mat-card>
