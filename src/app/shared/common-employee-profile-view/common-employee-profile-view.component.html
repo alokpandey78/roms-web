@@ -220,19 +220,55 @@
     </mat-card>
   </div>
 </div>
-<div fxLayout="row wrap">
+<div  fxLayout="row wrap" >
   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-    <mat-card>
+    <mat-card *ngIf="record.employeeStatus == 0">
       <!-- <mat-card-content> -->
-        <div fxFlex.gt-sm="25"class="m-l-10" fxFlex="20">
+        <div fxFlex.gt-sm="25"class="m-l-20" fxFlex="20">
           <h3><b>Employment Status</b></h3>
         </div>
-        <div fxFlex.gt-sm="35" class="icon-label m-t-5" fxFlex="40">
+        <div fxFlex.gt-sm="35" class="icon-label icon-label1 m-t-5" fxFlex="40">
           <p><mat-icon>thumb_up</mat-icon>Active</p>
         </div>
         <div fxFlex.gt-sm="40" class=" m-t-20 m-r-30" fxFlex="40" align="end" >
-          <button mat-flat-button color="warn">Terminate</button>
+          <button (click)="terminateEmployee(record.employeeStatus)"  mat-flat-button color="warn">Terminate</button>
         </div>
+      <!-- </mat-card-content> -->
+    </mat-card>
+    
+  </div>
+</div>
+<div  fxLayout="row wrap" >
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card *ngIf="record.employeeStatus == 1">
+      <!-- <mat-card-content> -->
+        <div fxFlex.gt-sm="25"class="m-l-20" fxFlex="20">
+          <h3><b>Employment Status</b></h3>
+        </div>
+        <div fxFlex.gt-sm="35" class="icon-label icon-label2 m-t-5" fxFlex="40">
+          <p><mat-icon>thumb_down</mat-icon>Terminated</p>
+        </div>
+        <!-- <div fxFlex.gt-sm="40" class=" m-t-20 m-r-30" fxFlex="40" align="end" >
+          <button (click)="terminateEmployee(record.employeeStatus)"  mat-flat-button color="warn">Terminate</button>
+        </div> -->
+      <!-- </mat-card-content> -->
+    </mat-card>
+    
+  </div>
+</div>
+<div  fxLayout="row wrap" >
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card *ngIf="record.employeeStatus == 2">
+      <!-- <mat-card-content> -->
+        <div fxFlex.gt-sm="25"class="m-l-20" fxFlex="20">
+          <h3><b>Employment Status</b></h3>
+        </div>
+        <div fxFlex.gt-sm="35" class="icon-label icon-label3 m-t-5" fxFlex="40">
+          <p><mat-icon>thumb_down</mat-icon>Resigned</p>
+        </div>
+        <!-- <div fxFlex.gt-sm="40" class=" m-t-20 m-r-30" fxFlex="40" align="end" >
+          <button (click)="terminateEmployee(record.employeeStatus)"  mat-flat-button color="warn">Terminate</button>
+        </div> -->
       <!-- </mat-card-content> -->
     </mat-card>
     

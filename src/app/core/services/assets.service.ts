@@ -51,8 +51,12 @@ export class AssetsService {
     return this.http.get<any>(`${environment.apiUrl}/v1/assets/${id}`);
   }
 
+  processStatus(data: any) {
+    return this.http.post<any>(`${environment.apiUrl}/v1/prestart/process`, data);
+  }
+
   getPrestartList(options: ViewOptions) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/prestart`,);
+    return this.http.get<any>(`${environment.apiUrl}/v1/prestart?page=${options.page}&size=${options.pageSize}&${options.query}`,);
   }
   getPrestartDetails(id: string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/prestart/${id}`);
@@ -60,5 +64,9 @@ export class AssetsService {
 
   getAttandanceList(options: ViewOptions) {
     return this.http.get<any>(`${environment.apiUrl}/v1/employee/attendance?page=0&size=100&${options.query}`,);
+  }
+
+  getHazardList(options: ViewOptions) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=0&size=100&${options.query}`,);
   }
 }

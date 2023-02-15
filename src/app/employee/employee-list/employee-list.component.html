@@ -7,14 +7,15 @@
         <mat-card-content class="p-custom">
           <div class="m-l-10 m-r-10">
             <div fxLayout="row wrap" fxFlexAlign="center" class="row">
-              <div fxFlex.gt-sm="40" class="p-r-10" fxFlex="100">
+              <div fxFlex.gt-sm="30" class="p-r-10" fxFlex="100">
                 <mat-form-field>
                   <input matInput (keyup)="applyFilter(true)" [(ngModel)]="search" placeholder="Filter" />
                   <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
               </div>
-              <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100"></div>
-              <div fxFlex.gt-sm="40" class="p-r-10" fxFlex="100">
+              <div fxFlex.gt-sm="5" class="p-r-10" fxFlex="100"></div>
+              
+              <div fxFlex.gt-sm="30" class="p-r-10" fxFlex="100">
                 <mat-form-field>
                   <mat-select (selectionChange)="applyFilter()" [(ngModel)]="paymentFrequency"  placeholder="Payment Frequency">
                     <mat-option value="wfm">All</mat-option>
@@ -22,6 +23,18 @@
                     <mat-option value="w">Weekly</mat-option>
                     <mat-option value="f">Fortnightly</mat-option>
                     <mat-option value="m">Monthly</mat-option>
+                    
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="5" class="p-r-10" fxFlex="100"></div>
+              <div fxFlex.gt-sm="30" class="p-r-10" fxFlex="100">
+                <mat-form-field>
+                  <mat-select (selectionChange)="applyFilter()" [(ngModel)]="empStatus"  placeholder="Employment Status">
+                    <mat-option value="0">All</mat-option>
+                    <!-- <mat-option value="0">Active</mat-option> -->
+                    <mat-option value="1">Terminated</mat-option>
+                    <mat-option value="2">Resigned</mat-option>
                     
                   </mat-select>
                 </mat-form-field>
@@ -60,7 +73,7 @@
       <mat-card class="m-0 m-t-5 m-b-5">
         <mat-card-content>
           <div class="table-responsive infinite-scroll">
-            <mat-table #table [dataSource]="dataSource" class="table employee-list no-wrap" matSort>
+            <mat-table #table [dataSource]="dataSource" (scroll)="onTableScroll($event)" class="table employee-list no-wrap" matSort>
 
               <!-- Name Column -->
               <ng-container matColumnDef="employeeNo">
@@ -155,9 +168,9 @@
               </tr>
             </mat-table>
 
-            <mat-paginator [length]="totalRecords" [pageIndex]="pageNo" [pageSizeOptions]="[5, 10, 20]"
+            <!-- <mat-paginator [length]="totalRecords" [pageIndex]="pageNo" [pageSizeOptions]="[5, 10, 20]"
               [pageSize]="pageSize" aria-label="Select page">
-            </mat-paginator>
+            </mat-paginator> -->
           </div>
         </mat-card-content>
       </mat-card>

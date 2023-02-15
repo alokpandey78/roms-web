@@ -22,11 +22,11 @@
   .selected-row {
     background-color: lavender !important;
   }
-  .list-Img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-  }
+  // .list-Img {
+  //   width: 40px;
+  //   height: 40px;
+  //   border-radius: 50px;
+  // }
   .Asset-Img{
     width: 50px;
     height: 40px;
@@ -46,6 +46,12 @@
   height: 40px;
   border-radius: 50px;
 }
+.hazard-Img {
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    // border-radius: 50px;
+  }
 .popup-head {
   width: 100%;
   display: flex;
@@ -90,6 +96,11 @@
   max-height: 500px;
   min-width: 300px;
 }
+
+.infinite-scroll .mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
 .redColor{
   color:red;
 }
@@ -99,10 +110,5 @@
 
 .greencolor{
   color:green;
-}
-
-.infinite-scroll .mat-table {
-  overflow: auto;
-  max-height: 500px;
 }
   

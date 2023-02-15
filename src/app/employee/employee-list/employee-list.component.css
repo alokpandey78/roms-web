@@ -40,3 +40,16 @@
 .p-custom{
   padding: 10px 24px 5px !important;
 }
+
+.infinite-scroll {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.infinite-scroll .mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+

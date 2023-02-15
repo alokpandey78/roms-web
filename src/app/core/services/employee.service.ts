@@ -94,7 +94,7 @@ export class EmployeeService {
         return this.http.post<any>(`${environment.apiUrl}/v1/jobs/resource/demand/recommend`, param);
     }
     getEmployeeList(options: ViewOptions, payload: any){
-        return this.http.get<any>(`${environment.apiUrl}/v1/employee/load?page=${options.page}&size=${options.pageSize}&empName=${payload.searchText}&payfrequency=${payload.frequency}`);
+        return this.http.get<any>(`${environment.apiUrl}/v1/employee/load?page=${options.page}&size=${options.pageSize}&empName=${payload.searchText}&payfrequency=${payload.frequency}&empStatus=${payload.empStatus}`);
     }
 
 }

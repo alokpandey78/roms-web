@@ -314,6 +314,9 @@ export class AuthenticationService {
   createDemand(data: any) {
     return this.http.post<any>(`${environment.apiUrl}/v1/jobs/resource/demand`, data);
   }
+  terminateEmployee(data: any) {
+    return this.http.post<any>(`${environment.apiUrl}/v1/employee/terminate`, data);
+  }
 
   
 }

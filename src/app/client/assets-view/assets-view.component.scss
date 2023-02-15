@@ -1,6 +1,9 @@
 .asset-img {
     position: relative;
   }
+  .qrcode{
+    cursor: pointer;
+  }
   .asset-img mat-icon {
     position: absolute;
     background: #fff;
@@ -11,4 +14,7 @@
     z-index: 111;
     right: 10%;
     top: -10%;
+  }
+  .qr-img {
+    position: relative;
   }

@@ -1,6 +1,6 @@
+import { Component, OnInit } from '@angular/core';
 
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { OnChanges, SimpleChanges } from '@angular/core';
+import {  OnChanges, SimpleChanges } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DatePipe } from '@angular/common';
@@ -11,36 +11,37 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
-import { AlertService, AssetsService, EmployeeService ,} from 'src/app/core/services';
+import { AlertService,AssetsService, EmployeeService } from 'src/app/core/services';
 import { LeaveService } from 'src/app/core/services/leave.service';
 import { Utils } from 'src/app/core/_helpers/util';
 import { Globals } from 'src/app/globals';
 import { ViewOptions } from 'src/app/_models';
 import { saveAs } from 'file-saver';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { element } from 'protractor';
-import { MatDialog } from '@angular/material/dialog';
-import { B } from '@angular/cdk/keycodes';
 
 @Component({
-  selector: 'app-assets-list',
-  templateUrl: './assets-list.component.html',
-  styleUrls: ['./assets-list.component.scss']
+  selector: 'app-hazard',
+  templateUrl: './hazard.component.html',
+  styleUrls: ['./hazard.component.scss']
 })
-export class AssetsListComponent implements OnInit, OnChanges {
+export class HazardComponent implements OnInit, OnChanges {
   globals: Globals;
   submitted: boolean = false;
   displayedColumns: string[] = [
-    'assetNo',
-    'assetName',
-    'type',
-    'make',
-    'model',
-    'class',
+    'select',
+    'icon',
+    'date',
+    'no',
+    'hazard',
+    'category',
     'location',
-    'ownership',
-    'status'
+    'reportedBy',
+    'rectifyOn',
+    // 'by',
+    'supervisor',
 
   ];
   // @ViewChild('employeeDetailDialog') employeeDetailDialog!: TemplateRef<any>;
@@ -118,12 +119,12 @@ export class AssetsListComponent implements OnInit, OnChanges {
     //   this.employeeTypeList = result && result.data && result.data.length > 0 ? result.data : [];
     // });
 
-    this.assetsService.getAllAssetsClass().subscribe((result: any) => {
-      this.assetClass = result && result.data && result.data.length > 0 ? result.data : [];
-    });
-    this.assetsService.getAllAssetsType().subscribe((result: any) => {
-      this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
-    });
+    // this.assetsService.getAllAssetsClass().subscribe((result: any) => {
+    //   this.assetClass = result && result.data && result.data.length > 0 ? result.data : [];
+    // });
+    // this.assetsService.getAllAssetsType().subscribe((result: any) => {
+    //   this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
+    // });
     // breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
     //   this.displayedColumns = result.matches
     //     ? ['id', 'name', 'progress', 'color']
@@ -161,7 +162,7 @@ export class AssetsListComponent implements OnInit, OnChanges {
     //     this.dataSource.data = [record, ...this.dataSource.data];
     //   }
     // });
-    this.getAllAssetList();
+    this.getAllHazardList();
   }
 
   // redirect() {
@@ -207,12 +208,13 @@ export class AssetsListComponent implements OnInit, OnChanges {
   //     // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
   //   }
   // }
-  getAllAssetList() {
-    this.assetsService.getFullAssetList(this.getDefaultOptions()).subscribe((result: any) => {
-      this.dataSource.data = result.data;
-      this.totalRecords=result.totalElement;
-    });
-  }
+  getAllHazardList() {
+        this.assetsService.getHazardList(this.getDefaultOptions()).subscribe((result: any) => {
+          this.dataSource.data = result.data;
+          this.totalRecords=result.totalElement;
+        });
+      }
+  
 
   refresh(options: ViewOptions, isScrolled: boolean = false) {
     // let startDate = this.startDate
@@ -225,8 +227,8 @@ export class AssetsListComponent implements OnInit, OnChanges {
     let queryData = {
     //   toDate: endDate,
     //   fromDate: startDate,
-      assetClass: this.assetClass == 'all' ? '' : this.assetClass,
-      assetType: this.assetType == 'all' ? '' : this.assetType,
+      // assetClass: this.assetClass == 'all' ? '' : this.assetClass,
+      // assetType: this.assetType == 'all' ? '' : this.assetType,
     //   status: `${this.status}`,
     };
     console.log(queryData, 'queryData');
@@ -313,7 +315,7 @@ export class AssetsListComponent implements OnInit, OnChanges {
   applyFilter(isTextSearch: boolean = false): void {
     this.paginator.pageIndex=0;
     this.paginator.pageSize=10;
-    this.getAllAssetList();
+    this.getAllHazardList();
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
@@ -344,118 +346,6 @@ export class AssetsListComponent implements OnInit, OnChanges {
     });
   return elem ? (isCheckbox == true ? elem.checkboxColorClass : elem.colorClass) : '';
   }
-
-  // onSubmit() {
-  //   this.submitted = true;
-  //   this.openDialog({});
-
-  // }
-
-  // openDialog(data: any) {
-  //   this.selectedRecord = data;
-  //   const dialogRef = this.dialog.open(this.employeeDetailDialog, {
-  //     width: '40em',
-  //     height: '35em',
-  //     // data: { data: data },
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result: any) => {
-
-  //   });
-  // }
-
-  // getProgressValue(item: any) {
-  //   // let totalFinal = 600;
-  //   let currentProgress = 0;
-  //   // console.log(item, 'item')
-
-  //   if (item.banking != undefined && item.banking.completionProgress != "null") {
-  //     currentProgress += item.banking.completionProgress ? parseFloat(item.banking.completionProgress) : 0;
-  //   }
-  //   // console.log(currentProgress, '1')
-
-  //   if (item.emergency != undefined && item.emergency && item.emergency.completionProgress != "null") {
-  //     currentProgress += item.emergency.completionProgress ? parseFloat(item.emergency.completionProgress) : 0;
-  //   }
-
-
-  //   // console.log(currentProgress, '2')
-
-  //   if (item.licence != undefined && item.licence && item.licence.completionProgress != "null") {
-  //     currentProgress += item.licence.completionProgress ? parseFloat(item.licence.completionProgress) : 0;
-  //   }
-  //   // console.log(item.licence, '3')
-
-
-  //   if (item.personal != undefined && item.personal && item.personal.completionProgress != "null") {
-  //     currentProgress += item.personal.completionProgress ? parseFloat(item.personal.completionProgress) : 0;
-  //   }
-  //   // console.log(currentProgress, '4')
-
-  //   if (item.superannuation != undefined && item.superannuation && item.superannuation.completionProgress != "null") {
-  //     currentProgress += item.superannuation.completionProgress ? parseFloat(item.superannuation.completionProgress) : 0;
-  //   }
-  //   // console.log(currentProgress, '5')
-
-
-  //   if (item.tfn != undefined && item.tfn && item.tfn.completionProgress != "null") {
-  //     currentProgress += item.tfn.completionProgress ? parseFloat(item.tfn.completionProgress) : 0;
-  //   }
-
-  //   // console.log(currentProgress, '6')
-
-  //   if (item.membership != undefined && item.membership && item.membership.completionProgress != "null") {
-  //     currentProgress += item.membership.completionProgress ? parseFloat(item.membership.completionProgress) : 0;
-  //   }
-
-  //   // console.log(currentProgress, '7')
-
-
-  //   let final = (currentProgress / 700) * 100;
-  //   return Math.ceil(final);
-  //   // console.log(final);
-  // }
-
-  // getColor(type: String) {
-  //   let item: any = this.selectedRecord;
-  //   let progress: any = 0;
-  //   switch (type) {
-  //     case 'personal':
-  //       progress = item && item.personal != undefined && item.personal.completionProgress != undefined ? item.personal.completionProgress : 0;
-  //       break;
-  //     case 'banking':
-  //       progress = item && item.banking != undefined && item.banking.completionProgress != undefined ? item.banking.completionProgress : 0;
-  //       break;
-  //     case 'emergency':
-  //       progress = item && item.emergency != undefined && item.emergency.completionProgress != undefined ? item.emergency.completionProgress : 0;
-  //       break;
-  //     case 'tfn':
-  //       progress = item && item.tfn != undefined && item.tfn.completionProgress != undefined ? item.tfn.completionProgress : 0;
-  //       break;
-  //     case 'superannuation':
-  //       progress = item && item.superannuation != undefined && item.superannuation.completionProgress != undefined ? item.superannuation.completionProgress : 0;
-  //       break;
-  //     case 'licence':
-  //       progress = item && item.licence != undefined && item.licence.completionProgress != undefined ? item.licence.completionProgress : 0;
-  //       break;
-  //     case 'membership':
-  //       progress = item && item.membership != undefined && item.membership.completionProgress != undefined ? item.membership.completionProgress : 0;
-  //       break;
-  //     case 'total':
-  //       progress = this.getProgressValue(this.selectedRecord);
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  //   let className = 'warn';
-  //   if (progress == '100') {
-  //     className = 'accent';
-  //   } else if (progress > 0 && progress < 100) {
-  //     className = 'primary';
-  //   }
-  //   return className;
-  // }
 
 
 
@@ -518,25 +408,3 @@ export class AssetsListComponent implements OnInit, OnChanges {
     saveAs(blob, fileName);
   }
 }
-
-// export interface AssetElement {
-//   assetNo: string;
-//   assetName: string;
-//   make: string;
-//   model: string;
-//   ownership: string;
-//   class: string;
-//   type: string;
-//   locationCode: string;
-//   locationName: string;
-//   status: string;
-// }
-
-// const ELEMENT_DATA: AssetElement[] = [
-//   {assetNo: 'CP815', assetName: 'CAT 825 COMPACTOR', make: 'CAT', model: '825G', ownership: 'OWNED', 
-//   class: 'Mobile Plant', type: 'Compactor', locationCode: '857019', locationName: 'Lo Yang', status: 'Available'},
-//   {assetNo: 'EX1258', assetName: 'KOM PC1250', make: 'KOMATSU', model: 'PC1250', ownership: 'RENTAL', 
-//   class: 'FIXED Plant', type: 'Dozer', locationCode: '857019', locationName: 'Lo Yang', status: 'Down'},
-//   {assetNo: 'EX8107', assetName: 'Komatsu PC450LC-8', make: 'KOMATSU', model: 'PC450', ownership: 'OWNED', 
-//   class: 'Mobile Plant', type: 'Crawler', locationCode: '857019', locationName: 'Lo Yang', status: 'Disposed'}
-// ];

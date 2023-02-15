@@ -46,14 +46,14 @@ export class PrestartComponent implements OnInit, OnChanges {
     'catC',
     
   ];
-  @ViewChild('employeeDetailDialog') employeeDetailDialog!: TemplateRef<any>;
+  @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
   // convertedStartDate: convertedStartDate,
   // employeeName: employeeName,
-
+  dialogData : any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   // dataSourceHistory: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
+//  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator = Object.create(null);
   // @ViewChild(MatPaginator, { static: false }) paginatorHistory: MatPaginator = Object.create(null);
 
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
@@ -62,6 +62,10 @@ export class PrestartComponent implements OnInit, OnChanges {
   pageNo = 0;
   pageSize = 10;
   totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
   search: string = ''; //by default 0 for pending list
   // currentDate: any = new Date();
   // expandedElement: any = null;
@@ -138,6 +142,40 @@ export class PrestartComponent implements OnInit, OnChanges {
     // this.dataSource = new MatTableDataSource(users);
   }
 
+
+  approveRejectBilling(event:any, row: any){
+    this.dialogData = row;
+    this.openDialog();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.confirmationDialog, {
+      width: '32em',
+      height: '17em',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      console.log('The dialog was closed');
+    });
+  }
+
+  approveRejectDemand(id:any) {
+    this.cancel();
+    this.assetsService.processStatus({id:this.dialogData.id,"processStatus": true}).subscribe((result: any) => {
+        if(result.status=='success'){
+          const findIndexKey=this.dataSource.data.findIndex(data=>data.id==this.dialogData.id);
+          if(findIndexKey>-1)
+          this.dataSource.data[findIndexKey].processFlag=true;
+        }
+    });
+  }
+
+  cancel(){
+    this.dialog.closeAll();
+  }
+  
+
   ngOnInit(): void {
     // this.displayedColumns = this.displayedColumnsLeave;
     this.refresh(this.getDefaultOptions());
@@ -158,7 +196,7 @@ export class PrestartComponent implements OnInit, OnChanges {
     //     this.dataSource.data = [record, ...this.dataSource.data];
     //   }
     // });
-    this.getAllPrestartList();
+    this.getAllPrestartList(true);
   }
 
   ngOnChanges(changes: SimpleChanges): void {}
@@ -199,12 +237,19 @@ export class PrestartComponent implements OnInit, OnChanges {
   //     // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
   //   }
   // }
-  getAllPrestartList() {
-    // alert("hii");
+  getAllPrestartList(scrolled:any) {
+    console.log(this.getDefaultOptions());
     this.assetsService.getPrestartList(this.getDefaultOptions()).subscribe((result: any) => {
-      this.dataSource.data = result.data;
+      if(scrolled){
+        this.dataSource.data = [...this.dataSource.data, ...result.data];
+      }else{
+         this.dataSource.data = result.data;
+      }
+      this.totalRecords=result.totalElement;
     });
   }
+
+
 
   refresh(options: ViewOptions, isScrolled: boolean = false) {
     // let startDate = this.startDate
@@ -229,7 +274,7 @@ export class PrestartComponent implements OnInit, OnChanges {
       .getAll(options)
       .pipe(first())
       .subscribe((result: any) => {
-        this.totalRecords = result.totalElement;
+       // this.totalRecords = result.totalElement;
         let data: any = [];
 
         for (let i = 0; i < result.data.length; i++) {
@@ -243,19 +288,25 @@ export class PrestartComponent implements OnInit, OnChanges {
             employeeName: employeeName,
           });
         }
-        // if (isScrolled == true) {
-        //   this.dataSource.data = [...this.dataSource.data, ...data];
-        // } else {
+        if (isScrolled == true) {
+          this.dataSource.data = [...this.dataSource.data, ...data];
+        } else {
         this.dataSource.data = data;
-        // }
+       }
       });
   }
 
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
+    let startDate = this.startDate
+      ? moment(new Date(this.startDate).toUTCString()).format('DD/MM/yyyy HH:mm:ss')
+      : '';
+    let endDate = this.endDate
+      ? moment(new Date(this.endDate).toUTCString()).format('DD/MM/yyyy HH:mm:ss')
+      : '';
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-    let query ='class='.concat(this.selectedAssetClassId).concat("&type=") .concat(this.selectedAssetTypeId).concat("&defect=") .concat(this.selectedDefectsId).concat("&location=") .concat(this.selectedLocationsId);
+    let query ='assetClass='.concat(this.selectedAssetClassId).concat("&assetType=") .concat(this.selectedAssetTypeId).concat("&defectType=") .concat(this.selectedDefectsId).concat("&assetLocation=") .concat(this.selectedLocationsId).concat("&fromDate=") .concat(startDate).concat("&toDate=") .concat(endDate);
     const options: ViewOptions = {
       sortField: sort !== undefined ? sort.active : 'fullName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
@@ -307,22 +358,37 @@ export class PrestartComponent implements OnInit, OnChanges {
   // }
 
   applyFilter(isTextSearch: boolean = false): void {
+    this.paginator.pageIndex=0;
+    this.paginator.pageSize=10;
+    this.getAllPrestartList(false);
     // console.log(this.search, 'search', this.startDate, 'startdate', this.endDate, 'enddate');
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = this.search;
     if (isTextSearch) {
-      this.pageNo = 0;
-      this.totalRecords = 0;
-      this.paginator.firstPage();
-      // this.dataSource.paginator?.pageIndex[0]=;
+      this.dataSource.filter = this.search;
+    } 
+  }
+
+  onTableScroll(e: any) {
+    const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
+    const tableScrollHeight = e.target.scrollHeight; // length of all table
+    const scrollLocation = e.target.scrollTop; // how far user scrolled
+
+    // If the user has scrolled within 200px of the bottom, add more data
+    const buffer = 10;
+    const limit = tableScrollHeight - tableViewHeight - buffer;
+    // console.log(scrollLocation, limit, 'scrollLocation > limit');
+    if (scrollLocation > limit) {
+      // console.log(this.dataSource.data.length, this.totalRecords, 'totalRecords');
+      if (this.dataSource.data && (this.dataSource.data.length < this.totalRecords)) {
+       // this.pageSize = this.pageSize + 10;
+        
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize + 10;
+        this.getAllPrestartList(true);
+      }
+      // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
     }
-    // else {
-    this.refresh(this.getDefaultOptions());
-    // }
   }
   
-  cancel(){
-    this.dialog.closeAll();
-  }
 }

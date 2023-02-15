@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService, AssetsService, LeaveService } from 'src/app/core/services';
 import { Utils } from 'src/app/core/_helpers/util';
@@ -7,6 +7,7 @@ import { Globals } from 'src/app/globals';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-assets-add',
@@ -19,11 +20,13 @@ export class AssetsAddComponent implements OnInit {
   submitted: boolean = false;
   currentDate: Date = new Date();
   selectedFile: string = '';
+  qrCodeDownloadLink:any;
   attachmentFile: any;
   item: any = 1;
   status: any = 1;
+  @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
   generatedCode: boolean = false;
-  constructor(globals: Globals, private fb: FormBuilder, private alertService: AlertService, public util: Utils, private leaveService: LeaveService, private authService: AuthenticationService, private assetsService: AssetsService, private router: Router) {
+  constructor( private dialog: MatDialog,globals: Globals, private fb: FormBuilder, private alertService: AlertService, public util: Utils, private leaveService: LeaveService, private authService: AuthenticationService, private assetsService: AssetsService, private router: Router) {
     this.globals = globals;
     this.form = this.fb.group({
       assetNo: new FormControl('', [Validators.required, Validators.pattern(this.util.aplhaNumericeWithoutSpace)]),
@@ -162,6 +165,41 @@ export class AssetsAddComponent implements OnInit {
 
   resetQr() {
 this.generatedCode=false; 
+  }
+  
+  onChangeURL(event:any){
+    this.qrCodeDownloadLink = event;
+  }
+
+  printqrcode(){
+    const w = window.open();
+if (w) {
+  w.document.write('<img src="' + this.qrCodeDownloadLink.changingThisBreaksApplicationSecurity + '" onload="window.print();window.close()" />');
+    w.focus(); // okay now
+}
+ 
+  }
+
+  openImage(){
+    this.openDialog();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.confirmationDialog, {
+      width: '32em',
+      height: '22em',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      console.log('The dialog was closed');
+    });
+  }
+
+
+  cancel(){
+    
+    this.dialog.closeAll();
   }
 
   generateQrcode() {

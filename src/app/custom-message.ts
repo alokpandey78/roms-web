@@ -27,4 +27,5 @@ export enum CustomMessage {
     fileUploadError = 'File not uploaded. try again.',
     candidateAccepted = 'Candidate Transfer Demand Created  succesfully',
     candidateRejected = 'Candidate Transfer Demand Rejected succesfully',
+    employeeTerminated = 'Employee Terminated successfully',
 }
