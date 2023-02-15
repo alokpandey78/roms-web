@@ -1,0 +1,155 @@
+.hazard-list th.mat-header-cell {
+    width: 15%;
+    left: 9px;
+    right: 9px;
+  }
+  
+  :host ::ng-deep .approved-checkbox .mat-checkbox-frame {
+    border-color: #2ace58;
+  }
+  
+  :host ::ng-deep .rejected-checkbox .mat-checkbox-frame {
+    border-color: #d51e1e;
+  }
+  
+  :host ::ng-deep .pending-checkbox .mat-checkbox-frame {
+    border-color: #e7b400;
+  }
+  
+  .no-wrap td,
+  .no-wrap .ng-star-inserted {
+    white-space: inherit;
+  }
+  
+  .selected-row {
+    background-color: lavender !important;
+  }
+  .list-Img {
+    width: 40px;
+    height: 40px;
+     border-radius: 50px;
+   }
+  .Asset-Img{
+    width: 50px;
+    height: 40px;
+    border-radius: 50px;
+  }
+  .p-b-5 {
+    padding-bottom: 5px !important;
+  }
+
+  
+.selected-row {
+  background-color: lavender !important;
+}
+.list-Img {
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+.hazard-Img {
+    align-items: center;
+    width: 40px;
+    height: 40px;
+  }
+.popup-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.popup-head div {
+  display: flex;
+  align-items: center;
+}
+.popup-head mat-progress-bar {
+  width: 175px;
+}
+.popup-head2 {
+  width: 100%;
+  display: flex;
+  align-items: top;
+  justify-content: space-around;
+}
+.popup-head2 div {
+  text-align: center;
+}
+.popup-head2 {
+  padding: 15px 1px 7px;
+}
+.popup-head2 div mat-label {
+  display: block;
+}
+.fd-re {
+  flex-direction: column;
+  align-items: flex-end !important;
+}
+.mat-row.cdk-row.example-element-row {
+  cursor: pointer;
+}
+.progress-layout {
+  display: flex;
+}
+
+.infinite-scroll {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.infinite-scroll .mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.redColor{
+  color:red;
+}
+.yellowColor{
+  color:yellow;
+}
+
+.greencolor{
+  color: mediumseagreen;
+}
+    
+.risk-extreme {
+  color: yellow !important;
+  text-align: center !important;
+  background-color: #B71C1C;
+}
+
+.risk-high {
+  color: snow !important;
+  text-align: center !important;
+  background-color: #FF8A80;
+
+}
+
+.risk-medium {
+  color: whitesmoke !important;
+  text-align: center !important;
+  background-color: #FBC02D;
+
+}
+.risk-verylow {
+  color: darkgrey !important;
+  text-align: center !important;
+  background-color: #DCE775;
+
+}
+.risk-low {
+  color: darkgrey !important;
+  text-align: center !important;
+  background-color: #FFFF8D;
+
+}
+
+.no_navigation {
+  color: #9E9E9E ;
+  text-align: left;
+}
+.tooltip-red {
+  background: #b71c1c;
+}
