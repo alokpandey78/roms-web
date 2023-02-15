@@ -326,13 +326,14 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
           
           subMenu.push({
             state: '/healthsafety/safety-hazard',
-            name: 'safety-hazard',
+            name: 'Safety Hazards',
             type: 'link',
             icon: 'commute',
-          });        
+          });       
+      
           menuItem.push({
             state: 'operation',
-            name: 'Health & Safety',
+            name: 'Safety',
             type: 'sub',
             icon: 'security',
             children: subMenu,

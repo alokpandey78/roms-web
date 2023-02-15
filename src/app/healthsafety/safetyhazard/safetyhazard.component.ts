@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { HealthsafetyService } from '../services/healthsafety.service';
 
 
-//utilities
+//utilities 
 import { saveAs } from 'file-saver';
 import { ViewOptions } from 'src/app/_models';
 import { Utils } from 'src/app/core/_helpers/util';
@@ -52,13 +52,18 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
   user: any;
   totalRecords: number = 0;
   googleMapLink : string = 'https://www.google.com/maps/search/';
-  displayedColumns: string[] = ['Reported','reportedBy','hazard','address','risk','supervisor','no'];
+  displayedColumns: string[] = ['Reported','reportedBy','hazard','address','risk','supervisor'];
     //'select',  //'icon',
   totalData: any = [];
   search: string = ''; //by default 0 for pending list
   severity: string ='';
+  manager: string ='';
+  employee : string ='';
+  matEndDate : string ='';
+  matStartDate : string ='';
+
   pageNo = 0;
-  pageSize = 20;
+  pageSize = 10;
   paginator:any={
     pageIndex:this.pageNo,
     pageSize:this.pageSize
@@ -96,13 +101,6 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void { }
 
-  // getAllHazardList() {
-  //   this.healthsafetyService.getHazardListFilter({ options: this.getDefaultOptions() }).subscribe((result: any) => {
-  //     this.hazardData.data = result.data;
-  //     this.totalRecords=result.totalElement;
-  //   });
-  // }
-
   applyFilter(isTextSearch: boolean = false): void {
     this.paginator.pageIndex=0;
     this.paginator.pageSize=10;
@@ -120,7 +118,7 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
     let query ='' ;
     const options: ViewOptions = {
-      sortField: this.sort !== undefined ? this.sort.active : 'Reported',
+      sortField: this.sort !== undefined ? this.sort.active : 'risk',
       sortDirection: this.sort !== undefined ? this.sort.direction : 'asc',
       page: pageSize - 1,
       search: '',
@@ -151,6 +149,10 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
     let payload = {
       searchText: `${this.search}`,
       severity : `${this.severity}`,
+      manager : `${this.manager}`,
+      employee : `${this.employee}`,
+      reportFromDate: `${this.matStartDate}`,
+      reportToDate: `${this.matEndDate}`, 
     }
     console.log(payload);
     this.healthsafetyService

@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { FullComponent } from '../layouts/full/full.component';
-import {SafetyhazardComponent} from './safetyhazard/safetyhazard.component';
+import { SafetyhazardComponent } from './safetyhazard/safetyhazard.component';
 
 const routes: Routes = [
   { 

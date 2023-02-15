@@ -16,6 +16,6 @@ export class HealthsafetyService {
   }
 
   getHazardListFilter({ options, payload }: { options: ViewOptions; payload: any; }){
-    return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=${options.page}&size=${options.pageSize}&rishkLevel=${payload.severity}`);
+    return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=${options.page}&size=${options.pageSize}&rishkLevel=${payload.severity}&manager=${payload.manager}&employee=${payload.employee}&reportFromDate=${payload.reportFromDate}&reportToDate=${payload.reportToDate}`);
 }
 }

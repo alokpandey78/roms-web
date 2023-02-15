@@ -29,7 +29,7 @@
               <mat-form-field>
                 <mat-select (selectionChange)="applyFilter()" [(ngModel)]="severity" placeholder="Severity">
                 <!-- <mat-select placeholder="Hazard Severity"> -->
-                  <mat-option value="">All</mat-option>
+                  <mat-option value="0">All</mat-option>
                   <mat-option value="1">Very Low</mat-option>
                   <mat-option value="2">Low</mat-option>
                   <mat-option value="3">Medium</mat-option>
@@ -42,8 +42,8 @@
               <mat-form-field appearance="outline">
                 <mat-label (click)="picker.open()">Select Date Range</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date" readonly (click)="picker.open()" />
-                  <input matEndDate placeholder="End date" readonly (click)="picker.open()" />
+                  <input matStartDate placeholder="Start date" readonly (click)="picker.open()" [(ngModel)]="matStartDate"  />
+                  <input matEndDate placeholder="End date" readonly (click)="picker.open()" [(ngModel)]="matEndDate" />
                 </mat-date-range-input>
 
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -98,6 +98,7 @@
             <ng-container matColumnDef="hazard">
               <th mat-header-cell *matHeaderCellDef>Hazard</th>
               <td mat-cell *matCellDef="let row">
+                {{row?.hazardNo + ' '}}
                 <ng-container *ngIf="row?.description.length >45; then descTemplate; else desclessTemplate"></ng-container>
                 <ng-template #descTemplate>
                   {{ row?.description | slice:0:45}} 
@@ -108,7 +109,6 @@
                 <ng-template #desclessTemplate>
                   {{ row?.description}} 
                 </ng-template>
-                <!-- <small class="text-muted">{{'   ' + row?.hazardNo +'' }}</small> -->
               </td>
               </ng-container>
 
@@ -132,7 +132,6 @@
                       <ng-template #loclessTemplate>
                          {{ row?.address}} 
                       </ng-template>
-                      <!-- <small class="text-muted">  auto</small> -->
                     </div>
                   </ng-template>
                   <ng-template #elseTemplate>
@@ -148,7 +147,6 @@
                       <ng-template #locless2Template>
                          {{ row?.address}} 
                       </ng-template>
-                     <!-- <small class="text-muted"> manual</small> -->
                     </div>
                   </ng-template>
                 </div>
