@@ -19,6 +19,7 @@ export class EmployeeTerminationComponent implements OnInit {
   form: FormGroup;
   submitted: boolean = false;
   employeId: any;
+  currentDate : Date = new Date();
   id: string = '';
   dateStartAt = new Date();
   selectedButton = 0;
@@ -116,7 +117,15 @@ export class EmployeeTerminationComponent implements OnInit {
       console.log('Payload:', JSON.stringify(payload));
       this.authService.terminateEmployee(JSON.stringify(payload)).subscribe((result) => {
         console.log('Demad return:', result);
-        this.alertService.openSnackBar(CustomMessage.employeeTerminated, false);
+
+        let terminatindate = new Date(this.form.controls.effectiveDate.value);
+        this.currentDate = new Date();
+        if(this.currentDate < terminatindate){
+          this.alertService.openSnackBar("Employee services will be terminated on "+moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'), false);
+        }else{
+          this.alertService.openSnackBar(CustomMessage.employeeTerminated, false);
+        }
+
       });
     }
   }
