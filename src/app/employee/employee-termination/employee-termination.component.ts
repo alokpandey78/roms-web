@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { AlertService, EmployeeService, JobService } from 'src/app/core/services';
 import * as moment from 'moment';
 import { CustomMessage } from 'src/app/custom-message';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router  } from '@angular/router';
 import { first } from 'rxjs';
 
 @Component({
@@ -31,6 +31,7 @@ export class EmployeeTerminationComponent implements OnInit {
     private employeeService: EmployeeService,
     private alertService: AlertService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.form = this.fb.group({
       // employeeId: new FormControl('', [Validators.required]),
@@ -122,9 +123,11 @@ export class EmployeeTerminationComponent implements OnInit {
         this.currentDate = new Date();
         if(this.currentDate < terminatindate){
           this.alertService.openSnackBar("Employee services will be terminated on "+moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'), false);
+          
         }else{
           this.alertService.openSnackBar(CustomMessage.employeeTerminated, false);
         }
+        this.router.navigate(['/employee/employee-list'])
 
       });
     }
