@@ -68,5 +68,7 @@ export class AssetsService {
 
   getHazardList(options: ViewOptions) {
     return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=0&size=100&${options.query}`,);
+    //return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=0&size=100&rishkLevel=3`,);
+
   }
 }

@@ -1,0 +1,228 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card class="m-0 m-t-20 m-b-5">
+      <mat-card-content class="p-15">       
+        <div class="m-l-10 m-r-10">
+          <div fxLayout="row wrap" fxFlexAlign="right" class="row" style="align-items: right">
+            <div fxFlex.gt-sm="80" class="p-r-10" fxFlex="100"></div>
+            <div fxFlex.gt-sm="20" class="text-center" fxFlex="50">
+              <button mat-icon-button>
+                <mat-icon>cloud_download</mat-icon>
+                Export
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+            </div>
+            </div>
+          <div fxLayout="row wrap" class="row" style="align-items: left">
+            <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <input
+                    matInput
+                    (keyup)="applyFilter(true)"
+                    [(ngModel)]="search"
+                    placeholder="Filter"
+                  />
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-label>Select Employee</mat-label>
+                <mat-select (selectionChange)="applyFilter()" [(ngModel)]="employeeId" placeholder="Employee">
+                  <mat-option value="all">All</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of employees">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-label>Select Manager</mat-label>
+                <mat-select (selectionChange)="applyFilter()" [(ngModel)]="managerId" placeholder="Manager">
+                  <mat-option value="all">All</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of managers">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-select (selectionChange)="applyFilter()" [(ngModel)]="severity" placeholder="Severity">
+                <!-- <mat-select placeholder="Hazard Severity"> -->
+                  <mat-option value="0">All</mat-option>
+                  <mat-option value="1">Very Low</mat-option>
+                  <mat-option value="2">Low</mat-option>
+                  <mat-option value="3">Medium</mat-option>
+                  <mat-option value="4">High</mat-option>
+                  <mat-option value="5">Extreme</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="25" class="font-12">
+              <mat-form-field appearance="outline">
+                <mat-label (click)="picker.open()">Select Date Range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date" readonly (click)="picker.open()" [(ngModel)]="matStartDate" (dateChange)="applyFilter()" />
+                  <input matEndDate placeholder="End date" readonly (click)="picker.open()" [(ngModel)]="matEndDate" (dateChange)="applyFilter()"/>
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="m-0 m-t-5 m-b-5">
+      <mat-card-content>
+        <div class="table-responsive infinite-scroll">
+          <mat-table
+            #table
+            [dataSource]="hazardData"
+            (scroll)="onTableScroll($event)"
+            class="table hazard-list no-wrap"
+          >
+            <ng-container matColumnDef="Reported">
+              <th mat-header-cell *matHeaderCellDef>Reported</th>
+              <td mat-cell *matCellDef="let row; let index = dataIndex">
+                <div class="d-flex">
+                  <mat-icon *ngIf="row?.rectifyFlag == true"  style="cursor: pointer; color: rgb(144,238,144);">fiber_manual_record</mat-icon>
+                  <mat-icon *ngIf="row?.rectifyFlag == false" style="cursor: pointer; color: rgb(255,150, 79);">fiber_manual_record</mat-icon>
+                  <div class="m-l-15">
+                    <p class="font-medium m-b-0 m-t-0">{{ row?.createDate | dateAgo}}</p>
+                    <small class="text-muted">{{ row?.createDate | date }}  {{ row?.createDate | date:'shortTime' }}</small>
+                    <small class="text-muted">{{ row?.no}}</small>
+
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="reportedBy">
+              <th mat-header-cell *matHeaderCellDef>Reported By</th>
+              <td mat-cell *matCellDef="let row">
+                <div class="d-flex">
+                  <img class="m-r-10 list-Img"
+                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                      [src]="globals.generateFileUrl(row && row.reportedBy && row.reportedBy.profileImage.length>0?row.reportedBy.profileImage[0]?.digitalAssets?.url:'','')"
+                      alt="" />
+                  <div class="m-l-15">
+                    <p class="font-medium m-b-0 m-t-0">{{ row?.reportedBy?.firstName }}</p>
+                    <small class="text-muted">{{' ' + row?.reportedBy?.lastName }}</small>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="hazard">
+              <th mat-header-cell *matHeaderCellDef>Hazard</th>
+              <td mat-cell *matCellDef="let row">
+                {{row?.hazardNo + ' '}}
+                <ng-container *ngIf="row?.description.length >45; then descTemplate; else desclessTemplate"></ng-container>
+                <ng-template #descTemplate>
+                  {{ row?.description | slice:0:45}} 
+                    <label matTooltip= {{row?.description}}  matTooltipClass="tooltip-red">
+                      ...<mat-icon class="material-icons-outlined">read_more </mat-icon>
+                    </label>
+                </ng-template>
+                <ng-template #desclessTemplate>
+                  {{ row?.description}} 
+                </ng-template>
+              </td>
+              </ng-container>
+
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef>Location</th>
+              <td mat-cell *matCellDef="let row">
+                <div class="d-flex">
+                  <ng-container *ngIf="row?.manualAddressFlag==false; then thenTemplate; else elseTemplate"></ng-container>
+                  <ng-template #thenTemplate>
+                    <a [href]="this.googleMapLink +row?.latitude + ','+ row?.longitude" target="_blank">  <mat-icon class="color_blue">near_me</mat-icon></a>
+                    <div class="m-l-15">
+                      <ng-container *ngIf="row?.address.length >45; then locTemplate; else loclessTemplate"></ng-container>
+                      <ng-template #locTemplate>
+                        {{ row?.address | slice:0:45}}  
+                         <span class="bg-light-info text-dark">
+                          <label matTooltip= {{row?.address}}  matTooltipClass="tooltip-red">
+                            <mat-icon class="material-icons-outlined">read_more </mat-icon>
+                          </label>
+                         </span>
+                      </ng-template>
+                      <ng-template #loclessTemplate>
+                         {{ row?.address}} 
+                      </ng-template>
+                    </div>
+                  </ng-template>
+                  <ng-template #elseTemplate>
+                    <mat-icon class="no_navigation">near_me</mat-icon>
+                    <div class="m-l-15">
+                      <ng-container *ngIf="row?.address.length >45; then loc2Template; else locless2Template"></ng-container>
+                      <ng-template #loc2Template>
+                        {{ row?.address | slice:0:45}}  
+                          <label matTooltip= {{row?.address}}  matTooltipClass="tooltip-red">
+                            ...<mat-icon class="material-icons-outlined">read_more </mat-icon>
+                         </label>
+                      </ng-template>
+                      <ng-template #locless2Template>
+                         {{ row?.address}} 
+                      </ng-template>
+                    </div>
+                  </ng-template>
+                </div>
+              </td>
+            </ng-container> 
+            <ng-container matColumnDef="risk">
+              <th mat-header-cell *matHeaderCellDef>risk level</th>
+              <td mat-cell *matCellDef="let row">
+                <div class="d-flex">
+                  <div class="m-l-15">
+                    <span [ngSwitch]="row?.rishkLevel">
+                    <mat-card-subtitle class="risk-verylow" *ngSwitchCase="1"><pre> very Low </pre></mat-card-subtitle>
+                    <mat-card-subtitle class="risk-low" *ngSwitchCase="2"><pre>   low    </pre></mat-card-subtitle>
+                    <mat-card-subtitle class="risk-medium" *ngSwitchCase="3"><pre>  medium  </pre></mat-card-subtitle>
+                    <mat-card-subtitle class="risk-high" *ngSwitchCase="4"><pre>   high   </pre></mat-card-subtitle>
+                    <mat-card-subtitle class="risk-extreme" *ngSwitchCase="5"><pre> extreme  </pre></mat-card-subtitle>
+                    <mat-card-subtitle *ngSwitchDefault><code>Unknown</code></mat-card-subtitle>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="supervisor">
+              <th mat-header-cell *matHeaderCellDef>Supervisor</th>
+              <td mat-cell *matCellDef="let row">
+                <div class="d-flex">
+                  <img class="m-r-10 list-Img"
+                      onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                      [src]="globals.generateFileUrl(row && row.superviser && row.superviser.profileImage.length>0?row.superviser.profileImage[0]?.digitalAssets?.url:'','')"
+                      alt="" />
+                  <div class="m-l-15">
+                    <p class="font-medium m-b-0 m-t-0">{{ row?.superviser?.firstName }}</p>
+                    <small class="text-muted">{{' ' + row?.superviser?.lastName }}</small>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns"
+              class="example-element-row"
+              style="vertical-align: top"
+              [routerLink]="['/healthsafety/safety-hazard']"
+              [queryParams]="{ id: element.id }"
+              [ngClass]="{ 'selected-row': selectedId == element.id }"
+            ></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" [attr.colspan]="displayedColumns.length">No Data Available</td>
+            </tr>
+          </mat-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

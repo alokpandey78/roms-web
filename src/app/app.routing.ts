@@ -51,6 +51,11 @@ export const AppRoutes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'healthsafety',
+        loadChildren: () => import('./healthsafety/healthsafety.module').then((m) => m.HealthsafetyModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'registration',
         loadChildren: () =>
           import('./registration/registration.module').then((m) => m.RegistrationModule),
@@ -66,6 +71,7 @@ export const AppRoutes: Routes = [
         path: '',
         loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
       },
+      
       // {
       //   path: 'material',
       //   loadChildren: () =>

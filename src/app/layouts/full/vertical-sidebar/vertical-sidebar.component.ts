@@ -325,11 +325,12 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
           let subMenu = [];
           
           subMenu.push({
-            state: '/client/hazard',
-            name: 'Hazard',
+            state: '/healthsafety/safety-hazard',
+            name: 'Safety Hazards',
             type: 'link',
             icon: 'commute',
-          });        
+          });       
+      
           menuItem.push({
             state: 'operation',
             name: 'Safety',
@@ -375,6 +376,12 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
           subMenu.push({
             state: '/client/work-order',
             name: 'Work-Order',
+            type: 'link',
+            icon: 'commute',
+          });
+          subMenu.push({
+            state: '/healthsafety/safety-hazard',
+            name: 'Hazard Reporting',
             type: 'link',
             icon: 'commute',
           });
