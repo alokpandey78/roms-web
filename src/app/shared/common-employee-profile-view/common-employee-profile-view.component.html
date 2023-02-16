@@ -267,6 +267,9 @@
         <div fxFlex.gt-sm="35" class="icon-label icon-label2 m-t-5" fxFlex="40">
           <p><mat-icon>thumb_down</mat-icon>Terminated</p>
         </div>
+      <h6 class="">
+        <span class="">{{ record?.firstName }} {{ record?.lastName }} got terminated on {{ record?.endDate | date: 'd/M/y' }}</span>
+      </h6>
     </mat-card>
 
   </div>
