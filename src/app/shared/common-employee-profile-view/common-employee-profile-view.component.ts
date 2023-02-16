@@ -16,10 +16,11 @@ export class CommonEmployeeProfileViewComponent implements OnInit, OnChanges {
     @Input() record: any;
     user: any;
     isMyProfile: boolean = true;
+    profileStatus: number =0;
     @ViewChild('passwordDialog') passwordDialog!: TemplateRef<any>;
     newPassword: string = '';
     baseUrl: string = environment.apiUrl;
-    id : string = ''; 
+    id : string = '';
 
     constructor(private alertService: AlertService, private employeeService: EmployeeService, private router: Router, private authService: AuthenticationService, public dialog: MatDialog) {
 
@@ -29,6 +30,10 @@ export class CommonEmployeeProfileViewComponent implements OnInit, OnChanges {
         this.user = this.authService.getCurrentUser();
         console.log(this.user, 'useruser')
         this.isMyProfile = this.user && this.record && this.user.id == this.record.id;
+
+
+
+
 
     }
 
@@ -93,7 +98,7 @@ export class CommonEmployeeProfileViewComponent implements OnInit, OnChanges {
                             // this.alertService.openSnackBar(CustomMessage.error);
                         },
                     );
-                    // 
+                    //
                     // })
                     //   this.attachmentFiles.push(file);
 
