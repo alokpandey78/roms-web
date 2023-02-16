@@ -25,6 +25,19 @@
                 <mat-icon matSuffix>search</mat-icon>
               </mat-form-field>
             </div>
+
+            <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-label>Select Manager</mat-label>
+                <mat-select (selectionChange)="applyFilter()" [(ngModel)]="managerId" placeholder="Manager">
+                  <mat-option value="all">All</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of managers">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
             <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
               <mat-form-field>
                 <mat-select (selectionChange)="applyFilter()" [(ngModel)]="severity" placeholder="Severity">
@@ -42,10 +55,9 @@
               <mat-form-field appearance="outline">
                 <mat-label (click)="picker.open()">Select Date Range</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date" readonly (click)="picker.open()" [(ngModel)]="matStartDate"  />
-                  <input matEndDate placeholder="End date" readonly (click)="picker.open()" [(ngModel)]="matEndDate" />
+                  <input matStartDate placeholder="Start date" readonly (click)="picker.open()" [(ngModel)]="matStartDate" (dateChange)="applyFilter()" />
+                  <input matEndDate placeholder="End date" readonly (click)="picker.open()" [(ngModel)]="matEndDate" (dateChange)="applyFilter()"/>
                 </mat-date-range-input>
-
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
               </mat-form-field>

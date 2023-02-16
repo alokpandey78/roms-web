@@ -7,7 +7,7 @@ import {  OnChanges, SimpleChanges } from '@angular/core';
 
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { HealthsafetyService } from '../services/healthsafety.service';
-
+import { EmployeeService } from 'src/app/core/services';
 
 //utilities 
 import { saveAs } from 'file-saver';
@@ -15,6 +15,7 @@ import { ViewOptions } from 'src/app/_models';
 import { Utils } from 'src/app/core/_helpers/util';
 import { DatePipe } from '@angular/common';
 import { first } from 'rxjs';
+import * as moment from 'moment';
 
 
 // Angluar MAterial
@@ -57,11 +58,13 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
   totalData: any = [];
   search: string = ''; //by default 0 for pending list
   severity: string ='';
-  manager: string ='';
+  managerId: any = '';
+  managers: any = [];
   employee : string ='';
-  matEndDate : string ='';
-  matStartDate : string ='';
-
+  matStartDate : Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
+  startDate: Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
+  matEndDate : Date = new Date();
+  endDate: Date = new Date();
   pageNo = 0;
   pageSize = 10;
   paginator:any={
@@ -88,10 +91,20 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
     private activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
     private healthsafetyService: HealthsafetyService,
+    private employeeService: EmployeeService,
 
     ) { 
       this.globals = globals;
       this.user = this.authService.getCurrentUser();
+
+      // this.authService.getAllManagers('').subscribe((result: any) => {
+      //   this.managers = result && result.data && result.data.length > 0 ? result.data : [];
+      // });
+      this.searchManager({ target: { value: '' } });
+      // this.authService.getAllManagers(('')).subscribe((result: any) => {
+      //   this.managers = result && result.data && result.data.length > 0 ? result.data : [];
+      // });
+
     }
 
   ngOnInit():void {
@@ -99,7 +112,9 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void { }
+  ngOnChanges(changes: SimpleChanges): void { 
+    console.log(changes);
+  }
 
   applyFilter(isTextSearch: boolean = false): void {
     this.paginator.pageIndex=0;
@@ -146,13 +161,22 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
   /* end of  onTableScroll */
   refreshHazard(options: ViewOptions, isScrolled: boolean = false) {
     let queryData = {};
+    let startDate = this.matStartDate
+    ? moment(new Date(new Date(this.startDate).setHours(0, 0, 0, 0)).toUTCString()).format('DD-MM-YYYY HH:mm:ss')
+    : '';
+  let endDate = this.matEndDate
+    ? moment(new Date(new Date(this.endDate).setHours(23, 59, 59, 59)).toUTCString()).format('DD-MM-YYYY HH:mm:ss')
+    : '';
+    this.managerId= this.managerId == 'all' ? '' : this.managerId,
+
+    console.log(startDate + endDate);
     let payload = {
       searchText: `${this.search}`,
       severity : `${this.severity}`,
-      manager : `${this.manager}`,
+      manager : this.managerId,
       employee : `${this.employee}`,
-      reportFromDate: `${this.matStartDate}`,
-      reportToDate: `${this.matEndDate}`, 
+      reportFromDate: startDate,
+      reportToDate: endDate, 
     }
     console.log(payload);
     this.healthsafetyService
@@ -171,6 +195,14 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
          }
       });
   }
+
+  searchManager(event: any) {
+    this.employeeService.searchHiringManager(event.target.value).subscribe((result: any) => {
+      this.managers = result;
+    });
+  }
+
+
   exportCsv() {
     let csvArray: any = [
       'create_date, hazard_no,reported_date,hazard_desc,address,riskLevel, manualAddressFlag,rectifyFlag,reportedBy,Supervisro\r\n',];
