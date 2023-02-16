@@ -60,7 +60,9 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
   severity: string ='';
   managerId: any = '';
   managers: any = [];
-  employee : string ='';
+  employeeId : any = '';
+  employees: any = [];
+
   matStartDate : Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
   startDate: Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
   matEndDate : Date = new Date();
@@ -101,6 +103,9 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
       //   this.managers = result && result.data && result.data.length > 0 ? result.data : [];
       // });
       this.searchManager({ target: { value: '' } });
+      this.searchEmployee({ target: { value: '' } });
+
+
       // this.authService.getAllManagers(('')).subscribe((result: any) => {
       //   this.managers = result && result.data && result.data.length > 0 ? result.data : [];
       // });
@@ -174,7 +179,7 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
       searchText: `${this.search}`,
       severity : `${this.severity}`,
       manager : this.managerId,
-      employee : `${this.employee}`,
+      employee : this.employeeId,
       reportFromDate: startDate,
       reportToDate: endDate, 
     }
@@ -199,6 +204,12 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
   searchManager(event: any) {
     this.employeeService.searchHiringManager(event.target.value).subscribe((result: any) => {
       this.managers = result;
+    });
+  }
+
+  searchEmployee(event: any) {
+    this.employeeService.searchHiringManager(event.target.value).subscribe((result: any) => {
+      this.employees = result;
     });
   }
 

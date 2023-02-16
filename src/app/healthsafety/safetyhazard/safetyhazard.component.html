@@ -13,8 +13,8 @@
               </button>
             </div>
             </div>
-          <div fxLayout="row wrap" class="row" style="align-items: right">
-            <div fxFlex.gt-sm="25" class="p-r-10" fxFlex="100">
+          <div fxLayout="row wrap" class="row" style="align-items: left">
+            <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
               <mat-form-field>
                 <input
                     matInput
@@ -23,6 +23,18 @@
                     placeholder="Filter"
                   />
                 <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-label>Select Employee</mat-label>
+                <mat-select (selectionChange)="applyFilter()" [(ngModel)]="employeeId" placeholder="Employee">
+                  <mat-option value="all">All</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of employees">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
 
