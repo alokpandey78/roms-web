@@ -6,7 +6,7 @@ import {  OnChanges, SimpleChanges } from '@angular/core';
 
 
 import { AuthenticationService } from 'src/app/core/services/auth.service';
-import { HealthsafetyService } from '../services/healthsafety.service';
+import { HealthsafetyService } from '../../core/services/healthsafety.service';
 import { EmployeeService } from 'src/app/core/services';
 
 //utilities 
