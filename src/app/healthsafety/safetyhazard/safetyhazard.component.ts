@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { HealthsafetyService } from '../services/healthsafety.service';
 import { EmployeeService } from 'src/app/core/services';
 
-//utilities 
+//utilities
 import { saveAs } from 'file-saver';
 import { ViewOptions } from 'src/app/_models';
 import { Utils } from 'src/app/core/_helpers/util';
@@ -95,7 +95,7 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
     private healthsafetyService: HealthsafetyService,
     private employeeService: EmployeeService,
 
-    ) { 
+    ) {
       this.globals = globals;
       this.user = this.authService.getCurrentUser();
 
@@ -117,7 +117,7 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void { 
+  ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
 
@@ -181,7 +181,7 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
       manager : this.managerId,
       employee : this.employeeId,
       reportFromDate: startDate,
-      reportToDate: endDate, 
+      reportToDate: endDate,
     }
     console.log(payload);
     this.healthsafetyService
@@ -191,7 +191,7 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
         let data: any = [];
         data = result.data;
         if (isScrolled == true) {
-          this.hazardData.data = [...this.hazardData.data, ...data];        
+          this.hazardData.data = [...this.hazardData.data, ...data];
         } else {
           data = JSON.parse(JSON.stringify(data));
           this.totalData = data;
