@@ -27,7 +27,7 @@ const routes: Routes = [
       { path: 'personal-info', component: EmployeeViewComponent,
       data: {
         title: 'Employee Profile ',
-        urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+        urls: [{ title: 'Employees', url: '/employee/employee-list' }, { title: 'People & Culture' }],
       }
      },
       { path: 'transfer', component: EmployeeTransferFormComponent },
@@ -55,14 +55,14 @@ const routes: Routes = [
         path: 'profile', component: EmployeeProfileComponent,
         data: {
           title: 'Employee Profile',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+          urls: [{ title: 'Employees', url: '/employee/employee-list' }, { title: 'People & Culture' }],
         }
       },
       {
         path: 'termination', component: EmployeeTerminationComponent,
         data: {
           title: 'Employee Profile',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+          urls: [{ title: 'Employees', url: '/employee/employee-list}' }, { title: 'People & Culture' }],
         }
       },
     ],

@@ -19,6 +19,9 @@ export class EmployeeTerminationComponent implements OnInit {
   form: FormGroup;
   submitted: boolean = false;
   employeId: any;
+  employee_name : String = '';
+  employeeData: any = {};
+
   currentDate : Date = new Date();
   id: string = '';
   dateStartAt = new Date();
@@ -46,17 +49,20 @@ export class EmployeeTerminationComponent implements OnInit {
       this.employeId = param.id;
     });
 
-    // this.getDetails();
+    this.getDetails();
+    if (this.record) {
+      this.employee_name = this.record.firstName && this.record.firstName.length > 0 ? this.record.firstName[0] : null;
+    }
   }
 
-  // getDetails() {
-  //   this.employeeService
-  //     .getByIdPersonalInfo(this.id)
-  //     .pipe(first())
-  //     .subscribe((result: any) => {
-  //       this.record = result.data;
-  //     });
-  // }
+  getDetails() {
+    this.employeeService
+      .getById(this.employeId)
+      .pipe(first())
+      .subscribe((result: any) => {
+        this.employeeData = result.data;
+      });
+  }
 
   setNow() {
     // console.log('Inside today');
@@ -122,7 +128,7 @@ export class EmployeeTerminationComponent implements OnInit {
         let terminatindate = new Date(this.form.controls.effectiveDate.value);
         this.currentDate = new Date();
         if(this.currentDate < terminatindate){
-          this.alertService.openSnackBar("Employee services will be terminated on "+moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'), false);
+          this.alertService.openSnackBar("Employee termination is now scheduled for "+moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'), false);
           
         }else{
           this.alertService.openSnackBar(CustomMessage.employeeTerminated, false);
