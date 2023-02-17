@@ -19,7 +19,7 @@ export class EmployeeTerminationComponent implements OnInit {
   form: FormGroup;
   submitted: boolean = false;
   employeId: any;
-  employee_name : String = '';
+  employeeName : String = '';
   employeeData: any = {};
 
   currentDate : Date = new Date();
@@ -50,9 +50,9 @@ export class EmployeeTerminationComponent implements OnInit {
     });
 
     this.getDetails();
-    if (this.record) {
-      this.employee_name = this.record.firstName && this.record.firstName.length > 0 ? this.record.firstName[0] : null;
-    }
+    // if (this.record) {
+    //   this.employeeName = this.record.firstName && this.record.firstName.length > 0 ? this.record.firstName[0] : null;
+    // }
   }
 
   getDetails() {
@@ -61,6 +61,11 @@ export class EmployeeTerminationComponent implements OnInit {
       .pipe(first())
       .subscribe((result: any) => {
         this.employeeData = result.data;
+     if (this.record) {
+          this.employeeName = this.record.firstName && this.record.firstName.length > 0 ? this.record.firstName[0] : null;
+      }
+        console.log(result);
+
       });
   }
 
