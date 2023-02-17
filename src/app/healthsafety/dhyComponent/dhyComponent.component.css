@@ -1,0 +1,56 @@
+.employee-list th.mat-header-cell {
+    width: 15%;
+  }
+  
+  :host ::ng-deep .approved-checkbox .mat-checkbox-frame {
+    border-color: #2ace58;
+  }
+  
+  :host ::ng-deep .rejected-checkbox .mat-checkbox-frame {
+    border-color: #d51e1e;
+  }
+  
+  :host ::ng-deep .pending-checkbox .mat-checkbox-frame {
+    border-color: #e7b400;
+  }
+  
+  .no-wrap td,
+  .no-wrap .ng-star-inserted {
+    white-space: inherit;
+  }
+  
+  .selected-row {
+    background-color: lavender !important;
+  }
+  .list-Img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+  }
+  .right-btn-s {
+    background: content-box;
+    color: #1e88e5;
+    /* font-size: 30px; */
+  }
+  .right-btn-s mat-icon {
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+  }
+  .p-custom{
+    padding: 10px 24px 5px !important;
+  }
+  
+  .infinite-scroll {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+  }
+  
+  .infinite-scroll .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  
+  

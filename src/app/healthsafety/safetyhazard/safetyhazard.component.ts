@@ -1,33 +1,32 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Globals} from 'src/app/globals';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import {  OnChanges, SimpleChanges } from '@angular/core';
-
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Globals } from 'src/app/globals';
+import { environment } from 'src/environments/environment';
 
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { HealthsafetyService } from '../../core/services/healthsafety.service';
 import { EmployeeService } from 'src/app/core/services';
 
 //utilities
-import { saveAs } from 'file-saver';
 import { ViewOptions } from 'src/app/_models';
 import { Utils } from 'src/app/core/_helpers/util';
 import { DatePipe } from '@angular/common';
 import { first } from 'rxjs';
 import * as moment from 'moment';
+import { saveAs } from 'file-saver';
 
-
-// Angluar MAterial
+// Anguluar MAterial
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { UntypedFormControl } from '@angular/forms';
 import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
   MatTooltipDefaultOptions,
   TooltipPosition,
 } from '@angular/material/tooltip';
+import { UntypedFormControl } from '@angular/forms';
+
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
   hideDelay: 1000,
@@ -39,44 +38,41 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   templateUrl: './safetyhazard.component.html',
   styleUrls: ['./safetyhazard.component.css'],
   providers: [{ provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
 })
-
-export class SafetyhazardComponent implements OnInit, OnChanges {
+export class SafetyHazardComponent implements OnInit, OnChanges {
+  user:any;
   globals: Globals;
-  user: any;
-  totalRecords: number = 0;
   googleMapLink : string = 'https://www.google.com/maps/search/';
   displayedColumns: string[] = ['Reported','reportedBy','hazard','address','risk','supervisor'];
-    //'select',  //'icon',
-  totalData: any = [];
-  search: string = ''; //by default 0 for pending list
+
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
+  pagesize = 10;
+  pageNo = 0;
+  pageSize = 10;
+  totalRecords: number = 0;
+  paginator:any={
+    pageIndex:this.pageNo,
+    pageSize:this.pageSize
+  }
+  search: string = ''; 
+  startDate: Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
+  endDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
+  status: any = 0;
+  selectedId: string = '';
+  baseUrl: string = environment.apiUrl;
+
+  // 
   severity: string ='';
   managerId: any = '';
   managers: any = [];
   employeeId : any = '';
   employees: any = [];
-
   matStartDate : Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
-  startDate: Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
   matEndDate : Date = new Date();
-  endDate: Date = new Date();
-  pageNo = 0;
-  pageSize = 10;
-  paginator:any={
-    pageIndex:this.pageNo,
-    pageSize:this.pageSize
-  }
-  hazardData: MatTableDataSource<any> = new MatTableDataSource<any>();
-  @ViewChild(MatSort, { static: false })   sort: MatSort = Object.create(null);
+  //
 
-  // tooltips
+    // tooltips
   positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];
   position = new UntypedFormControl(this.positionOptions[0]);
   showDelay = new UntypedFormControl(500);
@@ -84,97 +80,44 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
   disabled = new UntypedFormControl(false);
   message = new UntypedFormControl('message');
   position1 = new UntypedFormControl(this.positionOptions[0]);
-  //end of tooltips
-
+    //end of tooltips
   constructor(
     public util: Utils,
     globals: Globals,
     private datePipe: DatePipe,
     private activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
-    private healthsafetyService: HealthsafetyService,
     private employeeService: EmployeeService,
-
-    ) {
-      this.globals = globals;
-      this.user = this.authService.getCurrentUser();
-
-      // this.authService.getAllManagers('').subscribe((result: any) => {
-      //   this.managers = result && result.data && result.data.length > 0 ? result.data : [];
-      // });
-      this.searchManager({ target: { value: '' } });
-      this.searchEmployee({ target: { value: '' } });
-
-
-      // this.authService.getAllManagers(('')).subscribe((result: any) => {
-      //   this.managers = result && result.data && result.data.length > 0 ? result.data : [];
-      // });
-
-    }
-
-  ngOnInit():void {
-    this.refreshHazard(this.getDefaultOptions());
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
-
-  applyFilter(isTextSearch: boolean = false): void {
-    this.paginator.pageIndex=0;
-    this.paginator.pageSize=10;
-    //this.getAllHazardList();
-    if (isTextSearch) {
-      this.hazardData.filter = this.search;
-    } else {
-      let data = this.totalData;
-      this.refreshHazard(this.getDefaultOptions());
-    }
-  }
-
-  getDefaultOptions() {
-    let obj = this.paginator;
-    let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
-    let query ='' ;
-    const options: ViewOptions = {
-      sortField: this.sort !== undefined ? this.sort.active : 'risk',
-      sortDirection: this.sort !== undefined ? this.sort.direction : 'asc',
-      page: pageSize - 1,
-      search: '',
-      query: query,
-      pageSize:
-        obj != undefined ? (obj.pageSize == null ? this.pageSize : obj.pageSize) : this.pageSize,
+    private healthsafetyService: HealthsafetyService,
+    private router: Router
+  ) {
+    this.user=this.authService.getCurrentUser();
+    this.globals = globals;
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
     };
-    return options;
-  }
-
-  onTableScroll(e: any) {
-    const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
-    const tableScrollHeight = e.target.scrollHeight; // length of all table
-    const scrollLocation = e.target.scrollTop; // how far user scrolled
-    const buffer = 10;
-    const limit = tableScrollHeight - tableViewHeight - buffer;
-    if (scrollLocation > limit) {
-      if (this.hazardData.data && (this.hazardData.data.length < this.totalRecords)) {
-        this.paginator.pageIndex = this.paginator.pageIndex + 1;
-        this.paginator.pageSize = this.paginator.pageSize + 10;
-        this.refreshHazard(this.getDefaultOptions(), true);
+    this.searchManager({ target: { value: '' } });
+    this.searchEmployee({ target: { value: '' } });
+    this.activatedRoute.queryParams.subscribe((queryParams) => {
+      if (queryParams['id']) {
+        this.selectedId = queryParams['id'];
       }
-    }
+    });
   }
-  /* end of  onTableScroll */
-  refreshHazard(options: ViewOptions, isScrolled: boolean = false) {
-    let queryData = {};
-    let startDate = this.matStartDate
-    ? moment(new Date(new Date(this.startDate).setHours(0, 0, 0, 0)).toUTCString()).format('DD-MM-YYYY HH:mm:ss')
-    : '';
-  let endDate = this.matEndDate
-    ? moment(new Date(new Date(this.endDate).setHours(23, 59, 59, 59)).toUTCString()).format('DD-MM-YYYY HH:mm:ss')
-    : '';
-    this.managerId= this.managerId == 'all' ? '' : this.managerId,
 
-    console.log(startDate + endDate);
+  ngOnInit(): void {
+    this.refresh(this.getDefaultOptions());
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
+  refresh(options: ViewOptions, isScrolled: boolean = false) {
+    let startDate = this.matStartDate? moment(new Date(new Date(this.matStartDate).setHours(0, 0, 0, 0)).toUTCString()).format('DD/MM/YYYY hh:mm:ss'): '';
+    let endDate = this.matEndDate? moment(new Date(new Date(this.matEndDate).setHours(23, 59, 59, 59)).toUTCString()).format('DD/MM/YYYY hh:mm:ss'): ''; 
+    this.managerId= this.managerId == 'all' ? '' : this.managerId;
     let payload = {
       searchText: `${this.search}`,
       severity : `${this.severity}`,
@@ -183,22 +126,54 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
       reportFromDate: startDate,
       reportToDate: endDate,
     }
-    console.log(payload);
+    this
     this.healthsafetyService
-      .getHazardListFilter({ options, payload })
+      .getHazardListFilter({options, payload})
       .pipe(first())
       .subscribe((result: any) => {
+        this.totalRecords = result.totalElement;
         let data: any = [];
-        data = result.data;
+        for (let i = 0; i < result.data.length; i++) {
+          data.push({
+            ...result.data[i],
+          });
+        }
         if (isScrolled == true) {
-          this.hazardData.data = [...this.hazardData.data, ...data];
+          this.dataSource.data = [...this.dataSource.data, ...data];
         } else {
-          data = JSON.parse(JSON.stringify(data));
-          this.totalData = data;
-          let tempData = JSON.parse(JSON.stringify(data));
-          this.hazardData.data = tempData.splice(0, 10);
+        this.dataSource.data = data;
          }
       });
+  }
+
+  getDefaultOptions() {
+    let obj = this.paginator;
+    let sort = this.sort;
+    let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
+    const options: ViewOptions = {
+      sortField: sort !== undefined ? sort.active : 'fullName',
+      sortDirection: sort !== undefined ? sort.direction : 'asc',
+      // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
+      page: pageSize - 1,
+      search: '',
+      query: '',
+      pageSize:
+        obj != undefined ? (obj.pageSize == null ? this.pagesize : obj.pageSize) : this.pagesize,
+    };
+    return options;
+  }
+
+  applyFilter(isTextSearch: boolean = false): void {
+    this.paginator.pageIndex=0;
+    this.paginator.pageSize=10;
+    this.search = this.search.trim(); // Remove whitespace
+    this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
+    if (isTextSearch) {
+      this.pageNo = 0;
+      this.totalRecords = 0;
+      this.paginator.firstPage();
+    }
+    this.refresh(this.getDefaultOptions());
   }
 
   searchManager(event: any) {
@@ -213,13 +188,28 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
     });
   }
 
+  onTableScroll(e: any) {
+    const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
+    const tableScrollHeight = e.target.scrollHeight; // length of all table
+    const scrollLocation = e.target.scrollTop; // how far user scrolled
+    const buffer = 10;
+    const limit = tableScrollHeight - tableViewHeight - buffer;
+    if (scrollLocation > limit) {
+      if (this.dataSource.data.length < this.totalRecords) { 
+        this.paginator.pageIndex = this.paginator.pageIndex + 1;
+        this.paginator.pageSize = this.paginator.pageSize;
+        this.refresh(this.getDefaultOptions(), true);
+      }
 
+      
+    }
+  }
   exportCsv() {
     let csvArray: any = [
       'create_date, hazard_no,reported_date,hazard_desc,address,riskLevel, manualAddressFlag,rectifyFlag,reportedBy,Supervisro\r\n',];
 
-    for (let i = 0; i < this.hazardData.data.length; i++) {
-      let item = this.hazardData.data[i];
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      let item = this.dataSource.data[i];
       let row: string = `${item?.reportedBy}\r\n`;
       csvArray.push(row);
     }
@@ -228,8 +218,3 @@ export class SafetyhazardComponent implements OnInit, OnChanges {
     saveAs(blob, fileName);
   }
 }
-
-
-
-
-

@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { HealthsafetyRoutes } from './healthsafety.routing';
 
-
 import { HealthsafetyComponent } from './healthsafety.component';
-import { SafetyhazardComponent } from './safetyhazard/safetyhazard.component';
-
+import { SafetyHazardComponent } from './safetyhazard/safetyhazard.component';
+import { SafetyhazardDetailsComponent } from './safetyhazard_details/safetyhazard_details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +14,8 @@ import { SafetyhazardComponent } from './safetyhazard/safetyhazard.component';
   ],
   declarations: [
     HealthsafetyComponent,
-    SafetyhazardComponent
+    SafetyHazardComponent,
+    SafetyhazardDetailsComponent,
   ]
 })
 export class HealthsafetyModule { }

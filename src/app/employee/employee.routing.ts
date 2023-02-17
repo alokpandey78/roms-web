@@ -20,8 +20,8 @@ const routes: Routes = [
     children: [
       { path: 'employee-list', component: EmployeeListComponent,
       data: {
-        title: 'Employee List ',
-        urls: [{ title: 'Dashboard', url: '/' }, { title: 'My Staff' }],
+        title: 'Employees ',
+        urls: [{ title: 'People & Culture', url: '/' }, { title: 'All Staff' }],
       } },
       { path: 'form', component: EmployeeFormComponent },
       { path: 'personal-info', component: EmployeeViewComponent,

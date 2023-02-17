@@ -10,6 +10,6 @@ export class HealthsafetyComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+  } 
 
 }

@@ -5,7 +5,6 @@ import { ReportRoutingModule } from './report.routing';
 import { LeaveReportComponent } from './leave-report/leave-report.component';
 import { ResignationReportComponent } from './resignation-report/resignation-report.component';
 import { PrestartReportComponent } from './prestart-report/prestart-report.component';
-import { HazardReportComponent } from '../healthsafety/hazard-report/hazard-report.component';
 
 
 @NgModule({
@@ -18,7 +17,6 @@ import { HazardReportComponent } from '../healthsafety/hazard-report/hazard-repo
         LeaveReportComponent,
         ResignationReportComponent,
         PrestartReportComponent,
-        HazardReportComponent
     ]
 })
 export class ReportModule { }

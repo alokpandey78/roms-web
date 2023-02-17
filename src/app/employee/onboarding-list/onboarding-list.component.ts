@@ -210,7 +210,7 @@ export class OnboardingListComponent implements OnInit, OnChanges {
         result.data = result.data.sort((x: any, y: any) => {
           let a: any = new Date(parseInt(y.registrationDate ? y.registrationDate : 0));
           let b: any = new Date(parseInt(x.registrationDate ? x.registrationDate : 0));
-          console.log(y.registrationDate, a, b, x.registrationDate)
+          //console.log(y.registrationDate, a, b, x.registrationDate)
           return a - b;
         });
 

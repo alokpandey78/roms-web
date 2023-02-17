@@ -486,7 +486,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     // this.selectedImage = data;
     const dialogRef = this.dialog.open(ImagePreviewDialog, {
       width: 'auto',
-      height: '35em',
+      height: '85em',
       data: { selectedImage: data }
     });
 

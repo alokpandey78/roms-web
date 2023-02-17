@@ -14,7 +14,7 @@ const routes: Routes = [
         path: 'leave', component: LeaveReportComponent,
         data: {
           title: 'Staff Leaves',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+          urls: [{ title: 'People & Culture', url: '/' }, { title: 'Staff Leaves' }],
         }
       },
       {

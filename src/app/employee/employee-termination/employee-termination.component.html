@@ -61,17 +61,6 @@
               <div fxFlex.gt-sm="100%" fxFlex="100">
                 <div fxFlex.gt-sm="45" fxFlex="100" class="p-10">
 
-                  <!-- <mat-form-field appearance="outline">
-                    <input
-                      matInput
-                      [matDatepicker]="effectiveDateDP"
-                      placeholder="Effective Date"
-                      name="effectiveDate"
-
-                    />
-                    <mat-datepicker-toggle matSuffix [for]="effectiveDateDP"></mat-datepicker-toggle>
-                    <mat-datepicker #effectiveDateDP></mat-datepicker>
-                  </mat-form-field> -->
                   <mat-form-field appearance="outline">
                     <input formControlName="effectiveDate" effectiveDate
                       [ngClass]="{ 'is-invalid': submitted && f.effectiveDate.hasError }" matInput
@@ -107,10 +96,10 @@
                 </quill-editor> -->
 
                 <mat-form-field appearance="outline" class="m-t-10 p-r-10">
-                <mat-label>Description</mat-label>
+                <mat-label>Reason</mat-label>
                 <textarea matInput placeholder="Enter Description" formControlName="description" rows="3"></textarea>
                 <mat-error *ngIf="submitted && checkError('description', 'required')">
-                  Description is required.
+                  Brief Reason is required.
                 </mat-error>
               </mat-form-field>
 
