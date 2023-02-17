@@ -14,7 +14,6 @@ import { AttandanceComponent } from './attandance/attandance.component';
 import { WorkOrderComponent } from './work-order/work-order.component';
 import { PrestartComponent } from './prestart/prestart.component';
 import { AssetsViewComponent } from './assets-view/assets-view.component';
-import { HazardComponent } from '../healthsafety/hazard/hazard.component';
 
 
 
@@ -32,7 +31,6 @@ import { HazardComponent } from '../healthsafety/hazard/hazard.component';
     WorkOrderComponent,
     PrestartComponent,
     AssetsViewComponent,
-    HazardComponent
   ],
   imports: [
     CommonModule,
