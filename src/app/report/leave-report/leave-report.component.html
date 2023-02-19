@@ -436,7 +436,7 @@
               <mat-label (click)="picker.open()">Select Date Range</mat-label>
               <mat-date-range-input [rangePicker]="picker">
                 <input matStartDate [(ngModel)]="startDate" placeholder="Start date" readonly
-                  (dateChange)="applyFilter()" (click)="picker.open()" />
+                   (click)="picker.open()" />
                 <input matEndDate placeholder="End date" readonly [(ngModel)]="endDate" (dateChange)="applyFilter()"
                   (click)="picker.open()" />
               </mat-date-range-input>

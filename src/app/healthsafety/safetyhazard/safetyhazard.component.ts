@@ -150,8 +150,10 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
+    console.log(obj);
+
     const options: ViewOptions = {
-      sortField: sort !== undefined ? sort.active : 'fullName',
+      sortField: sort !== undefined ? sort.active : 'hazard',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
       // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
       page: pageSize - 1,
