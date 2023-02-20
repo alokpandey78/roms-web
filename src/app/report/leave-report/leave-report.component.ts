@@ -335,6 +335,8 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = this.search;
+    this.pageNo = 0;
+    this.pageSize = 10;
     if (isTextSearch) {
     } else {
       if (this.selectedTabIndex == 0) {
