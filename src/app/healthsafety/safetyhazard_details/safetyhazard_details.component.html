@@ -1,28 +1,28 @@
 <mat-card>
   <mat-card-content class="create_user_page">
-    <!-- <h2 class="title text-center color_blue">Hazard Details</h2> -->
+    <h2 class="title text-center color_blue">Hazard Details</h2>
     <form class="basic-form">
       <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
         <div fxFlex.gt-sm="100" fxFlex="100" class="m-10">
           <div fxFlex.gt-sm="74" fxFlex="100" class="p-b-10 p-t-10"></div>
-          <div fxFlex.gt-sm="8" fxFlex="100" >
-            <mat-label class="d-block">Reported </mat-label>
+          <div fxFlex.gt-sm="8" fxFlex="100">
+            <mat-label class="d-block">Posted </mat-label>
           </div>
-          <div fxFlex.gt-sm="10" fxFlex="100" >
+          <div fxFlex.gt-sm="10" fxFlex="100">
             <mat-label class="d-block">01/01/2023 </mat-label>
           </div>
-          <div fxFlex.gt-sm="8" fxFlex="100" >
+          <div fxFlex.gt-sm="8" fxFlex="100">
             <mat-label class="d-block"> 06:00 AM</mat-label>
           </div>
         </div>
         <div fxFlex.gt-sm="100" fxFlex="100" class="m-10">
           <!-- <mat-card class="m-0 my-mat-cardt d-wrap"> -->
           <div fxFlex.gt-sm="12" fxFlex="100" class="p-b-10 p-t-10 m-l-30 top-label">
-            <mat-label ><b> HZ0005</b></mat-label>
+            <mat-label><b> HZ0005</b></mat-label>
           </div>
           <div fxFlex.gt-sm="30" fxFlex="100" class="p-b-10 p-t-10 top-label">
-            <mat-icon class="color_blue" > location_on</mat-icon>
-            <mat-label class="m-l-10 ">Eastern Road Yallorn,Victoria</mat-label>
+            <mat-icon class="color_blue"> location_on</mat-icon>
+            <mat-label class="m-l-10">Eastern Road Yallorn,Victoria</mat-label>
           </div>
           <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10 top-label">
             <mat-icon class="color_blue">near_me</mat-icon>
@@ -56,21 +56,20 @@
         </div>
         <div fxFlex.gt-sm="100" fxFlex="100">
           <!-- <mat-card class="m-0 my-mat-cardb d-wrap"> -->
-            <div fxFlex.gt-sm="60" fxFlex="100" class="p-b-10 p-t-10"></div>
+          <div fxFlex.gt-sm="70" fxFlex="100" class="p-b-10 p-t-10"></div>
 
-            <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10 m-t-10">
-              <mat-label>Supervisor</mat-label>
-            </div>
-            <div fxFlex.gt-sm="30" fxFlex="100" class="p-b-10 p-t-10">
-              <div fxFlex.gt-sm="100" fxFlex="100" class=" ">
-                <img
-                  class="m-r-10 User-Img"
-                  src="../../../assets/img/user-default-img.jpg"
-                  alt=""
-                />
-                <mat-label ><b>Brandon Hill</b></mat-label>
-              </div>
-            </div>
+          <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10 m-t-10">
+            <mat-label>Supervisor</mat-label>
+          </div>
+          <div fxFlex.gt-sm="5" fxFlex="100" class="p-b-10 p-t-10">
+            <!-- <div fxFlex.gt-sm="100" fxFlex="100" class=" "> -->
+              <img class="m-r-10 User-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+              
+            <!-- </div> -->
+          </div>
+          <div fxFlex.gt-sm="15" fxFlex="100" class="m-t-20">
+            <mat-label><b>Brandon Hill</b></mat-label>
+          </div>
           <!-- </mat-card> -->
         </div>
       </div>
@@ -87,7 +86,9 @@
         </div>
         <div fxFlex.gt-sm="6" fxFlex="100"></div>
         <div fxFlex.gt-sm="47" fxFlex="100">
+          
           <mat-card class="m-0 my-mat-cardf">
+            <div fxFlex.gt-sm="100" fxFlex="100" >
             <mat-card-title class="p-10 color_blue text-center"
               >Hazard Rectification</mat-card-title
             >
@@ -96,25 +97,94 @@
               <textarea matInput placeholder="Comment" value="description" rows="5"></textarea>
               <mat-error> Comment is required </mat-error>
             </mat-form-field>
+          </div>
+            <!-- <div fxFlex.gt-sm="100" fxLayout="row wrap" fxFlex="100">
+            <div fxFlex.gt-sm="33.33" fxFlex="100" >
+              <img class="m-r-10 User-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100"></div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100"></div>
+          </div> -->
           </mat-card>
         </div>
       </div>
-
+      <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0 m-b-30 m-t-20">
+        <div fxFlex.gt-sm="47" fxFlex="100">
+          <mat-card class="m-0 my-mat-cardf">
+            <div fxFlex.gt-sm="33.33" fxFlex="100">
+              <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100">
+              <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100">
+              <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+            
+          </mat-card>
+        </div>
+        <div fxFlex.gt-sm="6" fxFlex="100"></div>
+        <div fxFlex.gt-sm="47" fxFlex="100">
+          
+          <mat-card class="m-0 my-mat-cardf">
+            <div fxFlex.gt-sm="100" fxFlex="100" >
+            
+            <div fxFlex.gt-sm="33.33" fxFlex="100">
+              <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100">
+              <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100">
+              <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+          </div>
+            <!-- <div fxFlex.gt-sm="100" fxLayout="row wrap" fxFlex="100">
+            <div fxFlex.gt-sm="33.33" fxFlex="100" >
+              <img class="m-r-10 User-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+            </div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100"></div>
+            <div fxFlex.gt-sm="33.33" fxFlex="100"></div>
+          </div> -->
+          </mat-card>
+        </div>
+      </div>
+      <mat-card-title class="p-b-10 ">Comments</mat-card-title>
       <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0 m-b-30 border-full">
         <div fxFlex.gt-sm="100" fxFlex="100">
           <mat-card class="m-0 my-mat-cardf">
-            <div fxFlex.gt-sm="100" fxFlex="100" class="p-b-10 p-t-10">
-              <mat-card-title class="p-b-10 color_blue">Additional Information</mat-card-title>
-              <div mat-dialog-content class="mat-flex d-wrap">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-10">
+              <div fxFlex.gt-sm="5" fxFlex="100">
+                <img
+                  class="m-r-10 User-Img"
+                  src="../../../assets/img/user-default-img.jpg"
+                  alt=""
+                />
+              </div>
+              <div fxFlex.gt-sm="25" fxFlex="100" class="m-t-10 color_blue">
+                <mat-label><b>Brandon Hill</b></mat-label>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <h5 class="m-t-10">Good Work</h5>
+              </div>
+              <div fxFlex.gt-sm="20" fxFlex="100" fxLayout="row wrap" align="end">
+                <p class="m-r-10">20/12/2022</p>
+                <p class="m-l-10">12:00 AM</p>
+              </div>
+              <!-- <div mat-dialog-content class="mat-flex d-wrap">
                 <h5 class="m-0"><b>Client :</b></h5>
                 <h5 class="m-0">client?.name</h5>
-              </div>
+                <div align="end">
+                  <h5 class="m-0"><b>20/12/2022</b></h5>
+                <h5 class="m-0">06:00AM</h5>
+                </div>
+              </div> -->
             </div>
           </mat-card>
         </div>
       </div>
 
-      <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
+      <!-- <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
         <div fxFlex.gt-sm="100" fxFlex="100">
           <div class="m-0 m-t-15" align="center">
             <button class="m-l-20 m-r-20" mat-raised-button color="primary">
@@ -125,7 +195,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
   </mat-card-content>
 </mat-card>
