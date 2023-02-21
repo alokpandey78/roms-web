@@ -283,7 +283,8 @@
                 *matRowDef="let element; columns: displayedColumns"
                 class="example-element-row"
                 style="vertical-align: top"
-              
+                [routerLink]="['/report/prestart']"
+                [queryParams]="{ id: element.id }"
             
                 [ngClass]="{ 'selected-row': selectedId == element.id }"
               ></tr>
