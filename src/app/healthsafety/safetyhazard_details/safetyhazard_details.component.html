@@ -18,11 +18,11 @@
         <div fxFlex.gt-sm="100" fxFlex="100" class="m-10">
           <!-- <mat-card class="m-0 my-mat-cardt d-wrap"> -->
           <div fxFlex.gt-sm="12" fxFlex="100" class="p-b-10 p-t-10 m-l-30 top-label">
-            <mat-label><b> HZ0005</b></mat-label>
+            <mat-label><b>{{hazardDetails?.hazardNo}}</b></mat-label>
           </div>
           <div fxFlex.gt-sm="30" fxFlex="100" class="p-b-10 p-t-10 top-label">
             <mat-icon class="color_blue"> location_on</mat-icon>
-            <mat-label class="m-l-10">Eastern Road Yallorn,Victoria</mat-label>
+            <mat-label class="m-l-10">{{hazardDetails?.address}}</mat-label>
           </div>
           <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10 top-label">
             <mat-icon class="color_blue">near_me</mat-icon>
@@ -56,19 +56,38 @@
         </div>
         <div fxFlex.gt-sm="100" fxFlex="100">
           <!-- <mat-card class="m-0 my-mat-cardb d-wrap"> -->
-          <div fxFlex.gt-sm="70" fxFlex="100" class="p-b-10 p-t-10"></div>
+          <div fxFlex.gt-sm="60" fxFlex="100" class="p-b-10 p-t-10"></div>
 
           <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10 m-t-10">
             <mat-label>Supervisor</mat-label>
           </div>
           <div fxFlex.gt-sm="5" fxFlex="100" class="p-b-10 p-t-10">
             <!-- <div fxFlex.gt-sm="100" fxFlex="100" class=" "> -->
-              <img class="m-r-10 User-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
+              <img
+                    class="m-r-10 User-Img"
+                    onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                    [src]="
+                      globals.generateFileUrl(
+                        hazardDetails &&
+                          hazardDetails.superviser &&
+                          hazardDetails.superviser.profileImage.length > 0
+                          ? hazardDetails.superviser.profileImage[0]?.digitalAssets?.url
+                          : '',
+                        ''
+                      )
+                    "
+                    alt=""
+                  />
+              <!-- <img class="m-r-10 User-Img" src="../../../assets/img/user-default-img.jpg" alt="" /> -->
               
             <!-- </div> -->
           </div>
-          <div fxFlex.gt-sm="15" fxFlex="100" class="m-t-20">
-            <mat-label><b>Brandon Hill</b></mat-label>
+          <div fxFlex.gt-sm="25" fxFlex="100" class="m-t-20">
+            <mat-label><b>{{
+              hazardDetails?.superviser?.firstName +
+                ' ' +
+                hazardDetails?.superviser?.lastName
+            }}</b></mat-label>
           </div>
           <!-- </mat-card> -->
         </div>
@@ -79,8 +98,8 @@
             <mat-card-title class="p-10 color_blue text-center">Hazard Report</mat-card-title>
             <mat-form-field appearance="outline" class="m-t-0 p-l-10 p-r-10">
               <mat-label>Description</mat-label>
-              <textarea matInput placeholder="Comment" value="description" rows="5"></textarea>
-              <mat-error> Comment is required </mat-error>
+              <textarea matInput placeholder="Comment" value="{{hazardDetails?.description}}" rows="5"></textarea>
+              <!-- <mat-error> Comment is required </mat-error> -->
             </mat-form-field>
           </mat-card>
         </div>
@@ -111,7 +130,7 @@
       <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0 m-b-30 m-t-20">
         <div fxFlex.gt-sm="47" fxFlex="100">
           <mat-card class="m-0 my-mat-cardf">
-            <div fxFlex.gt-sm="33.33" fxFlex="100">
+            <div fxFlex.gt-sm="33.33" fxFlex="100" class="m-l-30">
               <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
             </div>
             <div fxFlex.gt-sm="33.33" fxFlex="100">
@@ -127,7 +146,7 @@
         <div fxFlex.gt-sm="47" fxFlex="100">
           
           <mat-card class="m-0 my-mat-cardf">
-            <div fxFlex.gt-sm="100" fxFlex="100" >
+            <div fxFlex.gt-sm="100" fxFlex="100" class="m-l-30" >
             
             <div fxFlex.gt-sm="33.33" fxFlex="100">
               <img class="m-r-10 Hazard-Img" src="../../../assets/img/user-default-img.jpg" alt="" />
