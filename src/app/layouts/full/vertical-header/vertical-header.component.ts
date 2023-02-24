@@ -162,6 +162,8 @@ export class VerticalAppHeaderComponent {
               this.authService.passNewRegistration(data.data);
             } else if (data.type == "onboarding_status") {
               url = '/employee/onboarding-list';
+            }  else if (data.type == "hazard_report") {
+              url = '/healthsafety/safety-hazard';
             }
 
             // if (data.type == "adduserlist__request") {
@@ -246,6 +248,8 @@ export class VerticalAppHeaderComponent {
       this.router.navigate(['/registration/list'], { queryParams: { id: item.eventId } });
     } else if (item.type == "onboarding_status") {
       this.router.navigate(['/employee/onboarding-list']);
+    } else if (item.type == "hazard_report") {
+      this.router.navigate(['/healthsafety/safety-hazard']);
     }
 
 
