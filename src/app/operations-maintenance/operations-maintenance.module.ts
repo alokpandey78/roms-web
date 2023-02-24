@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import {OperationsMaintenanceRoutes} from './operations-maintenance.routing';
 import { OperationsMaintenanceComponent } from './operations-maintenance.component';
-import { DailyPlantPrestartsComponent } from './daily-plant-prestarts/daily-plant-prestarts.component';
+import { PlantPrestartsComponent } from './plant-prestarts/plant-prestarts.component';
 
 @NgModule({
   imports: [
@@ -13,6 +13,6 @@ import { DailyPlantPrestartsComponent } from './daily-plant-prestarts/daily-plan
   ],
   declarations: [
     OperationsMaintenanceComponent, 
-    DailyPlantPrestartsComponent]
+    PlantPrestartsComponent,]
 })
 export class OperationsMaintenanceModule { }

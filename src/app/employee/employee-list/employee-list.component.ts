@@ -228,7 +228,7 @@ export class EmployeeListComponent implements OnInit, OnChanges {
 
           let statusName = this.getStatus(result.data[i]?.status);
           let convertedStartDate = this.datePipe.transform(result.data[i].startDate, 'dd/MM/yyyy');
-          let employeeName = `${result.data[i].lastName},${result.data[i].firstName}`
+          let employeeName = `${result.data[i].lastName}, ${result.data[i].firstName}`
           data.push({
             ...result.data[i],
             statusName: statusName,
@@ -305,7 +305,7 @@ export class EmployeeListComponent implements OnInit, OnChanges {
       if (this.dataSource.data.length < this.totalRecords) {
        
         this.paginator.pageIndex = this.paginator.pageIndex + 1;
-        this.paginator.pageSize = this.paginator.pageSize + 10;
+        this.paginator.pageSize = this.paginator.pageSize;
         this.refresh(this.getDefaultOptions(), true);
       }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);

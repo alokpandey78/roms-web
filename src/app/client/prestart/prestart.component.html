@@ -8,7 +8,7 @@
               <div fxFlex.gt-sm="80" class="p-r-10" fxFlex="100"></div>
               <div fxFlex.gt-sm="20" class="text-center" fxFlex="50">
                 <button mat-icon-button>
-                  <mat-icon>cloud_download</mat-icon>
+                  <mat-icon style="cursor: pointer; color:rgb(255,150, 79);">cloud_download</mat-icon>
                   Export List
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
@@ -276,15 +276,13 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"
-              style="vertical-align: top"
-              ></tr>
+              style="vertical-align: top" ></tr>
               <tr
                 mat-row
                 *matRowDef="let element; columns: displayedColumns"
                 class="example-element-row"
                 style="vertical-align: top"
-                [routerLink]="['/report/prestart']"
-                [queryParams]="{ id: element.id }"
+              
             
                 [ngClass]="{ 'selected-row': selectedId == element.id }"
               ></tr>

@@ -1,0 +1,250 @@
+<div fxLayout="row">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" flxFlex="100">
+    <mat-card class="m-0 m-t-20 m-b-5">
+      <mat-card-content class="p-15 p-b-5">
+        <div class="m-l-10 m-r-10">
+          <div fxLayout="row wrap" fxFlexAlign="center" class="row" style="align-items: center">
+            <div fxFlex.gt-sm="80" class="p-r-10" fxFlex="100"></div>
+            <div fxFlex.gt-sm="20" class="text-center" fxFlex="50">
+              <button mat-icon-button>
+                <mat-icon style="cursor: pointer; color:rgb(255,150, 79);">cloud_download</mat-icon>
+                Export List
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+            </div>
+            <div fxFlex.gt-sm="20" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <input
+                  matInput
+                  (keyup)="applyFilter(true)"
+                  [(ngModel)]="search"
+                  placeholder="Filter"
+                />
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+              <!-- <mat-form-field>
+                <input matInput (keyup)="applyFilter(true)" [(ngModel)]="search" />
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field> -->
+            </div>
+            <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-select
+                (selectionChange)="applyFilter()"
+                [(ngModel)]="selectedDefectsId"
+                placeholder="Defect Type"
+              >
+                <mat-option value="">All</mat-option>
+                <mat-option [value]="item.id" *ngFor="let item of assetDefect">
+                    {{ item.name }}
+                  </mat-option>
+              </mat-select>
+                <!-- <mat-select placeholder="Defect Type">
+                  <mat-option value="Option1">Option1</mat-option>
+                  <mat-option value="Option2">Option2</mat-option>
+                  <mat-option value="Option3">Option3</mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-select
+                (selectionChange)="applyFilter()"
+                [(ngModel)]="selectedAssetClassId"
+                placeholder="Class"
+              >
+                <mat-option value="">All</mat-option>
+                <mat-option [value]="item.id" *ngFor="let item of assetClass">
+                    {{ item.name }}
+                  </mat-option>
+              </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-select
+                (selectionChange)="applyFilter()"
+                [(ngModel)]="selectedAssetTypeId"
+                placeholder="Type"
+              >
+                <mat-option value="">All</mat-option>
+                <mat-option [value]="item.id" *ngFor="let item of assetList">
+                    {{ item.name | titlecase }}
+                  </mat-option>
+              </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="15" class="p-r-10" fxFlex="100">
+              <mat-form-field>
+                <mat-select
+                (selectionChange)="applyFilter()"
+                [(ngModel)]="selectedLocationsId"
+                placeholder="Locations"
+              >
+                <mat-option value="">All</mat-option>
+                <mat-option [value]="item.id" *ngFor="let item of assetLocation">
+                    {{ item.name | titlecase }}
+                  </mat-option>
+              </mat-select>
+                <!-- <mat-select placeholder="Location">
+                  <mat-option value="Option1">Option1</mat-option>
+                  <mat-option value="Option2">Option2</mat-option>
+                  <mat-option value="Option3">Option3</mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+            
+            
+            <div fxFlex.gt-sm="20" class="font-12">
+              <mat-form-field appearance="outline">
+                <mat-label (click)="picker.open()">Select Date Range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input
+                    matStartDate
+                    [(ngModel)]="startDate"
+                    placeholder="Start date"
+                    readonly
+
+                    (click)="picker.open()"
+                  />
+                  <input
+                    matEndDate
+                    placeholder="End date"
+                    readonly
+                    [(ngModel)]="endDate"
+                    (dateChange)="applyFilter()"
+                    (click)="picker.open()"
+                  />
+                </mat-date-range-input>
+
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="m-0 m-t-20 m-b-5">
+      <mat-card-content>
+        <div class="table-reponsive infinite-scroll">
+          <mat-table [dataSource]="dataSource" (scroll)="onTableScroll($event)" class="table prestart-list no-wrap"
+            matSort>
+
+            <ng-container matColumnDef="Date">
+              <mat-header-cell *matHeaderCellDef> Date
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <div class="m-l-15">
+                  <p class="font-medium m-b-0 m-t-0">{{element.date | dateAgo}}</p>
+                  <small class="text-muted">{{element.date | date:'fullDate'}} {{element.date | date:'shortTime'}}
+                  </small>
+                </div>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="No">
+              <mat-header-cell *matHeaderCellDef> No
+              </mat-header-cell>
+              <div class="m-l-15">
+                <mat-cell *matCellDef="let element">
+                  {{element.prestartNo}}
+                </mat-cell>
+              </div>
+            </ng-container>
+            <ng-container matColumnDef="device">
+              <mat-header-cell *matHeaderCellDef> No, Device
+              </mat-header-cell>
+              <div class="m-l-10">
+                <mat-cell *matCellDef="let element">
+                  <small>{{element.prestartNo}} <br> {{element?.deviceName | slice:0:20 }}</small> 
+                </mat-cell>
+              </div>
+            </ng-container>
+            <ng-container matColumnDef="Plant">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Plant</mat-header-cell>
+              <mat-cell mat-cell *matCellDef="let element">
+                <div style="display: flex; align-items: center">
+                  <img class="m-r-1 Asset-Img"
+                    onerror="this.onerror=null;this.src='../../assets/img/default-asset.jpg';"
+                    [src]="globals.generateFileUrl( element && element.assets.assetImage ? element.assets.assetImage?.url : '','')"
+                    alt="" />
+                  <div class="m-l-15">
+                    <p class="font-medium m-b-0 m-t-0">{{ element.assets.assetNo }} {{ element.assets.name }}</p>
+                    <small class="text-muted">{{ element.assets.assetType.name }} {{ element.assets.model }} </small>
+                  </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="operator">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Operator</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <div style="display: flex; align-items: center">
+                  <img class="m-r-1 list-Img"
+                    onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                    [src]="globals.generateFileUrl(element && element.operator && element.operator.profileImage.length>0?element.operator.profileImage[0]?.digitalAssets?.url:'','')"
+                    alt="" />
+                  <div class="m-l-15">
+                    <p class="font-medium m-b-0 m-t-0">{{ element.operator?.firstName }}</p>
+                    <small class="text-muted">{{ element.operator.lastName }} </small>
+                  </div>
+                </div>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Location">
+              <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <ng-container *ngIf="element?.locationLatLong; then thenIconTemplate; else elseIconTemplate"></ng-container>
+
+                <ng-template #thenIconTemplate>
+                       <a [href]="globals.googleMapLink +element?.locationLatLong" target="_blank">
+                        <mat-icon class="color_blue">near_me</mat-icon>
+                      </a>
+                </ng-template>
+                <ng-template #elseIconTemplate>
+                         <mat-icon class="no_navigation">near_me</mat-icon>
+                </ng-template>    
+                <ng-container
+                  *ngIf="element?.prestartLocation && element?.prestartLocation.length >45; then thenTemplate; else elseTemplate">
+                </ng-container>
+                <ng-template #thenTemplate>
+                  {{ element?.prestartLocation | slice:0:45}}
+                </ng-template>
+                <ng-template #elseTemplate>
+                  {{ element?.prestartLocation}}
+                </ng-template>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Inspections">
+              <mat-header-cell *matHeaderCellDef> Inspections
+              </mat-header-cell>
+              <div class="m-l-15">
+                <mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="element?.hasDefect == false; then thenTemplate; else elseTemplate">
+                  </ng-container>
+                  <ng-template #thenTemplate>
+                    <mat-icon style="cursor: pointer; color: rgb(144,238,144);">fiber_manual_record</mat-icon>
+                  </ng-template>
+                  <ng-template #elseTemplate>
+                    <mat-icon style="cursor: pointer; color: rgb(255,150, 79);text-decoration: coral;">
+                      fiber_manual_record</mat-icon>
+                  </ng-template>
+                  <small class="m-l-15 "> A {{ element?.issueCount?.a }} </small>
+                  <small class="m-l-15"> B {{ element?.issueCount?.b }} </small>
+                  <small class="m-l-15 m-r-10"> C {{ element?.issueCount?.c }} </small>
+                </mat-cell>
+              </div>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let element; columns: displayedColumns;" class="redirect-element-row"
+              style="vertical-align: top" [routerLink]="['/report/prestart']" [queryParams]="{id:element.id}"
+              [ngClass]="{ 'selected-row': selectedId == element.id }"></mat-row>
+
+            <mat-row *matNoDataRow>
+              <mat-cell [attr.colspan]="displayedColumns.length"> No Data Available</mat-cell>
+            </mat-row>
+          </mat-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

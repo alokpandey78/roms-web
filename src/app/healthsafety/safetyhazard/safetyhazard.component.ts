@@ -20,6 +20,7 @@ import { saveAs } from 'file-saver';
 // Anguluar MAterial
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+
 import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
   MatTooltipDefaultOptions,
@@ -42,7 +43,6 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 export class SafetyHazardComponent implements OnInit, OnChanges {
   user:any;
   globals: Globals;
-  googleMapLink : string = 'https://www.google.com/maps/search/';
   displayedColumns: string[] = ['Reported','reportedBy','hazard','address','risk','supervisor'];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
@@ -55,6 +55,9 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
     pageIndex:this.pageNo,
     pageSize:this.pageSize
   }
+  
+  
+  
   search: string = ''; 
   startDate: Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
   endDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
@@ -126,7 +129,7 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
       reportFromDate: startDate,
       reportToDate: endDate,
     }
-    this
+    
     this.healthsafetyService
       .getHazardListFilter({options, payload})
       .pipe(first())
@@ -134,8 +137,16 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
         this.totalRecords = result.totalElement;
         let data: any = [];
         for (let i = 0; i < result.data.length; i++) {
+          // this. result.data[i].description)
+          let convertedDesc = result.data[i].description ?? 'No description provided';
+          let convertedLoc = result.data[i].address ?? 'No description provided';
+
+          let convertedStartDate = this.datePipe.transform(result.data[i].createDate, 'dd/MM/yyyy hh:mm:ss');
           data.push({
             ...result.data[i],
+            convertedStartDate: convertedStartDate,
+            convertedDesc: convertedDesc,
+            convertedLoc: convertedLoc,
           });
         }
         if (isScrolled == true) {
@@ -162,6 +173,7 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
       pageSize:
         obj != undefined ? (obj.pageSize == null ? this.pagesize : obj.pageSize) : this.pagesize,
     };
+    
     return options;
   }
 
@@ -185,11 +197,16 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
   }
 
   searchEmployee(event: any) {
-    this.employeeService.searchHiringManager(event.target.value).subscribe((result: any) => {
-      this.employees = result;
-    });
-  }
+     this.employeeService.searchHiringManager(event.target.value).subscribe((result: any) => {
+       this.employees = result;
+     });
 
+      // this.employeeService.getEmployeeList(
+      //             {sortField:'',sortDirection: '', page:0,search: '',query: '',pageSize:10},
+      //             {searchText:'',frequency:'wfm',empStatus:0 }).subscribe((result: any) => {
+      //     this.employees = result;
+      // });
+  }
   onTableScroll(e: any) {
     const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
     const tableScrollHeight = e.target.scrollHeight; // length of all table

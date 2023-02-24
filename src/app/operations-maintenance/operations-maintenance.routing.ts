@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullComponent } from '../layouts/full/full.component';
 
 import { OperationsMaintenanceComponent } from './operations-maintenance.component';
-import { DailyPlantPrestartsComponent } from './daily-plant-prestarts/daily-plant-prestarts.component';
+import { PlantPrestartsComponent } from './plant-prestarts/plant-prestarts.component';
 const routes: Routes = [
   { 
 
@@ -11,9 +11,9 @@ const routes: Routes = [
     component: FullComponent,
     children: [
       {
-        path: 'daily-plant-prestarts', component: DailyPlantPrestartsComponent,
+        path: 'plant-prestarts', component: PlantPrestartsComponent,
         data: {
-          title: 'Daily Plant Prestarts',
+          title: 'Plant Prestarts',
           urls: [{ title: 'Operations Maintenance', url: '/' }, { title: 'Operations' }],
         }
       },

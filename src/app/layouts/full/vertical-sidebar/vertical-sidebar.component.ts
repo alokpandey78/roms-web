@@ -298,11 +298,11 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
             icon: 'commute',
           });
           subMenu.push({
-            state: '/client/prestart',
-            name: 'Prestart',
+            state: '/operations-maintenance/plant-prestarts',
+            name: 'Plant PreStart',
             type: 'link',
             icon: 'commute',
-          });
+          });   
           subMenu.push({
             state: '/client/attendance',
             name: 'Daily CheckIn',
@@ -382,6 +382,12 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
           subMenu.push({
             state: '/healthsafety/safety-hazard',
             name: 'Hazard Reporting',
+            type: 'link',
+            icon: 'commute',
+          });  
+          subMenu.push({
+            state: '/client/prestart',
+            name: 'Prestart Legacy',
             type: 'link',
             icon: 'commute',
           });
