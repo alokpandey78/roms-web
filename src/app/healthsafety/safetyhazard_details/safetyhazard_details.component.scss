@@ -29,7 +29,7 @@
     border-bottom: 1px solid darkgray;
   }
   .border-full {
-    border: 1px solid lightgray;
+    border: 1px solid lightgrey;
     border-radius: 8px;
   }
   .mat-flex {
@@ -128,6 +128,21 @@
   .top-label mat-icon{
     font-size: 20px;
     height:20px
+  }
+  .collapse-img {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .collapse-img img {
+    padding: 0px 5px;
+    height: 80px;
+    object-fit: cover;
+    width: 70px;
+    margin-bottom: 5px;
+  }
+  .collapse-img img:hover {
+    transform: scale(1.2);
+    cursor: pointer;
   }
     
   
