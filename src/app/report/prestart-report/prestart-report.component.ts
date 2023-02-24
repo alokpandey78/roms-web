@@ -42,6 +42,7 @@ export class PrestartReportComponent implements OnInit {
     'status',
     'comment',
     'media',
+    'tickbox',
 
   ];
 
