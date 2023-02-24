@@ -67,8 +67,8 @@ export class PlantPrestartsComponent implements OnInit, OnChanges {
     pageSize:this.pageSize
   }
   search: string = ''; 
-  startDate: Date = new Date(new Date().setDate(new Date().getDate() - 1));
-  endDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
+  startDate: Date = new Date(new Date().setDate(new Date().getDate() - 2));
+  endDate: Date = new Date(new Date().setDate(new Date().getDate()+1));
   status: any = 0;
   baseUrl: string = environment.apiUrl;
 
@@ -121,9 +121,7 @@ export class PlantPrestartsComponent implements OnInit, OnChanges {
     this.assetsService.getAllAssetsType().subscribe((result: any) => {
       this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
     });
-    // this.assetsService.getAllDefectsType().subscribe((result: any) => {
-    //   this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
-    // });
+
     // this.assetsService.getAllLocationsType().subscribe((result: any) => {
     //   this.assetList = result && result.data && result.data.length > 0 ? result.data : [];
     // });
@@ -141,16 +139,17 @@ export class PlantPrestartsComponent implements OnInit, OnChanges {
   }
   ngAfterViewInit(): void {
   }
-
+  private getUTC(myDate: Date) {
+    const now = new Date();
+    return new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
+  }
   getDefaultOptions() {
     let obj = this.paginator;
     let sort = this.sort;
     let startDate = this.startDate
-    ? moment(new Date(this.startDate)).format('DD/MM/yyyy HH:mm:ss')
-    : '';
+    ? moment(new Date(this.startDate).toUTCString()).format('DD/MM/yyyy hh:mm:ss'): '';
     let endDate = this.endDate
-    ? moment(new Date(this.endDate)).format('DD/MM/yyyy HH:mm:ss')
-    : '';
+    ? moment(new Date(this.endDate).toUTCString()).format('DD/MM/yyyy hh:mm:ss'): '';
     //let pageIndex = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
     let pageIndex = obj.pageIndex ?? 0;
     let pageSize = obj.pageSize ?? this.pagesize;
@@ -177,8 +176,9 @@ export class PlantPrestartsComponent implements OnInit, OnChanges {
     this.paginator.pageSize=10;
     if (isTextSearch) {
       this.dataSource.filter = this.search;
-    } 
+    } else {
     this.refresh(this.getDefaultOptions());
+  }
   }
 
   refresh(options: ViewOptions, isScrolled: boolean = false) {
