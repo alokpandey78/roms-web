@@ -20,14 +20,14 @@ const routes: Routes = [
     children: [
       { path: 'employee-list', component: EmployeeListComponent,
       data: {
-        title: 'Employee List ',
-        urls: [{ title: 'Dashboard', url: '/' }, { title: 'My Staff' }],
+        title: 'Employees ',
+        urls: [{ title: 'People & Culture', url: '/' }, { title: 'All Staff' }],
       } },
       { path: 'form', component: EmployeeFormComponent },
       { path: 'personal-info', component: EmployeeViewComponent,
       data: {
         title: 'Employee Profile ',
-        urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+        urls: [{ title: 'Employees', url: '/employee/employee-list' }, { title: 'People & Culture' }],
       }
      },
       { path: 'transfer', component: EmployeeTransferFormComponent },
@@ -55,14 +55,14 @@ const routes: Routes = [
         path: 'profile', component: EmployeeProfileComponent,
         data: {
           title: 'Employee Profile',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+          urls: [{ title: 'Employees', url: '/employee/employee-list' }, { title: 'People & Culture' }],
         }
       },
       {
         path: 'termination', component: EmployeeTerminationComponent,
         data: {
           title: 'Employee Profile',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+          urls: [{ title: 'Employees', url: '/employee/employee-list}' }, { title: 'People & Culture' }],
         }
       },
     ],

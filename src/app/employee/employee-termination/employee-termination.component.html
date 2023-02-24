@@ -12,18 +12,21 @@
               <!-- <mat-icon class="icon-style">edit</mat-icon> -->
             </a>
           </div>
-          <div fxFlex.gt-sm="100" fxFlex="100">
-            <h3 class="text-center m-0">
-              <b>Robert Sheppard</b>
-            </h3>
-            <h4 class="text-center m-0 m-t-10 m-b-10">Transport Manager</h4>
-          </div>
+
+          <h3 class="m-b-0 h-30">
+            <span *ngIf="employeeData && employeeData.firstName">{{ employeeData?.firstName }} {{
+              employeeData?.lastName }}
+            </span>
+            <span *ngIf="!employeeData || (employeeData && !employeeData.firstName)">
+              first name 
+             </span>
+          </h3>
           <div fxFlex.gt-sm="100" fxFlex="100">
             <mat-form-field appearance="outline">
               <mat-label>RTL ID :</mat-label>
               <input matInput [value]="8977" placeholder="RTL ID" />
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" >
               <mat-label>Registration/Start Date :</mat-label>
               <input matInput value="------"  placeholder="Registration/Start Date" />
             </mat-form-field>
@@ -61,17 +64,6 @@
               <div fxFlex.gt-sm="100%" fxFlex="100">
                 <div fxFlex.gt-sm="45" fxFlex="100" class="p-10">
 
-                  <!-- <mat-form-field appearance="outline">
-                    <input
-                      matInput
-                      [matDatepicker]="effectiveDateDP"
-                      placeholder="Effective Date"
-                      name="effectiveDate"
-
-                    />
-                    <mat-datepicker-toggle matSuffix [for]="effectiveDateDP"></mat-datepicker-toggle>
-                    <mat-datepicker #effectiveDateDP></mat-datepicker>
-                  </mat-form-field> -->
                   <mat-form-field appearance="outline">
                     <input formControlName="effectiveDate" effectiveDate
                       [ngClass]="{ 'is-invalid': submitted && f.effectiveDate.hasError }" matInput
@@ -86,7 +78,7 @@
                 <div fxFlex.gt-sm="55" fxFlex="100" class="p-10">
                   <button class="button date-btn-default" [ngClass]="{ 'date-btn-active': selectedButton == 0 }"
                   mat-raised-button (click)="setNow();$event.preventDefault()">
-                   Now
+                   Today
                  </button>
                   <!-- <button class="button date-btn-default" [ngClass]="{ 'date-btn-active': selectedButton == 1 }"
                   mat-raised-button (click)="setToday();$event.preventDefault()">
@@ -107,10 +99,10 @@
                 </quill-editor> -->
 
                 <mat-form-field appearance="outline" class="m-t-10 p-r-10">
-                <mat-label>Description</mat-label>
-                <textarea matInput placeholder="Enter Description" formControlName="description" rows="3"></textarea>
+                <mat-label>Reason</mat-label>
+                <textarea matInput placeholder="Describe reason for the termination" formControlName="description" rows="3"></textarea>
                 <mat-error *ngIf="submitted && checkError('description', 'required')">
-                  Description is required.
+                  Brief Reason is required.
                 </mat-error>
               </mat-form-field>
 
@@ -143,8 +135,8 @@
 <ng-template #terminateDialog>
   <div fxLayout="column wrap">
     <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
-      <p class="color_blue" align="center"><b>You sure want to Terminate Employee</b></p>
-      <p align="center">Robbert Sheppard</p>
+      <p class="color_blue" align="center"><b>Do you confirm to terminate</b></p>
+      <p align="center">first name lastname</p>
       <div fxLayout="column wrap">
         <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
           <button

@@ -64,6 +64,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
   pagesize = 10;
   pageNo = 0;
   pageSize = 10;
+
   totalRecords: number = 0;
   search: string = ''; //by default 0 for pending list
   currentDate: any = new Date();
@@ -145,17 +146,18 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     // this.dataSource.sort = this.sort;
     this.dataSourceHistory.sort = this.sortHistory;
     this.dataSource.sort = this.sort;
-    this.paginator?.page.subscribe((page: PageEvent) => {
-      if (this.selectedTabIndex == 0) {
-        this.refresh(this.getDefaultOptions());
-      }
-    });
+    // this.paginator?.page.subscribe((page: PageEvent) => {
+    //   if (this.selectedTabIndex == 0) {
+    //     this.refresh(this.getDefaultOptions());
+    //   }
+    // }
+    // );
 
-    this.paginatorHistory?.page.subscribe((page: PageEvent) => {
-      if (this.selectedTabIndex == 1) {
-        this.refreshHistory(this.getDefaultOptions());
-      }
-    });
+    // this.paginatorHistory?.page.subscribe((page: PageEvent) => {
+    //   if (this.selectedTabIndex == 1) {
+    //     this.refreshHistory(this.getDefaultOptions());
+    //   }
+    // });
   }
 
   removeRow(id: string) {
@@ -184,7 +186,13 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     if (scrollLocation > limit) {
       if (this.dataSource.data.length < this.totalRecords) {
         this.pageNo = this.pageNo + 1;
-        this.refresh(this.getDefaultOptions(), true);
+        if (this.selectedTabIndex == 0) {
+          this.refresh(this.getDefaultOptions(),true);
+  
+        } else if (this.selectedTabIndex == 1) {
+          this.refreshCurrent(this.getDefaultOptions(),true);
+  
+        }
       }
       // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
     }
@@ -217,9 +225,9 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
         for (let i = 0; i < result.data.length; i++) {
           let staffName = `${result.data[i].employe?.firstName} ${result.data[i].employe?.lastName}`;
           let managerName = `${result.data[i].approver?.firstName} ${result.data[i].approver?.lastName}`;
-          let convertedAppliedOn = this.datePipe.transform(result.data[i].applyDate, 'dd/MM/yyyy');
+          let convertedAppliedOn = this.datePipe.transform(result.data[i].applyDate, 'dd/MM/yy H:mm a');
           let convertedApprovalDate = result.data[i].dateOfApproval
-            ? this.datePipe.transform(result.data[i].dateOfApproval, 'dd/MM/yyyy')
+            ? this.datePipe.transform(result.data[i].dateOfApproval, 'dd/MM/yy h:mm a')
             : '';
           let convertedStartDate = this.datePipe.transform(result.data[i].startDateTime, 'MMM d');
           let convertedEndDate = this.datePipe.transform(result.data[i].endDateTime, 'MMM d,y');
@@ -269,12 +277,14 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     let obj = this.paginator;
     let sort = this.sort;
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
+    console.log(obj);
 
     const options: ViewOptions = {
-      sortField: sort !== undefined ? sort.active : 'fullName',
+      sortField: sort !== undefined ? sort.active : 'staffName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
       // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
-      page: pageSize - 1,
+      // page: pageSize - 1,
+      page: this.pageNo,
       search: '',
       query: '',
       pageSize:
@@ -289,7 +299,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     let pageSize = obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1;
 
     const options: ViewOptions = {
-      sortField: sort !== undefined ? sort.active : 'fullName',
+      sortField: sort !== undefined ? sort.active : 'staffName',
       sortDirection: sort !== undefined ? sort.direction : 'asc',
       // page: (obj != undefined ? (obj.pageIndex == null ? 1 : obj.pageIndex + 1) : 1),
       page: pageSize - 1,
@@ -325,6 +335,8 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     this.search = this.search.trim(); // Remove whitespace
     this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = this.search;
+    this.pageNo = 0;
+    this.pageSize = 10;
     if (isTextSearch) {
     } else {
       if (this.selectedTabIndex == 0) {
@@ -363,12 +375,11 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     // console.log(event, 'event')
 
     if (index == 1) {
-      this.refreshCurrent(this.getDefaultOptionsHistory());
+      this.refreshCurrent(this.getDefaultOptions());
     } else if (index == 2) {
       this.refreshHistory(this.getDefaultOptionsHistory());
     } else {
       this.refresh(this.getDefaultOptions());
-
     }
   }
 
@@ -400,9 +411,9 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
         for (let i = 0; i < result.data.length; i++) {
           let staffName = `${result.data[i].employe?.firstName} ${result.data[i].employe?.lastName}`;
           let managerName = `${result.data[i].approver?.firstName} ${result.data[i].approver?.lastName}`;
-          let convertedAppliedOn = this.datePipe.transform(result.data[i].applyDate, 'dd/MM/yyyy');
+          let convertedAppliedOn = this.datePipe.transform(result.data[i].applyDate, 'dd/MM/yyyy H:mm a');
           let convertedApprovalDate = result.data[i].dateOfApproval
-            ? this.datePipe.transform(result.data[i].dateOfApproval, 'dd/MM/yyyy')
+            ? this.datePipe.transform(result.data[i].dateOfApproval, 'dd/MM/yy h:mm a')
             : '';
           let convertedStartDate = this.datePipe.transform(result.data[i].startDateTime, 'MMM d');
           let convertedEndDate = this.datePipe.transform(result.data[i].endDateTime, 'MMM d,y');
@@ -450,10 +461,10 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
       let item = this.dataSource.data[i];
       // console.log(this.dataSource.data[i], 'this.dataSource.data');
       let row: string = `${item?.employe?.firstName} ${item?.employe?.firstName
-        },${this.datePipe.transform(item.applyDate, 'dd/MM/yyyy')},${item.leaveType?.leaveDescription
-        },${this.datePipe.transform(item.startDateTime, 'dd/MM/yyyy')},${this.datePipe.transform(
+        },${this.datePipe.transform(item.applyDate, 'dd/MM/yy h:mm a')},${item.leaveType?.leaveDescription
+        },${this.datePipe.transform(item.startDateTime, 'dd/MM/yy h:mm a')},${this.datePipe.transform(
           item.endDateTime,
-          'dd/MM/yyyy',
+          'dd/MM/yy h:mm a',
         )},${item.totalDay},${item.totalHour > 0 ? this.datePipe.transform(item.startDateTime, 'shortTime') : ''
         },${item.totalHour > 0 ? this.datePipe.transform(item.endDateTime, 'shortTime') : ''},${item.totalHour
         },${item.leaveReason},${item.reviewerRemark},${item.status}\r\n`;
@@ -486,7 +497,7 @@ export class LeaveReportComponent implements OnInit, AfterViewInit {
     // this.selectedImage = data;
     const dialogRef = this.dialog.open(ImagePreviewDialog, {
       width: 'auto',
-      height: '35em',
+      height: '85em',
       data: { selectedImage: data }
     });
 

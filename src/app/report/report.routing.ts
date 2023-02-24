@@ -4,7 +4,6 @@ import { FullComponent } from '../layouts/full/full.component';
 import { LeaveReportComponent } from './leave-report/leave-report.component';
 import { ResignationReportComponent } from './resignation-report/resignation-report.component';
 import { PrestartReportComponent } from './prestart-report/prestart-report.component';
-import { HazardReportComponent } from './hazard-report/hazard-report.component';
 const routes: Routes = [
   {
     path: '',
@@ -15,7 +14,7 @@ const routes: Routes = [
         path: 'leave', component: LeaveReportComponent,
         data: {
           title: 'Staff Leaves',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+          urls: [{ title: 'People & Culture', url: '/' }, { title: 'Staff Leaves' }],
         }
       },
       {
@@ -32,13 +31,7 @@ const routes: Routes = [
           urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
         }
       },
-      {
-        path: 'hazard', component: HazardReportComponent,
-        data: {
-          title: 'Hazard Report',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
-        }
-      }
+ 
     ],
   },
 ];

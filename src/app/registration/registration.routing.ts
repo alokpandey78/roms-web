@@ -31,15 +31,15 @@ const routes: Routes = [
             } },
             { path: 'recruitment', component: RecruitmentComponent,
                     data: {
-                    title: 'Resource Demand',
-                    urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+                    title: 'New Resource Demand (coming soon)',
+                    urls: [{ title: 'Demand Board', url: 'job-recommend' }, { title: 'Staff Movements' }],
                 }
             },
             { path: 'recommend', component: RecommendComponent,
         
             data: {
                 title: 'Demand Management',
-                urls: [{ title: 'Dashboard', url: '/' }, { title: 'Staff Movements' } , { title: 'Demand Board' } , { title: 'Recommend Employee' }],
+                urls: [{ title: 'Dashboard', url: 'job-recommend' }, { title: 'Staff Movements' } , { title: 'Demand Board' } , { title: 'Recommend Employee' }],
             }},
             { path: 'job-recommend', component: JobRecommendComponent,
                 data: {
@@ -49,18 +49,18 @@ const routes: Routes = [
             { path: 'recruitment-details', component: RecruitmentDetailsComponent,
             data: {
                 title: 'Demand Details',
-                urls: [{ title: 'Dashboard', url: '/' }, { title: 'Staff Movements' }],
+                urls: [{ title: 'Demand Board', url: 'job-recommend' }, { title: 'Staff Movements' }],
             } },
             { path: 'transfer-list', component: TransferListComponent,
             data: {
                 title: 'Transfer List',
-                urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
+                urls: [{ title: 'Demand Board', url: 'job-recommend' }, { title: 'Staff Movements' }],
             } },
             { path: 'demand-list', component: DemandListComponent },
             { path: 'recommendation-list', component: RecommendationListComponent,
             data: {
                 title: 'Demand Candidates',
-                urls: [{ title: 'Dashboard', url: '/' }, { title: 'Staff movement' }],
+                urls: [{ title: 'Demand Board', url: 'job-recommend' }, { title: 'Staff movement' }],
             } },
             //   { path: 'form', component: EmployeeFormComponent },
             //   { path: 'view:id', component: EmployeeViewComponent },

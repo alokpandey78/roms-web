@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PlantPrestartsComponent } from './plant-prestarts.component';
 
-import { HazardReportComponent } from './hazard-report.component';
-
-describe('HazardReportComponent', () => {
-  let component: HazardReportComponent;
-  let fixture: ComponentFixture<HazardReportComponent>;
+describe('PlantPrestartsComponent', () => {
+  let component: PlantPrestartsComponent;
+  let fixture: ComponentFixture<PlantPrestartsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HazardReportComponent ]
+      declarations: [ PlantPrestartsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HazardReportComponent);
+    fixture = TestBed.createComponent(PlantPrestartsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

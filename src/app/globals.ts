@@ -81,6 +81,7 @@ export class Globals {
         { name: 'Super Admin', value: Role.SuperAdmin, listTitle: 'SuperAdmin' },
     ];
 
+
     // status = [
     //     { value: true, name: 'Active' },
     //     { value: false, name: 'Inactive' }
@@ -158,7 +159,15 @@ export class Globals {
             name: '+91', value: '+91'
         }
     ]
+    // added by Dharmendra
+    googleMapLink : string = 'https://www.google.com/maps/search/';
 
+    defectType = [
+        { name: 'Need Attention', id:1, listTitle: 'Need Attention' },
+        { name: 'Successfull', id:2, listTitle: 'Successfull' },
+    ];
+
+    // end addition Dharmendra 
 }
 
 export enum DepartmentId {

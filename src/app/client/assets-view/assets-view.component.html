@@ -464,24 +464,91 @@
 </mat-card>
 
 <ng-template #confirmationDialog>
-  <h2 mat-dialog-title align="center" class="color_blue m-t-0" >
-    QRCODE Image
-  </h2>
+  <h2 mat-dialog-title align="center" class="color_blue m-0">ASSET QR CODE</h2>
   <div fxLayout="column wrap">
-    <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="qr-img">
-      <img id="component1" [src]="qrCodeDownloadLink"
-      style="max-height: auto; width: 300px" />
+    <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="qr-img m-0">
+      <img id="component1" [src]="qrCodeDownloadLink" style="max-height: auto; width: 300px" />
     </div>
-    <div fxFlex.gt-sm="100" fxFlex="100" class="m-b-0">
-      <div fxFlex.gt-sm="25" fxFlex="100"></div>
-      <div fxFlex.gt-sm="50" fxFlex="100">
-        <button class=" m-l-20 m-r-20" mat-raised-button color="primary" (click)="printqrcode()">
-          Print
-        </button>
+    <div fxFlex.gt-sm="100" fxFlex="100" fxFlexAlign="center" class="row m-0">
+      <form class="basic-form">
+        <div fxLayout="row wrap" fxFlexAlign="center" class="row m-l-20">
+          <div fxFlex.gt-sm="12" fxFlex="100 ">
+            <div mat-dialog-content>
+              <h5 class="m-0 m-b-20">No</h5>
+            </div>
+          </div>
 
-        <button class="m-l-10" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
-      </div>
-      <div fxFlex.gt-sm="25" fxFlex="100"></div>
+          <div fxFlex.gt-sm="38" fxFlex="100">
+            <h5 class="m-0 m-b-20"><b>CP1815</b></h5>
+          </div>
+
+          <div fxFlex.gt-sm="12" fxFlex="100">
+            <div mat-dialog-content>
+              <h5 class="m-0 m-b-20">Name</h5>
+            </div>
+          </div>
+
+          <div fxFlex.gt-sm="38" fxFlex="100">
+            <h5 class="m-0 m-b-20"><b>CAT 825 COMPACTOR</b></h5>
+          </div>
+          <div fxFlex.gt-sm="12" fxFlex="100">
+            <div mat-dialog-content>
+              <h5 class="m-0 m-b-20">Class</h5>
+            </div>
+          </div>
+
+          <div fxFlex.gt-sm="38" fxFlex="100">
+            <h5 class="m-0 m-b-20"><b>Mobile Plant</b></h5>
+          </div>
+          <div fxFlex.gt-sm="12" fxFlex="100">
+            <div mat-dialog-content>
+              <h5 class="m-0 m-b-20">Type</h5>
+            </div>
+          </div>
+
+          <div fxFlex.gt-sm="38" fxFlex="100">
+            <h5 class="m-0 m-b-20"><b>Compactor</b></h5>
+          </div>
+          <div fxFlex.gt-sm="12" fxFlex="100">
+            <div mat-dialog-content>
+              <h5 class="m-0 m-b-20">Make</h5>
+            </div>
+          </div>
+
+          <div fxFlex.gt-sm="38" fxFlex="100">
+            <h5 class="m-0 m-b-20"><b>Caterpillor</b></h5>
+          </div>
+          <div fxFlex.gt-sm="12" fxFlex="100">
+            <div mat-dialog-content>
+              <h5 class="m-0 m-b-20">model</h5>
+            </div>
+          </div>
+
+          <div fxFlex.gt-sm="38" fxFlex="100">
+            <h5 class="m-0 m-b-20"><b>825G </b></h5>
+          </div>
+
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-10 text-center">
+            <div class="m-0 m-t-15">
+              <button
+                class="m-l-20 m-r-20"
+                mat-raised-button
+                color="primary"
+                (click)="printqrcode()"
+              >
+                Print
+              </button>
+            </div>
+          </div>
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-10 text-center">
+            <div class="m-0 m-t-15">
+              <button class="m-l-10" mat-raised-button color="primary" (click)="cancel()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </ng-template>

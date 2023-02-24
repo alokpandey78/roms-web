@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { AlertService, EmployeeService, JobService } from 'src/app/core/services';
 import * as moment from 'moment';
 import { CustomMessage } from 'src/app/custom-message';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router  } from '@angular/router';
 import { first } from 'rxjs';
 
 @Component({
@@ -19,6 +19,10 @@ export class EmployeeTerminationComponent implements OnInit {
   form: FormGroup;
   submitted: boolean = false;
   employeId: any;
+  employeeName : String = '';
+  employeeData: any = {};
+
+  currentDate : Date = new Date();
   id: string = '';
   dateStartAt = new Date();
   selectedButton = 0;
@@ -30,6 +34,7 @@ export class EmployeeTerminationComponent implements OnInit {
     private employeeService: EmployeeService,
     private alertService: AlertService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.form = this.fb.group({
       // employeeId: new FormControl('', [Validators.required]),
@@ -44,17 +49,25 @@ export class EmployeeTerminationComponent implements OnInit {
       this.employeId = param.id;
     });
 
-    // this.getDetails();
+    this.getDetails();
+    // if (this.record) {
+    //   this.employeeName = this.record.firstName && this.record.firstName.length > 0 ? this.record.firstName[0] : null;
+    // }
   }
 
-  // getDetails() {
-  //   this.employeeService
-  //     .getByIdPersonalInfo(this.id)
-  //     .pipe(first())
-  //     .subscribe((result: any) => {
-  //       this.record = result.data;
-  //     });
-  // }
+  getDetails() {
+    this.employeeService
+      .getById(this.employeId)
+      .pipe(first())
+      .subscribe((result: any) => {
+        this.employeeData = result.data;
+     if (this.record) {
+          this.employeeName = this.record.firstName && this.record.firstName.length > 0 ? this.record.firstName[0] : null;
+      }
+        console.log(result);
+
+      });
+  }
 
   setNow() {
     // console.log('Inside today');
@@ -116,7 +129,17 @@ export class EmployeeTerminationComponent implements OnInit {
       console.log('Payload:', JSON.stringify(payload));
       this.authService.terminateEmployee(JSON.stringify(payload)).subscribe((result) => {
         console.log('Demad return:', result);
-        this.alertService.openSnackBar(CustomMessage.employeeTerminated, false);
+
+        let terminatindate = new Date(this.form.controls.effectiveDate.value);
+        this.currentDate = new Date();
+        if(this.currentDate < terminatindate){
+          this.alertService.openSnackBar("Employee termination is now scheduled for "+moment(this.form.controls.effectiveDate.value).format('DD/MM/YYYY'), false);
+          
+        }else{
+          this.alertService.openSnackBar(CustomMessage.employeeTerminated, false);
+        }
+        this.router.navigate(['/employee/employee-list'])
+
       });
     }
   }

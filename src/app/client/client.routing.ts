@@ -13,7 +13,6 @@ import { InspectionAddComponent } from './inspection-add/inspection-add.componen
 import { AttandanceComponent } from './attandance/attandance.component';
 import { WorkOrderComponent } from './work-order/work-order.component';
 import { PrestartComponent } from './prestart/prestart.component';
-import { HazardComponent } from './hazard/hazard.component';
 
 const routes: Routes = [
   {
@@ -116,14 +115,7 @@ const routes: Routes = [
           urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
         },
       },
-      {
-        path: 'hazard',
-        component: HazardComponent,
-        data: {
-          title: 'Hazard',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
-        },
-      },
+
     ],
   },
 ];
