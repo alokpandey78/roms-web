@@ -18,6 +18,7 @@ export class SafetyhazardDetailsComponent implements OnInit {
   id : string = ''; 
   hazardDetails : any = {};
   globals: Globals;
+  isEditEnable: boolean = false;
 
   constructor(private dialog: MatDialog,
     private router: Router,globals: Globals, private activatedRoute: ActivatedRoute, private healthsafetyService: HealthsafetyService,) { this.globals = globals;}

@@ -98,7 +98,7 @@
             <mat-card-title class="p-10 color_blue text-center">Hazard Report</mat-card-title>
             <mat-form-field appearance="outline" class="m-t-0 p-l-10 p-r-10">
               <mat-label>Description</mat-label>
-              <textarea matInput placeholder="Comment" value="{{hazardDetails?.description}}" rows="5"></textarea>
+              <textarea matInput [readonly]="!isEditEnable" placeholder="Comment" value="{{hazardDetails?.description}}" rows="5"></textarea>
               <!-- <mat-error> Comment is required </mat-error> -->
             </mat-form-field>
           </mat-card>
@@ -113,8 +113,8 @@
             >
             <mat-form-field appearance="outline" class="m-t-0 p-l-10 p-r-10">
               <mat-label>Description</mat-label>
-              <textarea matInput placeholder="Comment" value="description" rows="5"></textarea>
-              <mat-error> Comment is required </mat-error>
+              <textarea matInput [readonly]="!isEditEnable" placeholder="Comment" value="{{hazardDetails?.rectification?.description}}" rows="5"></textarea>
+              <!-- <mat-error> Comment is required </mat-error> -->
             </mat-form-field>
           </div>
             <!-- <div fxFlex.gt-sm="100" fxLayout="row wrap" fxFlex="100">
