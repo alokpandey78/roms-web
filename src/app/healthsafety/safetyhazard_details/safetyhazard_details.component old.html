@@ -1,0 +1,317 @@
+  <mat-card>
+  <mat-card-content class="create_user_page">
+    <h2 class="title text-center color_blue">Hazard Details</h2>
+    <form class="basic-form">
+      <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
+        <div fxFlex.gt-sm="100" fxFlex="100" class="m-10">
+          <div fxFlex.gt-sm="74" fxFlex="100" ></div>
+          <div fxFlex.gt-sm="8" fxFlex="100">
+            <mat-label class="d-block">Posted </mat-label>
+          </div>
+          <div fxFlex.gt-sm="18" fxFlex="100">
+            <mat-label class="d-block"><B>{{ hazardDetails?.reportDate | dateAgo  }}</B></mat-label>
+            <div class="d-block ">
+            <mat-label >{{
+              hazardDetails?.reportDate | date: 'dd/MM/yyyy'
+            }}</mat-label>  
+
+            <mat-label class="m-l-10" >
+              {{ hazardDetails?.reportDate | date: 'shortTime' }}</mat-label
+            >
+          </div>
+          </div>
+          <!-- <div fxFlex.gt-sm="10" fxFlex="100">
+            <mat-label class="d-block">{{
+              hazardDetails?.reportDate | date: 'dd/MM/yyyy'
+            }}</mat-label>
+          </div> -->
+          <!-- <div fxFlex.gt-sm="8" fxFlex="100">
+            <mat-label class="d-block">
+              {{ hazardDetails?.reportDate | date: 'shortTime' }}</mat-label
+            >
+          </div> -->
+        </div>
+        <div fxFlex.gt-sm="100" fxFlex="100" class="m-10">
+          <!-- <mat-card class="m-0 my-mat-cardt d-wrap"> -->
+          <div fxFlex.gt-sm="12" fxFlex="100" class=" p-t-10 m-l-30 top-label">
+            <mat-label
+              ><b>{{ hazardDetails?.hazardNo }}</b></mat-label
+            >
+          </div>
+          <div fxFlex.gt-sm="30" fxFlex="100" class=" p-t-10 top-label">
+            <mat-icon class="color_blue"> location_on</mat-icon>
+            <mat-label class="m-l-10">{{ hazardDetails?.address }}</mat-label>
+          </div>
+          <div fxFlex.gt-sm="10" fxFlex="100" class=" p-t-10 top-label">
+            <mat-icon class="color_blue">near_me</mat-icon>
+          </div>
+          <div fxFlex.gt-sm="10" fxFlex="100" class=" p-t-10 top-label">
+            <button
+              class="button p-0 p-l-30 p-r-30 l-h-26"
+              style="border-radius: 50px"
+              mat-flat-button
+              color="primary"
+            >
+              Other
+            </button>
+          </div>
+          <div fxFlex.gt-sm="10" fxFlex="100" class=" p-t-10 top-label">
+            <mat-label class="m-l-10">Medium</mat-label>
+          </div>
+          <div fxFlex.gt-sm="10" fxFlex="100"></div>
+          <div fxFlex.gt-sm="10" fxFlex="100" class=" p-t-10 top-label">
+            <button
+              class="button p-0 p-l-20 p-r-20 l-h-26 color_green"
+              style="border-radius: 50px"
+              mat-flat-button
+              color="primary"
+            >
+              Rectified
+            </button>
+          </div>
+
+          <!-- </mat-card> -->
+        </div>
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <!-- <mat-card class="m-0 my-mat-cardb d-wrap"> -->
+          <div fxFlex.gt-sm="60" fxFlex="100" ></div>
+
+          <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10 m-t-10">
+            <mat-label>Supervisor</mat-label>
+          </div>
+          <div fxFlex.gt-sm="5" fxFlex="100" class="p-b-10 p-t-10">
+            <!-- <div fxFlex.gt-sm="100" fxFlex="100" class=" "> -->
+            <img
+              class="m-r-10 User-Img"
+              onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+              [src]="
+                globals.generateFileUrl(
+                  hazardDetails &&
+                    hazardDetails.superviser &&
+                    hazardDetails.superviser.profileImage.length > 0
+                    ? hazardDetails.superviser.profileImage[0]?.digitalAssets?.url
+                    : '',
+                  ''
+                )
+              "
+              alt=""
+            />
+          </div>
+          <div fxFlex.gt-sm="25" fxFlex="100" class="m-t-20">
+            <mat-label
+              ><b>{{
+                hazardDetails?.superviser?.firstName + ' ' + hazardDetails?.superviser?.lastName
+              }}</b></mat-label
+            >
+          </div>
+          <!-- </mat-card> -->
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0 m-b-30 ">
+        <div fxFlex.gt-sm="48" fxFlex="100">
+          <mat-card class="m-0 my-mat-cardf">
+            <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-card-title class="p-10 color_blue text-center">Hazard Report</mat-card-title>
+                <mat-form-field appearance="outline" class="m-t-0 p-l-10 p-r-10">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    [readonly]="!isEditEnable"
+                    placeholder="Comment"
+                    value="{{ hazardDetails?.description }}"
+                    rows="5"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="100" fxFlex="100" class="m-l-30">
+                <div fxFlex.gt-sm="33.33" fxFlex="100" class="m-l-30 collapse-img">
+                  
+                  <!-- <img
+                    *ngIf="hazardDetails?.hazardMedia[0]?.digitalAssets.fileType.includes('image')"
+                    (click)="openImageDialog($event.target.src)"
+                    [src]="
+                      globals.generateFileUrl(
+                        hazardDetails?.hazardMedia[0]?.digitalAssets?.url,
+                        user.token
+                      )
+                    "
+                    alt=""
+                  /> -->
+                </div>
+                <div fxFlex.gt-sm="33.33" fxFlex="100">
+                  <img
+                    class="m-r-10 Hazard-Img"
+                    src="../../../assets/img/user-default-img.jpg"
+                    alt=""
+                  />
+                </div>
+                <div fxFlex.gt-sm="33.33" fxFlex="100">
+                  <img
+                    class="m-r-10 Hazard-Img"
+                    src="../../../assets/img/user-default-img.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <div fxFlex.gt-sm="20" fxFlex="100" class="p-b-10 p-t-10 m-t-10">
+                  <small>Reported By</small>
+                </div>
+                <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10">
+                  <img
+                    class="m-r-10 User-Img"
+                    onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                    [src]="
+                      globals.generateFileUrl(
+                        hazardDetails &&
+                          hazardDetails.reportedBy &&
+                          hazardDetails.reportedBy.profileImage.length > 0
+                          ? hazardDetails.reportedBy.profileImage[0]?.digitalAssets?.url
+                          : '',
+                        ''
+                      )
+                    "
+                    alt=""
+                  />
+                </div>
+                <div fxFlex.gt-sm="40" fxFlex="100" class="m-t-20">
+                  <mat-label>{{
+                    hazardDetails?.reportedBy?.firstName + ' ' + hazardDetails?.reportedBy?.lastName
+                  }}</mat-label>
+                </div>
+                <div fxFlex.gt-sm="18" fxFlex="100" class="m-t-20">
+                  <small>{{ hazardDetails?.reportedBy?.createDate | date: 'dd/MM/yyyy' }}</small>
+                </div>
+                <div fxFlex.gt-sm="12" fxFlex="100" class="m-t-20">
+                  <small>{{ hazardDetails?.reportedBy?.createDate | date: 'shortTime' }}</small>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+
+        <div fxFlex.gt-sm="4" fxFlex="100"></div>
+        <div fxFlex.gt-sm="48" fxFlex="100">
+          <mat-card class="m-0 my-mat-cardf">
+            <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-card-title class="p-10 color_blue text-center"
+                  >Hazard Rectification</mat-card-title
+                >
+                <mat-form-field appearance="outline" class="m-t-0 p-l-10 p-r-10">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    [readonly]="!isEditEnable"
+                    placeholder="Comment"
+                    value="{{ hazardDetails?.rectification?.description }}"
+                    rows="5"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="100" fxFlex="100" class="m-l-30">
+                <div fxFlex.gt-sm="33.33" fxFlex="100">
+                  <img
+                    class="m-r-10 Hazard-Img"
+                    src="../../../assets/img/user-default-img.jpg"
+                    alt=""
+                  />
+                </div>
+                <div fxFlex.gt-sm="33.33" fxFlex="100">
+                  <img
+                    class="m-r-10 Hazard-Img"
+                    src="../../../assets/img/user-default-img.jpg"
+                    alt=""
+                  />
+                </div>
+                <div fxFlex.gt-sm="33.33" fxFlex="100">
+                  <img
+                    class="m-r-10 Hazard-Img"
+                    src="../../../assets/img/user-default-img.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <div fxFlex.gt-sm="20" fxFlex="100" class="p-b-10 p-t-10 m-t-10">
+                  <small>Rectified By</small>
+                </div>
+                <div fxFlex.gt-sm="10" fxFlex="100" class="p-b-10 p-t-10">
+                  <img
+                    class="m-r-10 User-Img"
+                    onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
+                    [src]="
+                      globals.generateFileUrl(
+                        hazardDetails &&
+                          hazardDetails?.rectification?.rectifiedBy &&
+                          hazardDetails?.rectification?.rectifiedBy?.profileImage?.length > 0
+                          ? hazardDetails?.rectification?.rectifiedBy?.profileImage[0]?.digitalAssets?.url
+                          : '',
+                        ''
+                      )
+                    "
+                    alt=""
+                  />
+                </div>
+                <div fxFlex.gt-sm="40" fxFlex="100" class="m-t-20">
+                  <mat-label>{{
+                    hazardDetails?.rectification?.rectifiedBy?.firstName + ' ' + hazardDetails?.rectification?.rectifiedBy?.lastName
+                  }}</mat-label>
+                </div>
+                <div fxFlex.gt-sm="18" fxFlex="100" class="m-t-20">
+                  <small>{{
+                    hazardDetails?.rectification?.rectifiedBy?.createDate | date: 'dd/MM/yyyy' }}</small>
+                </div>
+                <div fxFlex.gt-sm="12" fxFlex="100" class="m-t-20">
+                  <small>{{ hazardDetails?.rectification?.rectifiedBy?.createDate | date: 'shortTime' }}</small>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <!-- <mat-card-title class="p-b-10 ">Comments</mat-card-title>
+      <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0 m-b-30 border-full">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <mat-card class="m-0 my-mat-cardf">
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-t-10">
+              <div fxFlex.gt-sm="5" fxFlex="100">
+                <img
+                  class="m-r-10 User-Img"
+                  src="../../../assets/img/user-default-img.jpg"
+                  alt=""
+                />
+              </div>
+              <div fxFlex.gt-sm="25" fxFlex="100" class="m-t-10 color_blue">
+                <mat-label><b>Brandon Hill</b></mat-label>
+              </div>
+              <div fxFlex.gt-sm="50" fxFlex="100">
+                <h5 class="m-t-10">Good Work</h5>
+              </div>
+              <div fxFlex.gt-sm="20" fxFlex="100" fxLayout="row wrap" align="end">
+                <p class="m-r-10">20/12/2022</p>
+                <p class="m-l-10">12:00 AM</p>
+              </div>
+              
+            </div>
+          </mat-card>
+        </div>
+      </div> -->
+
+      <!-- <div fxLayout="row wrap" fxFlexAlign="center" class="row m-0">
+        <div fxFlex.gt-sm="100" fxFlex="100">
+          <div class="m-0 m-t-15" align="center">
+            <button class="m-l-20 m-r-20" mat-raised-button color="primary">
+              Recommend Employee
+            </button>
+            <button class="m-l-20 m-r-20" mat-raised-button color="primary">
+              View Recommendations
+            </button>
+          </div>
+        </div>
+      </div> -->
+    </form>
+  </mat-card-content>
+</mat-card>
