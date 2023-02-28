@@ -329,7 +329,13 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
             name: 'Safety Hazards',
             type: 'link',
             icon: 'commute',
-          });       
+          }); 
+          subMenu.push({
+            state: '/client/work-order',
+            name: 'Work-Order',
+            type: 'link',
+            icon: 'commute',
+          });      
       
           menuItem.push({
             state: 'operation',
@@ -373,12 +379,7 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
             type: 'link',
             icon: 'account_box',
           });
-          subMenu.push({
-            state: '/client/work-order',
-            name: 'Work-Order',
-            type: 'link',
-            icon: 'commute',
-          });
+          
           subMenu.push({
             state: '/healthsafety/safety-hazard',
             name: 'Hazard Reporting',
