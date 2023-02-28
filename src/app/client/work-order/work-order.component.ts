@@ -34,6 +34,7 @@ export class WorkOrderComponent implements OnInit, OnChanges {
     'empName',
     'role',
     'type',
+    'assetNo',
     'smu',
     'emu',
     'mu',
@@ -160,23 +161,23 @@ export class WorkOrderComponent implements OnInit, OnChanges {
     this.router.navigate(['/registration/create-user'], { queryParams: { requestId: elem.id } });
   }
 
-  // onTableScroll(e: any) {
-  //   const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
-  //   const tableScrollHeight = e.target.scrollHeight; // length of all table
-  //   const scrollLocation = e.target.scrollTop; // how far user scrolled
+  onTableScroll(e: any) {
+    const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
+    const tableScrollHeight = e.target.scrollHeight; // length of all table
+    const scrollLocation = e.target.scrollTop; // how far user scrolled
 
-  //   // If the user has scrolled within 200px of the bottom, add more data
-  //   const buffer = 10;
-  //   const limit = tableScrollHeight - tableViewHeight - buffer;
-  //   console.log(scrollLocation, limit, 'scrollLocation > limit');
-  //   if (scrollLocation > limit) {
-  //     if (this.dataSource.data.length < this.totalRecords) {
-  //       this.pageNo = this.pageNo + 1;
-  //       this.refresh(this.getDefaultOptions(), true);
-  //     }
-  //     // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
-  //   }
-  // }
+    // If the user has scrolled within 200px of the bottom, add more data
+    const buffer = 10;
+    const limit = tableScrollHeight - tableViewHeight - buffer;
+    console.log(scrollLocation, limit, 'scrollLocation > limit');
+    if (scrollLocation > limit) {
+      if (this.dataSource.data.length < this.totalRecords) {
+        this.pageNo = this.pageNo + 1;
+        this.refresh(this.getDefaultOptions(), true);
+      }
+      // this.dataSource = this.dataSource.concat(ELEMENT_DATA);
+    }
+  }
 
   refresh(options: ViewOptions, isScrolled: boolean = false) {
     // let startDate = this.startDate
