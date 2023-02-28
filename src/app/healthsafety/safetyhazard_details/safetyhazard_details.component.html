@@ -6,7 +6,7 @@
     <mat-card-subtitle>Reported {{ hazardDetails?.reportDate | dateAgo  }}
       <small> {{hazardDetails?.reportDate | date:'fullDate'}} {{hazardDetails?.reportDate | date:'shortTime'}}</small>
     </mat-card-subtitle>
-    <img class="m-r-10 User-Img" onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';" [src]="globals.generateFileUrl( hazardDetails && hazardDetails.reportedBy && hazardDetails.reportedBy.profileImage.length > 0
+    <img class="m-r-10 User-Img" (click)="openImageDialog($event.target.src)" onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';" [src]="globals.generateFileUrl( hazardDetails && hazardDetails.reportedBy && hazardDetails.reportedBy.profileImage.length > 0
                   ? hazardDetails.reportedBy.profileImage[0]?.digitalAssets?.url
                   : '','') " alt="" />
   </mat-card-header>
@@ -27,25 +27,44 @@
       </mat-card-content>
     </mat-card>
     <div fxLayout="row-reverse" fxLayoutGap="30px">
-      <mat-card-subtitle >
-        <b>Supervisor</b> {{
+      <div fxFlex="100%">
+        <mat-card-subtitle style="vertical-align:bottom">
+          <b>Supervisor</b><br> {{
           hazardDetails?.superviser?.firstName + ' ' + hazardDetails?.superviser?.lastName}}
+        </mat-card-subtitle>
+      </div>
+      <div fxFlex="100%">
+
+        <mat-card-subtitle style="vertical-align: top; text-align: end;">
           <img class="m-r-10 User-Img" onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';"
             [src]="globals.generateFileUrl( hazardDetails && hazardDetails.reportedBy && hazardDetails.reportedBy.profileImage.length > 0
         ? hazardDetails.superviser.profileImage[0]?.digitalAssets?.url
         : '','') " alt="" />
-      </mat-card-subtitle> 
-    </div>
-    <div fxLayout="row-reverse">
-      <div fxFlex="100%" style="vertical-align: top;">
-       
+        </mat-card-subtitle>
+      </div>
+      <div fxFlex="100%">
+        <mat-card-subtitle style="text-align:left; vertical-align: bottom;"> Risk
+          <span [ngSwitch]="hazardDetails?.rishkLevel">
+            <span *ngSwitchCase="1"><button mat-button>Very Low</button>
+            </span>
+            <span *ngSwitchCase="1"><button mat-button>Low</button>
+            </span>
+            <span *ngSwitchCase="3"><button mat-button color="warn">Medium</button>
+            </span>
+            <span *ngSwitchCase="4"><button mat-button color="warn">High</button>
+
+            </span>
+            <span *ngSwitchDefault><button mat-button color="accent">Extreme</button>
+            </span>
+          </span>
+        </mat-card-subtitle>
       </div>
     </div>
   </mat-expansion-panel>
 </mat-card>
 
 <mat-card class="mat-card mat-focus-indicator">
-  <mat-expansion-panel [expanded]="false" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header> hazard images
     </mat-expansion-panel-header>
     <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
@@ -54,20 +73,20 @@
         <mat-card class="mat-card mat-focus-indicator">
           <mat-card-header class="mat-card-header bg-success text-white">
             <div class="mat-card-header-text">
-              <!-- <mat-card-title class="mat-card-title">
-               Image {{i+1}}
-              </mat-card-title> -->
               <mat-card-subtitle class="mat-card-subtitle" style="text-align: start;">
                 <img class="m-r-10 User-Img"
-                onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';" [src]="globals.generateFileUrl( hazardDetails && hazardDetails.reportedBy && hazardDetails.reportedBy.profileImage.length > 0
+                  onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';" [src]="globals.generateFileUrl( hazardDetails && hazardDetails.reportedBy && hazardDetails.reportedBy.profileImage.length > 0
         ? hazardDetails.reportedBy.profileImage[0]?.digitalAssets?.url
-        : '','') " alt="" /> 
-                Image {{i+1}}</mat-card-subtitle>
+        : '','') " alt="" />
+                Image {{i+1}}
+              </mat-card-subtitle>
             </div>
           </mat-card-header>
           <mat-card-content class="mat-card-content">
-            <p> File size {{ rectImg?.digitalAssets?.size }} </p>
-            <img mat-card-image [src]="globals.generateFileUrl(rectImg?.digitalAssets?.url)" alt="Hazard Evidence">
+            <img mat-card-image (click)="openImageDialog($event.target.src)" [src]="globals.generateFileUrl(rectImg?.digitalAssets?.url)" alt="Hazard Evidence">
+           
+            <small> File size {{ rectImg?.digitalAssets?.size }} bytes </small>
+
           </mat-card-content>
         </mat-card>
       </div>
@@ -128,7 +147,7 @@
             <mat-card-header class="mat-card-header bg-success text-white">
               <div class="mat-card-header-text">
                 <mat-card-title class="mat-card-title">
-                  <img class="m-r-10 User-Img"
+                  <img class="m-r-10 User-Img" (click)="openImageDialog($event.target.src)"
                     onerror="this.onerror=null;this.src='../../assets/img/user-default-img.jpg';" [src]="
                       globals.generateFileUrl(
                         hazardDetails &&
@@ -145,7 +164,7 @@
             </mat-card-header>
             <mat-card-content class="mat-card-content">
               <p> File size {{ rectImg?.digitalAssets?.size }} </p>
-              <img mat-card-image [src]="globals.generateFileUrl(rectImg?.digitalAssets?.url)" alt="Hazard Evidence">
+              <img mat-card-image (click)="openImageDialog($event.target.src)" [src]="globals.generateFileUrl(rectImg?.digitalAssets?.url)" alt="Hazard Evidence">
             </mat-card-content>
           </mat-card>
         </div>
@@ -153,4 +172,3 @@
     </mat-expansion-panel>
   </mat-card>
 </ng-template>
-

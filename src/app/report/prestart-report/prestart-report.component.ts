@@ -10,6 +10,7 @@ import { first } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { Globals } from 'src/app/globals';
 
+
 @Component({
   selector: 'app-prestart-report',
   templateUrl: './prestart-report.component.html',
@@ -42,7 +43,7 @@ export class PrestartReportComponent implements OnInit {
     'status',
     'comment',
     'media',
-    'tickbox',
+    // 'tickbox',
 
   ];
 
@@ -113,6 +114,21 @@ export class PrestartReportComponent implements OnInit {
       final.push(data[item])
     }
     return final;
+  }
+
+  openImageDialog(data: any) {
+    // alert();
+    // this.selectedImage = data;
+    const dialogRef = this.dialog.open(ImagePreviewDialog, {
+      width: 'auto',
+      height: '45em',
+      data: { selectedImage: data }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      console.log('The dialog was closed');
+    });
   }
 
   getCategoryissueCount(category : string){

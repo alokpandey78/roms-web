@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HealthsafetyService } from '../../core/services/healthsafety.service';
 import { first } from 'rxjs';
 import { Globals } from 'src/app/globals';
+import { ImagePreviewDialog } from 'src/app/shared/image-preview-dialog/image-preview-dialog.component';
+
 
 @Component({
   selector: 'app-hazard-report',
@@ -20,9 +22,7 @@ export class SafetyhazardDetailsComponent implements OnInit {
   globals: Globals;
   isEditEnable: boolean = false;
   // added by Dharmendra
-
-  panelOpenState = true;
-  // end
+  panelOpenState = false;
 
 
   constructor(private dialog: MatDialog,
@@ -35,6 +35,20 @@ export class SafetyhazardDetailsComponent implements OnInit {
     this.getHazardDetails();
   }
 
+  openImageDialog(data: any) {
+    // alert();
+    // this.selectedImage = data;
+    const dialogRef = this.dialog.open(ImagePreviewDialog, {
+      width: 'auto',
+      height: '45em',
+      data: { selectedImage: data }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      console.log('The dialog was closed');
+    });
+  }
 
   getHazardDetails(){
     this.healthsafetyService.getHazardDetails(this.id).pipe(first())

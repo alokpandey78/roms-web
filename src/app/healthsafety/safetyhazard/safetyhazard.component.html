@@ -83,17 +83,23 @@
         <mat-card-content>
           <div class="table-responsive infinite-scroll">
             <mat-table #table [dataSource]="dataSource" (scroll)="onTableScroll($event)" class="table employee-list no-wrap" matSort>
-              <ng-container matColumnDef="Reported">
-                <th mat-header-cell *matHeaderCellDef>Reported</th>
+              <ng-container matColumnDef="Status">
+                <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let row; let index = dataIndex">
                   <div class="d-flex">
                     <mat-icon *ngIf="row?.rectifyFlag == true"  style="cursor: pointer; color: rgb(144,238,144);">fiber_manual_record</mat-icon>
                     <mat-icon *ngIf="row?.rectifyFlag == false" style="cursor: pointer; color: rgb(255,150, 79);">fiber_manual_record</mat-icon>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Reported">
+                <th mat-header-cell *matHeaderCellDef>Reported</th>
+                <td mat-cell *matCellDef="let row; let index = dataIndex">
+                  <div class="d-flex">
                     <div class="m-l-15">
                       <p class="font-medium m-b-0 m-t-0">{{ row?.createDate | dateAgo}}</p>
                       <small class="text-muted">{{ row?.createDate | date }}  {{ row?.createDate | date:'shortTime' }}</small>
                       <small class="text-muted">{{ row?.no}}</small>
-  
                     </div>
                   </div>
                 </td>
@@ -170,7 +176,7 @@
                 </td>
               </ng-container> 
               <ng-container matColumnDef="risk">
-                <th mat-header-cell *matHeaderCellDef>risk level</th>
+                <th mat-header-cell *matHeaderCellDef>Risk</th>
                 <td mat-cell *matCellDef="let row">
                   <div class="d-flex">
                     <div class="m-l-15">

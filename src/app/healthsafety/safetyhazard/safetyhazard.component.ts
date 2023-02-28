@@ -43,7 +43,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 export class SafetyHazardComponent implements OnInit, OnChanges {
   user:any;
   globals: Globals;
-  displayedColumns: string[] = ['Reported','reportedBy','hazard','address','risk','supervisor'];
+  displayedColumns: string[] = ['Status','Reported','reportedBy','hazard','address','risk','supervisor'];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
