@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrestartReportComponent } from './plant-prestarts-detail.component';
+import { PlantPrestartsDetailComponent } from './plant-prestarts-detail.component';
 
-describe('PrestartReportComponent', () => {
-  let component: PrestartReportComponent;
-  let fixture: ComponentFixture<PrestartReportComponent>;
+describe('PlantPrestartsDetailComponent', () => {
+  let component: PlantPrestartsDetailComponent;
+  let fixture: ComponentFixture<PlantPrestartsDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PrestartReportComponent ]
+      declarations: [ PlantPrestartsDetailComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PrestartReportComponent);
+    fixture = TestBed.createComponent(PlantPrestartsDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
