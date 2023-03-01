@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullComponent } from '../layouts/full/full.component';
 import { LeaveReportComponent } from './leave-report/leave-report.component';
 import { ResignationReportComponent } from './resignation-report/resignation-report.component';
-import { PrestartReportComponent } from './prestart-report/prestart-report.component';
 const routes: Routes = [
   {
     path: '',
@@ -24,13 +23,7 @@ const routes: Routes = [
           urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
         }
       },
-      {
-        path: 'prestart', component: PrestartReportComponent,
-        data: {
-          title: 'Prestart Report',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
-        }
-      },
+
  
     ],
   },

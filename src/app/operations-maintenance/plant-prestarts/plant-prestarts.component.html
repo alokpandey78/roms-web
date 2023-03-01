@@ -236,7 +236,7 @@
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let element; columns: displayedColumns;" class="redirect-element-row"
-              style="vertical-align: top" [routerLink]="['/report/prestart']" [queryParams]="{id:element.id}"
+              style="vertical-align: top" [routerLink]="['/operations-maintenance/plant-prestarts/prestart']" [queryParams]="{id:element.id}"
               [ngClass]="{ 'selected-row': selectedId == element.id }"></mat-row>
 
             <mat-row *matNoDataRow>

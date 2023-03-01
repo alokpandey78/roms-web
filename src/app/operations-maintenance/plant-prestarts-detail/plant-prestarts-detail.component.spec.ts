@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrestartReportComponent } from './prestart-report.component';
+import { PrestartReportComponent } from './plant-prestarts-detail.component';
 
 describe('PrestartReportComponent', () => {
   let component: PrestartReportComponent;

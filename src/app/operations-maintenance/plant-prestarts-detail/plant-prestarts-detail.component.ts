@@ -12,11 +12,11 @@ import { Globals } from 'src/app/globals';
 
 
 @Component({
-  selector: 'app-prestart-report',
-  templateUrl: './prestart-report.component.html',
-  styleUrls: ['./prestart-report.component.scss']
+  selector: 'app-prestart-details',
+  templateUrl: './plant-prestarts-detail.component.html',
+  styleUrls: ['./plant-prestarts-detail.component.scss']
 })
-export class PrestartReportComponent implements OnInit {
+export class PlantPrestartsDetailComponent implements OnInit {
   @ViewChild('imageDialog,') imageDialog!: TemplateRef<any>;
   // globals: Globals;
 
@@ -82,7 +82,7 @@ export class PrestartReportComponent implements OnInit {
       });
       this.getPrestartReportDetails();
 
-    }
+    } 
   getPrestartReportDetails(){
     this.assetsService.getPrestartDetails(this.id).pipe(first()).subscribe((result: any) => {
           this.prestartDetails = result.data;

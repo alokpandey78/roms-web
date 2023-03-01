@@ -40,7 +40,6 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   selector: 'plant-prestarts',
   templateUrl: './plant-prestarts.component.html',
   styleUrls: ['./plant-prestarts.component.css'],
-
   providers: [{ provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }],
 })
 export class PlantPrestartsComponent implements OnInit, OnChanges {
