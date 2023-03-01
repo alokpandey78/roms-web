@@ -8,7 +8,6 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectAddComponent } from './project-add/project-add.component';
 import { AssetsListComponent } from './assets-list/assets-list.component';
 import { AssetsAddComponent } from './assets-add/assets-add.component';
-import { InspectionAddComponent } from './inspection-add/inspection-add.component';
 import { AttandanceComponent } from './attandance/attandance.component';
 import { WorkOrderComponent } from './work-order/work-order.component';
 import { AssetsViewComponent } from './assets-view/assets-view.component';
@@ -23,7 +22,6 @@ import { AssetsViewComponent } from './assets-view/assets-view.component';
     ProjectAddComponent,
     AssetsListComponent,
     AssetsAddComponent,
-    InspectionAddComponent,
     AttandanceComponent,
     WorkOrderComponent,
     AssetsViewComponent,

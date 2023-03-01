@@ -6,6 +6,7 @@ import { OperationsMaintenanceComponent } from './operations-maintenance.compone
 import { PlantPrestartsComponent } from './plant-prestarts/plant-prestarts.component';
 import { PlantPrestartsDetailComponent } from './plant-prestarts-detail/plant-prestarts-detail.component';
 import { InspectionListComponent } from './inspection-list/inspection-list.component';
+import { InspectionAddComponent } from './inspection-add/inspection-add.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { InspectionListComponent } from './inspection-list/inspection-list.compo
     PlantPrestartsComponent,
     PlantPrestartsDetailComponent,
     InspectionListComponent,
+    InspectionAddComponent,
   ]
 })
 export class OperationsMaintenanceModule { }

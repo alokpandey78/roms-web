@@ -224,22 +224,7 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
               icon: 'account_box',
             });
           }
-
-          // if (this.userPermissions.reports.includes('add_user')) {
-          //   subMenu.push({
-          //     state: 'transfer/list',
-          //     name: 'Transfer',
-          //     type: 'link',
-          //     icon: 'account_box',
-          //     badge: [{ type: 'warning', value: 'new' }],
-          //   });
-
-          // }
         }
-
-        // if (this.userPermissions.reports.includes('leave_export')) {
-        //   subMenu.push({ displayName: 'Holidays', iconName: '', route: '/' });
-        // }
         menuItem.push({
           state: 'report',
           name: 'People & Culture',
@@ -373,19 +358,13 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
             type: 'link',
             icon: 'account_box',
           });
-          
           subMenu.push({
-            state: '/healthsafety/safety-hazard',
-            name: 'Hazard Reporting',
+            state: '/client/work-order',
+            name: 'Work Order',
             type: 'link',
-            icon: 'commute',
-          });  
-          subMenu.push({
-            state: '/client/prestart',
-            name: 'Prestart Legacy',
-            type: 'link',
-            icon: 'commute',
+            icon: 'account_box',
           });
+
           menuItem.push({
             state: 'operation',
             name: 'Work Order',
