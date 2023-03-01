@@ -8,11 +8,9 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { AssetsListComponent } from './assets-list/assets-list.component';
 import { AssetsAddComponent } from './assets-add/assets-add.component';
 import { AssetsViewComponent } from './assets-view/assets-view.component';
-import { InspectionListComponent } from './inspection-list/inspection-list.component';
 import { InspectionAddComponent } from './inspection-add/inspection-add.component';
 import { AttandanceComponent } from './attandance/attandance.component';
 import { WorkOrderComponent } from './work-order/work-order.component';
-import { PrestartComponent } from './prestart/prestart.component';
 
 const routes: Routes = [
   {
@@ -75,14 +73,7 @@ const routes: Routes = [
           urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
         },
       },
-      {
-        path: 'inspection-list',
-        component: InspectionListComponent,
-        data: {
-          title: 'Inspection List',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
-        },
-      },
+     
       {
         path: 'inspection-add',
         component: InspectionAddComponent,
@@ -104,14 +95,6 @@ const routes: Routes = [
         component: WorkOrderComponent,
         data: {
           title: 'Work-Order',
-          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
-        },
-      },
-      {
-        path: 'prestart',
-        component: PrestartComponent,
-        data: {
-          title: 'Prestart',
           urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
         },
       },

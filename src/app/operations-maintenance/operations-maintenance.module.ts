@@ -5,6 +5,8 @@ import {OperationsMaintenanceRoutes} from './operations-maintenance.routing';
 import { OperationsMaintenanceComponent } from './operations-maintenance.component';
 import { PlantPrestartsComponent } from './plant-prestarts/plant-prestarts.component';
 import { PlantPrestartsDetailComponent } from './plant-prestarts-detail/plant-prestarts-detail.component';
+import { InspectionListComponent } from './inspection-list/inspection-list.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -14,6 +16,8 @@ import { PlantPrestartsDetailComponent } from './plant-prestarts-detail/plant-pr
   declarations: [
     OperationsMaintenanceComponent, 
     PlantPrestartsComponent,
-    PlantPrestartsDetailComponent,]
+    PlantPrestartsDetailComponent,
+    InspectionListComponent,
+  ]
 })
 export class OperationsMaintenanceModule { }

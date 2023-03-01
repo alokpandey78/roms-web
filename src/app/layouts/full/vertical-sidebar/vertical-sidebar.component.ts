@@ -209,7 +209,7 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
 
           if (this.userPermissions.reports.includes('leave_export')) {
             subMenu.push({
-              state: 'report/leave',
+              state: 'leave/leavelistall',
               name: 'Leave',
               type: 'link',
               icon: 'account_box',
@@ -218,7 +218,7 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
 
           if (this.userPermissions.reports.includes('resign_export')) {
             subMenu.push({
-              state: 'report/resignation',
+              state: 'employee/resignation',
               name: 'Resignations',
               type: 'link',
               icon: 'account_box',
@@ -330,12 +330,6 @@ export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
             type: 'link',
             icon: 'commute',
           }); 
-          subMenu.push({
-            state: '/client/work-order',
-            name: 'Work-Order',
-            type: 'link',
-            icon: 'commute',
-          });      
       
           menuItem.push({
             state: 'operation',

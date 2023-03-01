@@ -4,6 +4,8 @@ import { FullComponent } from '../layouts/full/full.component';
 import { OperationsMaintenanceComponent } from './operations-maintenance.component';
 import { PlantPrestartsComponent } from './plant-prestarts/plant-prestarts.component';
 import { PlantPrestartsDetailComponent } from './plant-prestarts-detail/plant-prestarts-detail.component';
+import { InspectionListComponent } from './inspection-list/inspection-list.component';
+
 const routes: Routes = [
   { 
 
@@ -24,6 +26,14 @@ const routes: Routes = [
           title: 'Prestart Report',
           urls: [{ title: 'Plant Prestarts', url: '/operations-maintenance/plant-prestarts' }, { title: 'Operations Maintenance Prestarts' }],
         }
+      },
+      {
+        path: 'inspection-list',
+        component: InspectionListComponent,
+        data: {
+          title: 'Inspection List',
+          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
+        },
       },
     ]
    },

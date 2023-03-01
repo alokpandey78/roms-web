@@ -11,6 +11,7 @@ import { EmployeeAddComponent } from './employee-add/employee-add.component';
 import { OnboardingListComponent } from './onboarding-list/onboarding-list.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 import { EmployeeTerminationComponent } from './employee-termination/employee-termination.component';
+import { ResignationReportComponent } from './resignation-report/resignation-report.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,13 @@ const routes: Routes = [
         data: {
           title: 'Employee Profile',
           urls: [{ title: 'Employees', url: '/employee/employee-list}' }, { title: 'People & Culture' }],
+        }
+      },
+      {
+        path: 'resignation', component: ResignationReportComponent,
+        data: {
+          title: 'Resignations',
+          urls: [{ title: 'Dashboard', url: '/' }, { title: 'People & Culture' }],
         }
       },
     ],

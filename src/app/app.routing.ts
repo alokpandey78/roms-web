@@ -11,17 +11,6 @@ export const AppRoutes: Routes = [
     path: '',
     component: AppBlankComponent,
     children: [
-
-      // {
-      //   path: '',
-      //   redirectTo: '/dashboards/dashboard1',
-      //   pathMatch: 'full',
-      // },
-      // {
-      //   path: 'dashboard',
-      //   redirectTo: '/dashboards/dashboard1',
-      //   pathMatch: 'full',
-      // },
       {
         path: 'dashboard',
         pathMatch: 'full',
@@ -37,11 +26,6 @@ export const AppRoutes: Routes = [
         path: 'leave',
         loadChildren: () =>
           import('./leave-management/leave-management.module').then((m) => m.LeaveManagementModule),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'report',
-        loadChildren: () => import('./report/report.module').then((m) => m.ReportModule),
         canActivate: [AuthGuard],
       },
       {
