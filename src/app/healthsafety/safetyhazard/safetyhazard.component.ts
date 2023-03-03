@@ -43,7 +43,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 export class SafetyHazardComponent implements OnInit, OnChanges {
   user:any;
   globals: Globals;
-  displayedColumns: string[] = ['Reported','reportedBy','hazard','address','risk','supervisor'];
+  displayedColumns: string[] = ['Status','Reported','reportedBy','hazard','address','risk','supervisor'];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatSort, { static: false }) sort: MatSort = Object.create(null);
@@ -55,17 +55,17 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
     pageIndex:this.pageNo,
     pageSize:this.pageSize
   }
-  
-  
-  
-  search: string = ''; 
+
+
+
+  search: string = '';
   startDate: Date = new Date(new Date().setMonth(new Date().getMonth() - 1));
   endDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
   status: any = 0;
   selectedId: string = '';
   baseUrl: string = environment.apiUrl;
 
-  // 
+  //
   severity: string ='';
   managerId: any = '';
   managers: any = [];
@@ -119,7 +119,7 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
 
   refresh(options: ViewOptions, isScrolled: boolean = false) {
     let startDate = this.matStartDate? moment(new Date(new Date(this.matStartDate).setHours(0, 0, 0, 0)).toUTCString()).format('DD/MM/YYYY hh:mm:ss'): '';
-    let endDate = this.matEndDate? moment(new Date(new Date(this.matEndDate).setHours(23, 59, 59, 59)).toUTCString()).format('DD/MM/YYYY hh:mm:ss'): ''; 
+    let endDate = this.matEndDate? moment(new Date(new Date(this.matEndDate).setHours(23, 59, 59, 59)).toUTCString()).format('DD/MM/YYYY hh:mm:ss'): '';
     this.managerId= this.managerId == 'all' ? '' : this.managerId;
     let payload = {
       searchText: `${this.search}`,
@@ -129,7 +129,7 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
       reportFromDate: startDate,
       reportToDate: endDate,
     }
-    
+
     this.healthsafetyService
       .getHazardListFilter({options, payload})
       .pipe(first())
@@ -173,7 +173,7 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
       pageSize:
         obj != undefined ? (obj.pageSize == null ? this.pagesize : obj.pageSize) : this.pagesize,
     };
-    
+
     return options;
   }
 
@@ -214,13 +214,13 @@ export class SafetyHazardComponent implements OnInit, OnChanges {
     const buffer = 10;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     if (scrollLocation > limit) {
-      if (this.dataSource.data.length < this.totalRecords) { 
+      if (this.dataSource.data.length < this.totalRecords) {
         this.paginator.pageIndex = this.paginator.pageIndex + 1;
         this.paginator.pageSize = this.paginator.pageSize;
         this.refresh(this.getDefaultOptions(), true);
       }
 
-      
+
     }
   }
   exportCsv() {

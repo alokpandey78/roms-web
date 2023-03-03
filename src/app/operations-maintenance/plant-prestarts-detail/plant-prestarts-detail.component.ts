@@ -10,12 +10,13 @@ import { first } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { Globals } from 'src/app/globals';
 
+
 @Component({
-  selector: 'app-prestart-report',
-  templateUrl: './prestart-report.component.html',
-  styleUrls: ['./prestart-report.component.scss']
+  selector: 'app-prestart-details',
+  templateUrl: './plant-prestarts-detail.component.html',
+  styleUrls: ['./plant-prestarts-detail.component.scss']
 })
-export class PrestartReportComponent implements OnInit {
+export class PlantPrestartsDetailComponent implements OnInit {
   @ViewChild('imageDialog,') imageDialog!: TemplateRef<any>;
   // globals: Globals;
 
@@ -42,6 +43,7 @@ export class PrestartReportComponent implements OnInit {
     'status',
     'comment',
     'media',
+    // 'tickbox',
 
   ];
 
@@ -80,7 +82,7 @@ export class PrestartReportComponent implements OnInit {
       });
       this.getPrestartReportDetails();
 
-    }
+    } 
   getPrestartReportDetails(){
     this.assetsService.getPrestartDetails(this.id).pipe(first()).subscribe((result: any) => {
           this.prestartDetails = result.data;
@@ -112,6 +114,21 @@ export class PrestartReportComponent implements OnInit {
       final.push(data[item])
     }
     return final;
+  }
+
+  openImageDialog(data: any) {
+    // alert();
+    // this.selectedImage = data;
+    const dialogRef = this.dialog.open(ImagePreviewDialog, {
+      width: 'auto',
+      height: '45em',
+      data: { selectedImage: data }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.router.navigate(['/registration/list']);
+      console.log('The dialog was closed');
+    });
   }
 
   getCategoryissueCount(category : string){

@@ -3,6 +3,9 @@ import { FullComponent } from '../layouts/full/full.component';
 
 import { OperationsMaintenanceComponent } from './operations-maintenance.component';
 import { PlantPrestartsComponent } from './plant-prestarts/plant-prestarts.component';
+import { PlantPrestartsDetailComponent } from './plant-prestarts-detail/plant-prestarts-detail.component';
+import { InspectionListComponent } from './inspection-list/inspection-list.component';
+import { InspectionAddComponent } from './inspection-add/inspection-add.component';
 const routes: Routes = [
   { 
 
@@ -16,6 +19,29 @@ const routes: Routes = [
           title: 'Plant Prestarts',
           urls: [{ title: 'Operations Maintenance', url: '/' }, { title: 'Operations' }],
         }
+      },
+      {
+        path: 'plant-prestarts/prestart', component: PlantPrestartsDetailComponent,
+        data: {
+          title: 'Prestart Report',
+          urls: [{ title: 'Plant Prestarts', url: '/operations-maintenance/plant-prestarts' }, { title: 'Operations Maintenance Prestarts' }],
+        }
+      },
+      {
+        path: 'inspection-list',
+        component: InspectionListComponent,
+        data: {
+          title: 'Inspection List',
+          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
+        },
+      },
+      {
+        path: 'inspection-add',
+        component: InspectionAddComponent,
+        data: {
+          title: 'Inspection Add',
+          urls: [{ title: 'Dashboard', url: '/' }, { title: 'Operations' }],
+        },
       },
     ]
    },

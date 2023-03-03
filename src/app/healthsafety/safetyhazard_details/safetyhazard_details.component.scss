@@ -29,7 +29,7 @@
     border-bottom: 1px solid darkgray;
   }
   .border-full {
-    border: 1px solid lightgray;
+    border: 1px solid lightgrey;
     border-radius: 8px;
   }
   .mat-flex {
@@ -129,5 +129,44 @@
     font-size: 20px;
     height:20px
   }
+  .collapse-img {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .collapse-img img {
+    padding: 0px 5px;
+    height: 80px;
+    object-fit: cover;
+    width: 70px;
+    margin-bottom: 5px;
+  }
+  .collapse-img img:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
     
-  
+  .photo-card {
+    max-width: 200px;
+    max-height: 400px;
+
+    margin-bottom: 8px;
+  }
+
+
+  .risk-result-card h2 {
+    margin: 0 8px;
+  }
+  .risk-label-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 10px 0;
+    max-width: 284px;
+  }
+  .risk-result-card .risk-value-label {
+    font-weight: 600;
+  }
+  .risk-margin {
+    margin
+    : 8px;
+  }
+

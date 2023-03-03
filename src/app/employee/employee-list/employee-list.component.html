@@ -9,7 +9,7 @@
             <div fxLayout="row wrap" fxFlexAlign="center" class="row">
               <div fxFlex.gt-sm="30" class="p-r-10" fxFlex="100">
                 <mat-form-field>
-                  <input matInput (keyup)="applyFilter(true)" [(ngModel)]="search" placeholder="Filter" />
+                  <input matInput (keyup)="applyFilter(false)" [(ngModel)]="search" placeholder="Filter" />
                   <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
               </div>

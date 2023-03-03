@@ -4,7 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LeaveManagementRoutingModule } from './leave-management.routing';
 import { LeaveApplyFormComponent } from './leave-apply-form/leave-apply-form.component'
 import { LeaveRequestListComponent } from './leave-request-list/leave-request-list.component';
-
+import { LeaveReportComponent } from './leave-report/leave-report.component';
 
 @NgModule({
     imports: [
@@ -14,7 +14,8 @@ import { LeaveRequestListComponent } from './leave-request-list/leave-request-li
     ],
     declarations: [
         LeaveApplyFormComponent,
-        LeaveRequestListComponent
+        LeaveRequestListComponent,
+        LeaveReportComponent,
     ]
 })
 export class LeaveManagementModule { }

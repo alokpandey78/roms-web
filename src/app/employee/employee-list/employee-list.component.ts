@@ -278,18 +278,19 @@ export class EmployeeListComponent implements OnInit, OnChanges {
   applyFilter(isTextSearch: boolean = false): void {
     this.paginator.pageIndex=0;
     this.paginator.pageSize=10;
-    this.search = this.search.trim(); // Remove whitespace
-    this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
+    //this.search = this.search.trim(); // Remove whitespace
+    //this.search = this.search.toLowerCase(); // Datasource defaults to lowercase matches
     // this.dataSource.filter = this.search;
     if (isTextSearch) {
-      this.pageNo = 0;
-      this.totalRecords = 0;
-      this.paginator.firstPage();
+      //this.pageNo = 0;
+      //this.totalRecords = 0;
+      //this.paginator.firstPage();
       // this.dataSource.paginator?.pageIndex[0]=;
+      this.dataSource.filter = this.search;
+      } 
+    else {
+      this.refresh(this.getDefaultOptions());
     }
-    // else {
-    this.refresh(this.getDefaultOptions());
-    // }
   }
 
   onTableScroll(e: any) {

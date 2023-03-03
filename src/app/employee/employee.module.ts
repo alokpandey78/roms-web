@@ -12,6 +12,7 @@ import { EmployeeAddComponent } from './employee-add/employee-add.component';
 import { OnboardingListComponent } from './onboarding-list/onboarding-list.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 import { EmployeeTerminationComponent } from './employee-termination/employee-termination.component';
+import { ResignationReportComponent } from './resignation-report/resignation-report.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, EmployeeRoutingModule],
@@ -26,6 +27,7 @@ import { EmployeeTerminationComponent } from './employee-termination/employee-te
     OnboardingListComponent,
     EmployeeProfileComponent,
     EmployeeTerminationComponent,
+    ResignationReportComponent,
   ],
 })
 export class EmployeeModule {}
