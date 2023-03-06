@@ -169,7 +169,7 @@ export class EmployeeViewComponent implements OnInit {
       }
     });
   }
-
+  //ng init
   ngOnInit(): void {
     this.getmanager();
   }

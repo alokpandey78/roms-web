@@ -104,6 +104,7 @@ export class EmployeeService {
   getManagerdata() {
     return this.http.get<any>(`${environment.apiUrl}/v1/employee/manager?name`);
   }
+  // Set Manager data
   setmanagerdata(setmanagerdata: any) {
     return this.http.put<any>(`${environment.apiUrl}/v1/employee/manager`, setmanagerdata);
   }
