@@ -87,6 +87,9 @@
                     {{ item.name }}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="submitted && checkError('assetCategory', 'required')">
+                  Type is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxFlex.gt-sm="35" fxFlex="100"></div>
@@ -114,7 +117,7 @@
             <div fxFlex.gt-sm="15" fxFlex="100" class="text-center p-b-10 p-t-10">
               <mat-label>Asset Image</mat-label>
               <div class="m-t-10 asset-img">
-                <img onerror="this.onerror=null;this.src='../../../assets/img/add-image.png';" [src]="selectedFile"
+                <img onerror="this.onerror=null; this.src='../../../assets/img/add-image.png';" [src]="selectedFile"
                   alt="" style="max-height: 110px; width: auto" />
                 <mat-icon (click)="attachment.click()">camera_alt</mat-icon>
                 <input #attachment type="file" hidden (change)="onFileChange($event)" accept="image/*" />
@@ -163,7 +166,6 @@
                 <mat-label>Model</mat-label>
                 <input matInput placeholder="Ex: B11" formControlName="model" model
                   [ngClass]="{ 'is-invalid': submitted && f.model.hasError }" />
-
                 <mat-error *ngIf="submitted && checkError('model', 'required')">
                   Model is required Ex: B11
                 </mat-error>
@@ -175,7 +177,6 @@
                 <mat-label>Year Of Make</mat-label>
                 <input matInput placeholder="2022" formControlName="yearOfMake" yearOfMake
                   [ngClass]="{ 'is-invalid': submitted && f.yearOfMake.hasError }" />
-
                 <mat-error *ngIf="submitted && checkError('yearOfMake', 'required')">
                   Year is required
                 </mat-error>
