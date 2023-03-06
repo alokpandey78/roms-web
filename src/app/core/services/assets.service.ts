@@ -21,18 +21,18 @@ export class AssetsService {
     return this.http.get<any>(`${environment.apiUrl}/v1/assets?page=0&size=10&${options.query}`);
   }
 
-  //   getAllLocations() {
-  //     return this.http.get<any>(`${environment.apiUrl}/v1/location/load`);
-  //   }
+  getAllLocations() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/location`);
+  }
   //   getAllAssetsType() {
   //     return this.http.get<any>(`${environment.apiUrl}/v1/assetstype/load`);
   //   }
   //   getAllAssetsClass() {
   //     return this.http.get<any>(`${environment.apiUrl}/v1/assetsclass/load`);
   //   }
-  //   getAllAssetsCategory() {
-  //     return this.http.get<any>(`${environment.apiUrl}/v1/assetscategory/load`);
-  //   }
+  getAllAssetsCategory() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/assetscategory`);
+  }
 
   getAllAssetsClass() {
     return this.http.get<any>(`${environment.apiUrl}/v1/assetsclass`);
@@ -56,19 +56,22 @@ export class AssetsService {
   }
 
   getPrestartList(options: ViewOptions) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/prestart?page=${options.page}&size=${options.pageSize}&${options.query}`,);
+    return this.http.get<any>(
+      `${environment.apiUrl}/v1/prestart?page=${options.page}&size=${options.pageSize}&${options.query}`,
+    );
   }
   getPrestartDetails(id: string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/prestart/${id}`);
   }
 
   getAttandanceList(options: ViewOptions) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/employee/attendance?page=0&size=100&${options.query}`,);
+    return this.http.get<any>(
+      `${environment.apiUrl}/v1/employee/attendance?page=0&size=100&${options.query}`,
+    );
   }
 
   getHazardList(options: ViewOptions) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=0&size=100&${options.query}`,);
+    return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=0&size=100&${options.query}`);
     //return this.http.get<any>(`${environment.apiUrl}/v1/hazard?page=0&size=100&rishkLevel=3`,);
-
   }
 }
