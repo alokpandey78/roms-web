@@ -190,10 +190,9 @@ export class EmployeeViewComponent implements OnInit {
 
   setmanager(mid: string) {
     this.setmngrdata = {
-      employeeIds: this.user.id,
+      employeeIds: this.id,
       managerId: mid,
     };
-
     this.employeeService.setmanagerdata(this.setmngrdata).subscribe();
   }
 }
